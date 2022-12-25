@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-import { ExcerptCard } from '../ExcerptLibrary/ExcerptCard';
+import { RootState } from '../../redux/store';
+import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
 
 const InfoCardBar = () => {
   const selectedExcerpts = useSelector(

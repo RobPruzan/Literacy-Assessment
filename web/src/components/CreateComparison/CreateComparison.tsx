@@ -2,7 +2,7 @@ import React from 'react';
 import CompareActions from './CompareActions/CompareActions';
 import { Description } from './Description';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
-import InfoCardBar from './InfoCardBar/InfoCardBar';
+import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
 
 import { MainNavbar } from '../Navabars/MainNavbar';
 
