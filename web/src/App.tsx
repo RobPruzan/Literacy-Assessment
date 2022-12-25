@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 import MainPage from './components/MainPage';
+import { About } from './components/About/About';
+import { Analysis } from './components/Analysis/Analysis';
+import { CreateComparison } from './components/CreateComparison/CreateComparison';
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/analysis" element={<Analysis />} />
+          <Route path="/create-comparison" element={<CreateComparison />} />
         </Routes>
       </BrowserRouter>
     </>

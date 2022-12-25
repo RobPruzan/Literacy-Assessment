@@ -10,12 +10,14 @@ class UserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class ReactView(APIView):
-    def get(self, request):
-        # output = [{"name": "John", "age": 27}, {"name": "Mary", "age": 25}]
+    def get(self, request, *args, **kwargs):
+        print("test")
         return Response("THIS IS A TEST")
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
+
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
