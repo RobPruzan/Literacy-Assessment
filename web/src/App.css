@@ -1,0 +1,71 @@
+/* background for "about" class is an image in public folder named background.png */
+body {
+  overflow: hidden;
+}
+
+.about {
+  background-image: url(../public/background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* navbar is transparent */
+.about-navbar {
+  background-color: transparent;
+  border: none;
+}
+
+.angry-grid {
+  display: grid;
+
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  gap: 0px;
+
+  height: 100vh;
+}
+
+#item-0 {
+  background-color: #8d58da;
+  grid-row-start: 1;
+  grid-column-start: 1;
+
+  grid-row-end: 2;
+  grid-column-end: 6;
+}
+#item-1 {
+  background-color: #5c9df5;
+  grid-row-start: 2;
+  grid-column-start: 1;
+
+  grid-row-end: 3;
+  grid-column-end: 5;
+}
+#item-2 {
+  background-color: #c8b5d7;
+  grid-row-start: 2;
+  grid-column-start: 5;
+
+  grid-row-end: 3;
+  grid-column-end: 6;
+}
+#item-3 {
+  background-color: #a7669f;
+  grid-row-start: 3;
+  grid-column-start: 1;
+
+  grid-row-end: 4;
+  grid-column-end: 2;
+}
+#item-4 {
+  background-color: #ad9af5;
+  grid-row-start: 3;
+  grid-column-start: 2;
+
+  grid-row-end: 4;
+  grid-column-end: 6;
+}
