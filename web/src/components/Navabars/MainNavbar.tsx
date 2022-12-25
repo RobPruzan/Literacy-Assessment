@@ -5,17 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-export default function ButtonAppBar() {
+export const MainNavbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            {'<logo>'}
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button sx={{ fontFamily: 'inherit' }} color="inherit">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};
