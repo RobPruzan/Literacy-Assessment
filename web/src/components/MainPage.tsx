@@ -1,8 +1,14 @@
 import React from 'react';
+import { MainNavbar } from './Navabars/MainNavbar';
 import ReduxCount from './ReduxCount';
 
 const MainPage = () => {
-  return <ReduxCount />;
+  return (
+    <>
+      <MainNavbar />
+      <ReduxCount />
+    </>
+  );
 };
 
 export default MainPage;
