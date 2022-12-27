@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 export const MainNavbar = () => {
   return (
@@ -13,9 +13,19 @@ export const MainNavbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {'<logo>'}
           </Typography>
-          <Button sx={{ fontFamily: 'inherit' }} color="inherit">
-            Login
-          </Button>
+          <div className="Nav__right">
+            <Link className="Nav__link mx-2" to="/Analysis">
+              Analysis
+            </Link>
+
+            <Link className="Nav__link mx-2" to="/About">
+              About
+            </Link>
+
+            <Link className="Nav__link mx-2" to="/">
+              Progress
+            </Link>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
