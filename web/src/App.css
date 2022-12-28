@@ -8,7 +8,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 93vhvh;
   width: 100vw;
 }
 
@@ -21,12 +21,12 @@ body {
 .angry-grid {
   display: grid;
 
-  grid-template-rows: 1fr 1fr 5fr;
+  grid-template-rows: 1fr 1.3fr 5fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
   gap: 0px;
 
-  height: 100vh;
+  height: 93vh;
 }
 
 #item-0 {
@@ -69,4 +69,16 @@ body {
 
   grid-row-end: 4;
   grid-column-end: 6;
+  overflow: auto;
+}
+
+.card {
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #0c9ced;
+  min-width: 250px;
+  min-height: 150px;
+  margin: 30px;
+
+  padding: 10px;
 }

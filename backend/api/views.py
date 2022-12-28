@@ -1,7 +1,7 @@
 from rest_framework import generics
 from django.shortcuts import render
-from .models import User
-from .serializers import UserSerializer
+from .models import ExcerptInfo, User
+from .serializers import ExcerptInfoSerializer, UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -11,14 +11,9 @@ class UserView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
 
-class ReactView(APIView):
+class ExcerptInfoView(APIView):
     def get(self, request, *args, **kwargs):
-        print("test")
-        return Response("THIS IS A TEST")
-
-    def post(self, request, *args, **kwargs):
-
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        experpts_info = ExcerptInfo.objects.all()
+        serializer = ExcerptInfoSerializer(experpts_info, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
