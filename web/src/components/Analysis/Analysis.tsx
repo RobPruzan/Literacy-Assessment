@@ -1,6 +1,8 @@
 import React from 'react';
 import { Description } from '../CreateComparison/Description';
 import { ExcerptLibrary } from '../CreateComparison/ExcerptLibrary/ExcerptLibrary';
+import InfoCardBar from '../CreateComparison/InfoCardBar/InfoCardBar';
+
 import { MainNavbar } from '../Navabars/MainNavbar';
 
 export const Analysis = () => {
@@ -11,7 +13,17 @@ export const Analysis = () => {
         <div id="item-0">
           <Description />
         </div>
-        <div id="item-1">1</div>
+        <div
+          id="item-1"
+          style={
+            {
+              // overflowX: 'auto',
+              // overflowY: 'auto',
+            }
+          }
+        >
+          <InfoCardBar />
+        </div>
         <div id="item-2">2</div>
         <div id="item-3">3</div>
         <div id="item-4">

@@ -1,4 +1,8 @@
 /* background for "about" class is an image in public folder named background.png */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   overflow: hidden;
 }
@@ -81,4 +85,9 @@ body {
   margin: 30px;
 
   padding: 10px;
+}
+
+.selected-excerpt-card {
+  background-color: #0ca7ff;
+  border-radius: 5px;
 }

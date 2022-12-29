@@ -18,5 +18,13 @@ class ExcerptInfo(models.Model):
     difficulty = models.IntegerField(null=False, default=0)
     diversity = models.IntegerField(null=False, default=0)
     text_length = models.IntegerField(null=False, default=0)
-    topic = models.CharField(max_length=200, default="")
+    category = models.ForeignKey(
+        "Category", on_delete=models.CASCADE, null=True, blank=True
+    )
     region = models.CharField(max_length=200, default="", null=True, blank=True)
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=200, default="", null=True, blank=True)
+    difficulty = models.IntegerField(default=0, null=True, blank=True)
+    total_excerpts = models.IntegerField(default=0, null=True, blank=True)
