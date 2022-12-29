@@ -6,26 +6,34 @@ import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import { ExcerptCard } from './ExcerptCard';
+import CategoryCard from './CategoryCard';
 
 export const ExcerptLibrary = () => {
   const {
     data: libraryData,
     isLoading,
     error,
-  } = useQuery('excerptLibrary', () => {
-    return NorthStar.getExcerptsLibrary();
-  });
+  } = useQuery('excerptLibrary', () => NorthStar.getExcerptsLibrary());
+  const {
+    data: categoryData,
+    isLoading: isCategoriesLoading,
+    error: categoriesError,
+  } = useQuery('categories', () => NorthStar.getCategories());
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {`We encountered an error: ${error}`}</div>;
+  if (isCategoriesLoading) return <div>Loading...</div>;
+  if (categoriesError)
+    return <div>Error: {`We encountered an error: ${categoriesError}`}</div>;
   return (
     <div className="d-flex flex-wrap">
-      {/* {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-        <Card>{item}</Card>
-      ))} */}
-      {libraryData?.map((excerptInfo) => (
-        <ExcerptCard excerptInfo={excerptInfo} />
-      ))}
+      {categoryData &&
+        categoryData?.map((category) => (
+          <CategoryCard
+            categoryId={category.id}
+            categoryName={category.title}
+            difficulty={category.difficulty}
+            total_excerpts={category.total_excerpts}
+          />
+        ))}
     </div>
   );
 };
