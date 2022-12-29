@@ -81,9 +81,10 @@ body {
   border-radius: 5px;
   border: 2px solid #0c9ced;
   min-width: 250px;
+  max-width: 250px;
   min-height: 150px;
   margin: 30px;
-
+  max-height: 150px;
   padding: 10px;
 }
 

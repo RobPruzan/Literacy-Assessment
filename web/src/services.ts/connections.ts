@@ -33,27 +33,19 @@ export class NorthStarApi {
 
   public async getExcerptsLibrary(): Promise<ExcerptInfo[]> {
     const response = await axios.get(`${this.baseUrl}/api/excerpts_info`);
-    console.log(
-      'response data',
-      response.data,
-      'background: #222; color: #bada55'
-    );
+
     return response.data;
   }
 
   public async getCategories(): Promise<Category[]> {
     const response = await axios.get(`${this.baseUrl}/api/categories`);
-    console.log('does it break before this', response.data);
+
     return response.data;
   }
 
   public async getExcerptsInfoByCategory(
     category_id: number
   ): Promise<ExcerptInfo[]> {
-    console.log('what should be here', category_id);
-    if (!category_id) {
-      console.log('what the fuck', category_id);
-    }
     const response = await axios.get(
       `${this.baseUrl}/api/excerpts/${category_id}`
     );

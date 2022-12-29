@@ -60,7 +60,6 @@ export const SelectedExcerptsReducer = (
         ),
       };
     case SelectedExcerptsActions.AddExcerpt:
-      console.log('add excerpt', action.payload.excerptInfo);
       if (
         state.selectedExcerpts?.some(
           (excerpt) => excerpt.id === action.payload.excerptInfo.id

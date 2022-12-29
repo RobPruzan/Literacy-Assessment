@@ -38,3 +38,8 @@ class CategoryView(APIView):
         serializer = CategorySerializer(categories, many=True)
 
         return Response(serializer.data)
+
+
+class CompareDataView(APIView):
+    def get(self, request, *args, **kwargs):
+        pass

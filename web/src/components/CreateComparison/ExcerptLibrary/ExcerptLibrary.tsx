@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
 import { Card } from '../../UIComponents/Card';
@@ -9,6 +9,8 @@ import { ExcerptCard } from './ExcerptCard';
 import CategoryCard from './CategoryCard';
 
 export const ExcerptLibrary = () => {
+  const [activePopUp, setActivePopUp] = useState(-1);
+
   const {
     data: libraryData,
     isLoading,
@@ -21,17 +23,22 @@ export const ExcerptLibrary = () => {
   } = useQuery('categories', () => NorthStar.getCategories());
 
   if (isCategoriesLoading) return <div>Loading...</div>;
-  if (categoriesError)
+  if (categoriesError) {
     return <div>Error: {`We encountered an error: ${categoriesError}`}</div>;
+  }
+
   return (
     <div className="d-flex flex-wrap">
       {categoryData &&
-        categoryData?.map((category) => (
+        categoryData?.map((category, idx) => (
           <CategoryCard
             categoryId={category.id}
             categoryName={category.title}
             difficulty={category.difficulty}
             total_excerpts={category.total_excerpts}
+            activePopUp={activePopUp}
+            setActivePopUp={setActivePopUp}
+            keyValue={idx}
           />
         ))}
     </div>

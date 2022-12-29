@@ -11,7 +11,7 @@ const InfoCardBar = () => {
   );
   return (
     <div
-      className="flex flex-row justify-between items-center"
+      className="flex flex-row items-center"
       style={{
         overflowX: 'scroll',
       }}
