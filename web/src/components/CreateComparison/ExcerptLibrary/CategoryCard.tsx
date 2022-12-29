@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import NorthStar from '../../../services.ts/connections';
 import LibraryPopup from './LibraryPopup';
 export type CategoryCardProps = {
@@ -8,19 +8,33 @@ export type CategoryCardProps = {
   categoryName: string;
   difficulty: number;
   total_excerpts: number;
+  activePopUp: number;
+  setActivePopUp: Dispatch<SetStateAction<number>>;
+  keyValue: number;
 };
 const CategoryCard = ({
   categoryId,
   categoryName,
   difficulty,
   total_excerpts,
+  activePopUp,
+  setActivePopUp,
+  keyValue,
 }: CategoryCardProps) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const { isLoading, isSuccess, isError, data, error, mutate } = useMutation(
-    () => NorthStar.getExcerptsInfoByCategory(categoryId)
+  const {
+    data: libraryData,
+    isLoading: isLibraryLoading,
+    error: libraryError,
+    isError: isLibraryError,
+  } = useQuery(
+    'excerptsByCategory',
+    () => NorthStar.getExcerptsInfoByCategory(categoryId),
+    {
+      enabled: activePopUp === keyValue,
+    }
   );
   return (
-    <div className="card">
+    <div className="card" key={keyValue}>
       <p>{categoryName}</p>
       <p>{difficulty}</p>
       <p>{total_excerpts}</p>
@@ -28,20 +42,22 @@ const CategoryCard = ({
       <Button
         color="secondary"
         onClick={() => {
-          setShowPopup(!showPopup);
-          mutate();
+          console.log('setting active popup to', keyValue);
+          setActivePopUp(keyValue);
         }}
       >
         Show popup
       </Button>
-      {showPopup && (
+      {activePopUp === keyValue && (
         <LibraryPopup
-          isLoading={isLoading}
-          isError={isError}
-          error={error}
-          data={data}
+          isLoading={isLibraryLoading}
+          isError={isLibraryError}
+          error={libraryError}
+          data={libraryData}
           categoryId={categoryId}
-          setShowPopup={setShowPopup}
+          setActivePopUp={setActivePopUp}
+          activePopUp={activePopUp}
+          keyValue={keyValue}
         />
       )}
     </div>

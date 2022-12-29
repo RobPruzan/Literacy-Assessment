@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 const queryClient = new QueryClient();
 
 const theme = createTheme({
@@ -31,6 +32,7 @@ root.render(
           <App />
         </Provider>
       </ThemeProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 );
