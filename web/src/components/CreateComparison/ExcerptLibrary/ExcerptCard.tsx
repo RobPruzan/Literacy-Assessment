@@ -11,17 +11,37 @@ import { Button } from '@mui/material';
 export type ExcerptCardProps = {
   excerptInfo: ExcerptInfo;
   allowDelete?: boolean;
+  sizeMultiplier?: number;
+  isMinimal?: boolean;
 };
-export const ExcerptCard = ({ excerptInfo, allowDelete }: ExcerptCardProps) => {
+export const ExcerptCard = ({
+  excerptInfo,
+  allowDelete,
+  sizeMultiplier = 1,
+  isMinimal = false,
+}: ExcerptCardProps) => {
   const dispatch = useDispatch();
 
   // useMutation
 
   return (
-    <Card>
+    <Card
+      style={{
+        maxWidth: `${250 * sizeMultiplier}px`,
+        minHeight: `${150 * sizeMultiplier}px`,
+        margin: '10px',
+      }}
+    >
       <div className="d-flex">
-        {excerptInfo.excerpt.title} |{excerptInfo.difficulty} |
-        {excerptInfo.diversity} (diversity) |{excerptInfo.category.title}|
+        {isMinimal ? (
+          <>{excerptInfo.excerpt.title}</>
+        ) : (
+          <>
+            {excerptInfo.excerpt.title} |{excerptInfo.difficulty} |
+            {excerptInfo.diversity} (diversity) |{excerptInfo.category.title}|
+          </>
+        )}
+
         <Button
           color="secondary"
           onClick={() =>

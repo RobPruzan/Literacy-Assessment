@@ -1,10 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { ExcerptCard } from '../ExcerptLibrary/ExcerptCard';
 
 const InfoCardBar = () => {
-  const dispatch = useDispatch();
   const selectedExcerpts = useSelector(
     ({ selectedExcerptsState }: RootState) =>
       selectedExcerptsState.selectedExcerpts
@@ -17,7 +16,12 @@ const InfoCardBar = () => {
       }}
     >
       {selectedExcerpts?.map((excerpt) => (
-        <ExcerptCard excerptInfo={excerpt} allowDelete={true} />
+        <ExcerptCard
+          sizeMultiplier={0.5}
+          excerptInfo={excerpt}
+          allowDelete={true}
+          isMinimal={true}
+        />
       ))}
     </div>
   );

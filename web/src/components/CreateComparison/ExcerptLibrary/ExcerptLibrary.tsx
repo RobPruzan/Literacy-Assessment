@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
-import { Card } from '../../UIComponents/Card';
-import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
-import { ExcerptCard } from './ExcerptCard';
 import CategoryCard from './CategoryCard';
 
 export const ExcerptLibrary = () => {

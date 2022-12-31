@@ -16,3 +16,4 @@ gensim
 scikit-learn
 seaborn
 matplotlib
+print-color

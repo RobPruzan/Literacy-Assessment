@@ -11,6 +11,7 @@ export type CategoryCardProps = {
   activePopUp: number;
   setActivePopUp: Dispatch<SetStateAction<number>>;
   keyValue: number;
+  sizeMultiplier?: number;
 };
 const CategoryCard = ({
   categoryId,
@@ -20,6 +21,7 @@ const CategoryCard = ({
   activePopUp,
   setActivePopUp,
   keyValue,
+  sizeMultiplier = 1,
 }: CategoryCardProps) => {
   const {
     data: libraryData,
@@ -34,7 +36,20 @@ const CategoryCard = ({
     }
   );
   return (
-    <div className="card" key={keyValue}>
+    <div
+      style={{
+        backgroundColor: 'white',
+        borderRadius: '5px',
+        border: '2px solid #0c9ced',
+        minWidth: '250px',
+        maxWidth: '250px',
+        minHeight: '150px',
+        margin: '30px',
+        maxHeight: '150px',
+        padding: '10px',
+      }}
+      key={keyValue}
+    >
       <p>{categoryName}</p>
       <p>{difficulty}</p>
       <p>{total_excerpts}</p>
