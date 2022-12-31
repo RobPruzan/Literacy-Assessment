@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/analysis" element={<CreateComparison />} />
+          <Route path="/analysis" element={<Analysis />} />
           <Route path="/create-comparison" element={<CreateComparison />} />
         </Routes>
       </BrowserRouter>

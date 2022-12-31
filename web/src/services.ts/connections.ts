@@ -24,6 +24,33 @@ export type Category = {
   total_excerpts: number;
 };
 
+// export type InterpretableOutput = {
+//   original: string;
+//   interpretation: (string | number)[];
+// };
+
+// export type DiversityOutput = {
+//   heatmap: InterpretableOutput[];
+//   diversity_score: number;
+// };
+// shape is array of objects
+// first object contains interpreation which is an array of strings and numbers and "original" which holds a string
+// second object contains "diversity_score" which holds a number
+
+export type InterpretableOutput = {
+  interpretation: [string, number][];
+  original: string;
+};
+
+export type DiversityOutput = {
+  diversity_score: number;
+};
+
+export type WindowDifficultyOutput = InterpretableOutput & {
+  shaded_areas: [number, number][];
+  raw_scores: number[];
+};
+
 export class NorthStarApi {
   baseUrl?: string;
 
@@ -49,6 +76,30 @@ export class NorthStarApi {
     const response = await axios.get(
       `${this.baseUrl}/api/excerpts/${category_id}`
     );
+    return response.data;
+  }
+
+  public async calculateDiversityScore(
+    excerpt: string
+  ): Promise<[InterpretableOutput, DiversityOutput]> {
+    const response = await axios.post(`${this.baseUrl}/api/diversity`, {
+      excerpt,
+    });
+    console.log('response diversity', response.data);
+    return response.data;
+  }
+  public async calculateDifficultyScore(excerpt: string): Promise<number> {
+    const response = await axios.post(`${this.baseUrl}/api/difficulty`, {
+      excerpt,
+    });
+    return response.data;
+  }
+  public async calculateWindowDifficultyScore(
+    excerpt: string
+  ): Promise<WindowDifficultyOutput> {
+    const response = await axios.post(`${this.baseUrl}/api/window_difficulty`, {
+      excerpt,
+    });
     return response.data;
   }
 }

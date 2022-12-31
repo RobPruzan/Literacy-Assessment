@@ -1,9 +1,12 @@
 from rest_framework import generics
 from django.shortcuts import render
+
+from .NLP.main import calculate_diversity, reading_difficulty, sliding_window
 from .models import Category, ExcerptInfo, User
 from .serializers import CategorySerializer, ExcerptInfoSerializer, UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from print_color import print
 
 # Create your views here.
 class UserView(generics.CreateAPIView):
@@ -43,3 +46,27 @@ class CategoryView(APIView):
 class CompareDataView(APIView):
     def get(self, request, *args, **kwargs):
         pass
+
+
+class DiversityView(APIView):
+    def post(self, request, *args, **kwargs):
+        text = request.data.get("excerpt")
+        diversity = calculate_diversity(text)
+        print(diversity, color="green")
+        return Response(diversity)
+
+
+class DifficultyView(APIView):
+    def post(self, request, *args, **kwargs):
+        text = request.data.get("excerpt")
+        difficulty = reading_difficulty(text)
+
+        return Response(difficulty)
+
+
+class WindowDifficultyView(APIView):
+    def post(self, request, *args, **kwargs):
+        text = request.data.get("excerpt")
+        difficulty = sliding_window(text)
+        print("difficulty", difficulty, color="blue")
+        return Response(difficulty)

@@ -26,6 +26,12 @@ from transformers import pipeline
 from transformers import BertTokenizer
 from transformers import AutoTokenizer, BertForSequenceClassification
 
+# from .ml_models import pytorchBERTmodel
+# from .datasets import balanced_synonym_data
+
+
+# from ...api import pytorchBERTmodel
+
 
 nltk.download("wordnet")
 
@@ -42,16 +48,18 @@ glove_vectors = api.load("glove-wiki-gigaword-100")
 tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
 device = torch.device("cuda" if torch.cuda.is_available else "cpu")
 
+
 # loading model
-PATH = "pytorchBERTmodel"
-model = torch.load(PATH, map_location=torch.device("cpu"))
+# PATH = "./pytorchBERTmodel"
+# PATH = "../ml_models/pytorchBERTmodel"
+model = torch.load("ml_models/pytorchBERTmodel", map_location=torch.device("cpu"))
 model.eval()
 
 model.to("cpu")
 
 p = pipeline("automatic-speech-recognition")
 
-with open("balanced_synonym_data.json") as f:
+with open("datasets/balanced_synonym_data.json") as f:
     data = json.loads(f.read())
 
 
@@ -118,6 +126,7 @@ def calculate_diversity(text):
 
     mean_score = 0
     total = 0
+    print("scores", scores)
 
     for value in scores.values():
         if value == -1:
@@ -136,10 +145,10 @@ def calculate_diversity(text):
     int_vals = {"original": text, "interpretation": interpret_values}
     try:
 
-        return int_vals, {"Diversity Score": mean_score / total}
+        return int_vals, {"diversity_score": mean_score / total}
     except ZeroDivisionError:
 
-        return int_vals, {"Dviersity Score": "Not Enough Data"}
+        return int_vals, {"diversity_score": "Not Enough Data"}
 
 
 def get_sim_words(text, word):
@@ -299,26 +308,12 @@ def reading_difficulty(excerpt):
             win_preds.append(predict(text, tokenizer).item())
         result = np.mean(win_preds)
         score = -(result * 1.786 + 6.4) + 10
-        return (
-            "Difficulty Level: "
-            + str(round(score, 2))
-            + "/10"
-            + " | A"
-            + str(level(score))
-            + " student could understand this"
-        )
+        return score
 
     else:
         result = predict(excerpt).item()
         score = -(result * 1.786 + 6.4) + 10
-        return (
-            "Difficulty Level: "
-            + str(round(score, 2))
-            + "/10"
-            + " | A"
-            + str(level(score))
-            + " student could understand this"
-        )
+        return score
 
 
 def calculate_stats(file_name, data_index):
@@ -338,8 +333,6 @@ def calculate_stats(file_name, data_index):
 
             if len(line[data_index]) < 100:
                 continue
-
-            # if detect(line[data_index][len(line[data_index]) -400: len(line[data_index])-1]) == 'en':
 
             try:
                 stat = stats(line[data_index])
@@ -372,7 +365,7 @@ def transcribe(audio):
 
 
 def compute_score(target, actual):
-    print(target)
+
     target = target.lower()
     actual = actual.lower()
     return fuzz.ratio(target, actual)
@@ -397,7 +390,7 @@ def phon(text):
 
             else:
                 new_l.append(str(i))
-                print("here")
+
             new_l.append(" ")
         return "-".join(new_l)
 
@@ -405,21 +398,13 @@ def phon(text):
     f = flatten(pronun)
     for idx, i in enumerate(f):
         output.append("-".join(i).lower())
-    print(output)
+
     return "".join(output)
-
-
-# def plot():
-#     diversity = calculate_diversity(text)[0]
-#     print(diversity)
-#     df = pd.DataFrame(dict_to_list(diversity))
-#     return heatmap(diversity, df)
 
 
 def sliding_window(text):
     words = word_tokenize(text)
     improved_window = []
-    improved_wind_preds = []
     for idx, text in enumerate(words):
         if idx <= len(words) - 26:
             x = " ".join(words[idx : idx + 25])
@@ -447,36 +432,14 @@ def sliding_window(text):
 
     inter_scores = [v for v in average_scores.values()]
     copy_list = inter_scores.copy()
-    print(inter_scores)
+
     while len(inter_scores) <= len(words) - 1:
         inter_scores.append(copy_list[-1])
 
     x = list(range(len(inter_scores)))
     y = inter_scores
-    range_chart = [min(y), max(y)]
-    fig, ax = plt.subplots()
 
-    ax.plot(x, y, color="orange", linewidth=2)
-    ax.grid(False)
-    plt.xlabel("Word Number", fontweight="bold")
-    plt.ylabel("Difficulty Score", fontweight="bold")
-    plt.suptitle("Difficulty Score Across Text", fontsize=14, fontweight="bold")
-    plt.style.use("ggplot")
-    ax.set_facecolor("w")
     shaded_areas = generate_patches(x, y, 0.42)
-
-    for area in shaded_areas:
-        print(range_chart[0], range_chart[1])
-        ax.add_patch(
-            patches.Rectangle(
-                (area[0], range_chart[0]),
-                area[1] - area[0],
-                range_chart[1] - range_chart[0],
-                alpha=0.2,
-            )
-        )
-    print(shaded_areas)
-    fig = plt.gcf()
 
     mapd = [("", 0)]
     maxy = max(inter_scores)
@@ -487,7 +450,12 @@ def sliding_window(text):
         mapd.append((i, (inter_scores[idx] - miny) / spread))
     mapd.append(("", 0))
 
-    return fig, {"original": text, "interpretation": mapd}
+    return {
+        "original": text,
+        "interpretation": mapd,
+        "raw_scores": inter_scores,
+        "shaded_areas": shaded_areas,
+    }
 
 
 def speech_to_text(speech, target):
