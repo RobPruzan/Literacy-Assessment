@@ -71,7 +71,7 @@ export const ExcerptCard = ({
           ) : (
             <AddCircleOutlineIcon
               fontSize="large"
-              className="hover:cursor-pointer"
+              className="hover:cursor-pointer  hover:fill-green-500"
               sx={{ fill: '#4EFF10' }}
               onClick={() =>
                 dispatch({

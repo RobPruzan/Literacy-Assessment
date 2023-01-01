@@ -102,6 +102,13 @@ export class NorthStarApi {
     });
     return response.data;
   }
+
+  public async compareExcerpts(excerpts: ExcerptInfo[]): Promise<any> {
+    const response = await axios.post(`${this.baseUrl}/api/compare`, {
+      excerpts,
+    });
+    return response.data;
+  }
 }
 
 const NorthStar = new NorthStarApi();

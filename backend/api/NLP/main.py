@@ -4,6 +4,7 @@ import json
 import sys
 import logging
 import argparse
+from typing import List
 
 import gensim.downloader as api
 import matplotlib.pyplot as plt
@@ -17,6 +18,7 @@ import seaborn as sns
 import torch
 import torch.nn.functional as F
 from fuzzywuzzy import fuzz
+from spellchecker import SpellChecker
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
 from nltk.tokenize import word_tokenize
@@ -196,7 +198,7 @@ def heatmap(scores, df):
     )
 
 
-def stats(text):
+def readability_measures(text):
     results = readability.getmeasures(text, lang="en")
     return results
 
@@ -335,7 +337,7 @@ def calculate_stats(file_name, data_index):
                 continue
 
             try:
-                stat = stats(line[data_index])
+                stat = readability_measures(line[data_index])
 
             except ValueError:
                 continue
@@ -790,3 +792,36 @@ def smart_synonyms(text, level):
     cleaend_defs = format_for_gradio(defs)
 
     return f"{cleaned_syns}: Definition- {cleaend_defs} | "
+
+
+def comparison_pipeline(excerpts_list: List[str]):
+    all_stats = []
+    for excerpt in excerpts_list:
+        tokenized_words = word_tokenize(excerpt)
+        if len(tokenized_words) < 10:
+            continue
+        excerpt_stats = {
+            "diversity": 0,
+            "difficulty": 0,
+            "sliding_window_stats": None,
+            "length": 0,
+            "readability_measures": None,
+            "grammar": 0,
+        }
+
+        diversity = calculate_diversity(excerpt)
+        difficulty = reading_difficulty(excerpt)
+        sliding_window_stats = sliding_window(excerpt)
+        length = len(tokenized_words)
+        readability = readability_measures(excerpt)
+        spell = SpellChecker()
+        misspelled = spell.unknown(tokenized_words)
+        grammar = len(misspelled) / len(tokenized_words)
+        excerpt_stats["diversity"] = diversity
+        excerpt_stats["difficulty"] = difficulty
+        excerpt_stats["sliding_window_stats"] = sliding_window_stats
+        excerpt_stats["length"] = length
+        excerpt_stats["readability_measures"] = readability
+        excerpt_stats["grammar"] = grammar
+        all_stats.append(excerpt_stats)
+    return all_stats
