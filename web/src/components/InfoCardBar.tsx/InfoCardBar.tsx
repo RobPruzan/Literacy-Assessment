@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import FileUpload from '../FileUpload';
 
 const InfoCardBar = () => {
   const selectedExcerpts = useSelector(
