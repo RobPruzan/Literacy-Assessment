@@ -59,37 +59,28 @@ export const AboutNavbar = ({ color }: AboutNavbarProps) => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
+                <div className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
                   <Link className="Nav__link mx-2" to="/Analysis">
                     Analysis
                   </Link>
-                </a>
+                </div>
               </li>
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
+                <div className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
                   <Link className="Nav__link mx-2" to="/About">
                     About
                   </Link>
-                </a>
+                </div>
               </li>
               <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
+                <div className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
-                  <Link className="Nav__link mx-2" to="/">
-                    Progress
+                  <Link className="Nav__link mx-2" to="/create-comparison">
+                    Compare
                   </Link>
-                </a>
+                </div>
               </li>
             </ul>
           </div>

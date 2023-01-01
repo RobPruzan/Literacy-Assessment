@@ -7,6 +7,7 @@ import MainPage from './components/MainPage';
 import { About } from './components/About/About';
 import { CreateComparison } from './components/CreateComparison/CreateComparison';
 import { Analysis } from './components/Analysis/Analysis';
+import { createTheme } from '@mui/material';
 
 function App() {
   return (

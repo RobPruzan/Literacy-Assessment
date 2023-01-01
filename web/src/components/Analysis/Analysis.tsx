@@ -4,6 +4,8 @@ import { useMutation } from 'react-query';
 import NorthStar from '../../services.ts/connections';
 import { useDifficultyScore } from '../hooks/useDifficultyScore';
 import { useWindowDifficultyScore } from '../hooks/useWindowDifficultyScore';
+import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import { AboutNavbar } from '../Navabars/AboutNavbar';
 
 export const Analysis = () => {
   const [excerpt, setExcerpt] = useState('');
@@ -43,10 +45,16 @@ export const Analysis = () => {
   console.log('way', data);
   return (
     <div>
-      <TextareaAutosize
+      <AboutNavbar color={'custom-blue'} />
+      <div className="my-5 border-2  border-y-slate-500 p-2">
+        <InfoCardBar />
+      </div>
+
+      <textarea
+        className="border border-custom-blue"
         value={excerpt}
         onChange={(e) => setExcerpt(e.target.value)}
-      ></TextareaAutosize>
+      ></textarea>
       <button onClick={getStats}>Calculate Stats</button>
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error: {`We encountered an error: ${error}`}</div>}

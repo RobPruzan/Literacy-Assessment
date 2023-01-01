@@ -14,14 +14,14 @@ const CompareActions = () => {
   return (
     <div>
       <button
-        className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600"
+        className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
         onClick={() =>
           dispatch({ type: SelectedExcerptsActions.ResetSelectedExcerpts })
         }
       >
         Reset All
       </button>
-      <button className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600">
+      <button className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm">
         Compare
       </button>
     </div>

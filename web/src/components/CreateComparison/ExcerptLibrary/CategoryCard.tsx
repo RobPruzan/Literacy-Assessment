@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import NorthStar from '../../../services.ts/connections';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryPopup from './LibraryPopup';
 export type CategoryCardProps = {
   categoryId: number;
@@ -37,31 +39,27 @@ const CategoryCard = ({
   );
   return (
     <div
-      className=" bg-white  h-40  w-28 border border-white rounded-sm m-2"
-      style={{
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        border: '2px solid #0c9ced',
-        minWidth: '250px',
-        maxWidth: '250px',
-        minHeight: '150px',
-
-        maxHeight: '150px',
-        padding: '10px',
-      }}
+      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-blue-200  rounded-sm m-2 shadow-md"
       key={keyValue}
     >
-      <p className="text-center text-custom-blue font-bold text-xl">
+      <p className="text-center text-black  text-xl font-semibold mb-2">
         {categoryName}
       </p>
-      <p className="text-center text-custom-blue font-bold text-xl">
-        {difficulty}
+      <p className="text-center text-black  text-base"></p>
+      <p className="text-center text-black text-base">
+        Total Excerpts: {total_excerpts}
       </p>
-      <p className="text-center text-custom-blue font-bold text-xl">
-        {total_excerpts}
-      </p>
+      <p className="text-red-500  font-medium ">Difficulty: {difficulty}</p>
 
-      <button
+      <ArrowCircleRightIcon
+        className="hover:cursor-pointer float-right"
+        onClick={() => {
+          console.log('setting active popup to', libraryData);
+          setActivePopUp(keyValue);
+        }}
+      />
+
+      {/* <button
         className="bg-custom-blue hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 mx-2 min-w-min rounded-sm shadow-md hover:shadow-lg flex justify-center items-center"
         onClick={() => {
           console.log('setting active popup to', keyValue);
@@ -69,7 +67,7 @@ const CategoryCard = ({
         }}
       >
         Show popup
-      </button>
+      </button> */}
       {activePopUp === keyValue && (
         <LibraryPopup
           isLoading={isLibraryLoading}

@@ -27,7 +27,7 @@ export const About = () => {
     // </div>
     // </div>
     <div className="flex flex-col h-screen">
-      <AboutNavbar color="white" />
+      <AboutNavbar color="custom-blue" />
       <div className=" flex justify-center items-center flex-grow">
         <div className="h-full div bo-blue-200 p-1 grid grid-cols-4 grid-rows-9 gap-2 w-screen">
           <div className="div bg-custom-blue text-white text-center text-5xl py-4 rounded-lg col-span-4">

@@ -2,7 +2,7 @@ import React from 'react';
 
 const StatsCard = () => {
   return (
-    <div className="bg-white  text-center text-base flex min-w-min rounded-md w-max h-max p-2">
+    <div className="bg-white  text-center text-sm flex min-w-min rounded-md w-max h-max p-1">
       <div className=" text-custom-blue text-center  flex ">
         <div className="mx-2">
           <p className="">Difficulty</p>

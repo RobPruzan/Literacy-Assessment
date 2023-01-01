@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
 import { ExcerptCard } from './ExcerptCard';
 export type LibraryPopupProps = {
@@ -23,8 +23,14 @@ const LibraryPopup = ({
   activePopUp,
   keyValue,
 }: LibraryPopupProps) => {
+  const queryClient = useQueryClient();
   return (
-    <div className="absolute z-10 bg-white shadow-lg rounded-lg p-4">
+    <div
+      style={{
+        minHeight: '12rem',
+      }}
+      className="absolute z-10 bg-white shadow-lg rounded-lg p-4"
+    >
       {isLoading || isError ? (
         <div>
           {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}
@@ -34,6 +40,8 @@ const LibraryPopup = ({
           <Button
             color="secondary"
             onClick={() => {
+              queryClient.invalidateQueries(['excerptsByCategory']);
+
               keyValue === activePopUp && setActivePopUp(-1);
             }}
           >
