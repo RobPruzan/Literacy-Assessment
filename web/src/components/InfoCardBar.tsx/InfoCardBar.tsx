@@ -9,15 +9,10 @@ const InfoCardBar = () => {
       selectedExcerptsState.selectedExcerpts
   );
   return (
-    <div
-      className="flex flex-row items-center"
-      style={{
-        overflowX: 'scroll',
-      }}
-    >
+    <div className="flex h-full items-center overflow-scroll">
       {selectedExcerpts?.map((excerpt) => (
         <ExcerptCard
-          sizeMultiplier={0.5}
+          sizeMultiplier={0.3}
           excerptInfo={excerpt}
           allowDelete={true}
           isMinimal={true}

@@ -23,7 +23,7 @@ export const ExcerptLibrary = () => {
   }
 
   return (
-    <div className="d-flex flex-wrap">
+    <div className="d-flex flex-wrap justify-center sm:justify-start">
       {categoryData &&
         categoryData?.map((category, idx) => (
           <CategoryCard
