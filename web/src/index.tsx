@@ -9,16 +9,19 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 const queryClient = new QueryClient();
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#F5F5F5',
-    },
-    secondary: {
-      main: '#0CA7FF',
-    },
-  },
   typography: {
-    fontFamily: 'Montserrat',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
 });
 const container = document.getElementById('root')!;

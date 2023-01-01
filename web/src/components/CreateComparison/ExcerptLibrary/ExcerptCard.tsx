@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
 import LibraryPopup from './LibraryPopup';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // import mui button
 import { Button } from '@mui/material';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
@@ -24,61 +26,63 @@ export const ExcerptCard = ({
   const dispatch = useDispatch();
 
   // useMutation
-  const tempStyle = {
-    maxWidth: `${250 * sizeMultiplier}px`,
-    minHeight: `${150 * sizeMultiplier}px`,
-    margin: '10px',
-  };
+  // const tempStyle = {
+  //   maxWidth: `${250 * sizeMultiplier}px`,
+  //   minHeight: `${150 * sizeMultiplier}px`,
+  //   margin: '10px',
+  // };
 
   return (
     <div
       className="
     bg-custom-blue
-    hover:bg-blue-700
+   
     text-white
     font-bold
-    py-2
-    px-3 
+    py-1
+    px-2
     rounded-md
     mx-2
     min-w-min
-    
+    min-h-min
     shadow-md
     hover:shadow-lg
     flex
     justify-center
-    items-center
+    items-center 
+
     "
-      style={tempStyle}
     >
       <div className="d-flex flex-col ">
-        <>{excerptInfo.excerpt.title}</>
+        <div className="m-1 text-lg justify-center flex">
+          {excerptInfo.excerpt.title.toUpperCase()}
+          {isMinimal ? (
+            <HighlightOffIcon
+              fontSize="medium"
+              className="hover:cursor-pointer top-0"
+              sx={{ fill: '#FE4242' }}
+              onClick={() =>
+                dispatch({
+                  type: SelectedExcerptsActions.RemoveExcerpt,
+                  payload: { excerptInfo: excerptInfo },
+                })
+              }
+            />
+          ) : (
+            <AddCircleOutlineIcon
+              fontSize="large"
+              className="hover:cursor-pointer"
+              sx={{ fill: '#4EFF10' }}
+              onClick={() =>
+                dispatch({
+                  type: SelectedExcerptsActions.AddExcerpt,
+                  payload: { excerptInfo: excerptInfo },
+                })
+              }
+            />
+          )}
+        </div>
         <StatsCard />
-        {/* {isMinimal ? (
-          <Button
-            color="secondary"
-            onClick={() =>
-              dispatch({
-                type: SelectedExcerptsActions.RemoveExcerpt,
-                payload: { excerptInfo: excerptInfo },
-              })
-            }
-          >
-            Remove
-          </Button>
-        ) : (
-          <Button
-            color="secondary"
-            onClick={() =>
-              dispatch({
-                type: SelectedExcerptsActions.AddExcerpt,
-                payload: { excerptInfo: excerptInfo },
-              })
-            }
-          >
-            Add
-          </Button>
-        )} */}
       </div>
     </div>
   );
