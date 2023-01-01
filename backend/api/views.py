@@ -1,8 +1,13 @@
 from rest_framework import generics
 from django.shortcuts import render
 
-from .NLP.main import calculate_diversity, reading_difficulty, sliding_window
-from .models import Category, ExcerptInfo, User
+from .NLP.main import (
+    calculate_diversity,
+    comparison_pipeline,
+    reading_difficulty,
+    sliding_window,
+)
+from .models import Category, Excerpt, ExcerptInfo, User
 from .serializers import CategorySerializer, ExcerptInfoSerializer, UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -70,3 +75,15 @@ class WindowDifficultyView(APIView):
         difficulty = sliding_window(text)
         print("difficulty", difficulty, color="blue")
         return Response(difficulty)
+
+
+class CompereText(APIView):
+    def post(self, request, *args, **kwargs):
+        selected_excerpts = request.data.get("excerpts")
+        selected_excerpts_ids = [excerpt.get("id") for excerpt in selected_excerpts]
+        excerpts_text = [
+            Excerpt.objects.get(id=excerpt_id).text
+            for excerpt_id in selected_excerpts_ids
+        ]
+        comparison_stats = comparison_pipeline(excerpts_text)
+        return Response(comparison_stats)

@@ -23,10 +23,10 @@ export const CreateComparison = () => {
                 <CompareActions />
               </div>
             </div>
-            <div className=" bg-white border-2 border-r-0 border-b-0 border-custom-blue text-white text-center text-5xl py-4  md:row-span-6 md:col-span-1  col-span-4 row-span-1 items-center ">
+            <div className=" bg-white border-2 border-b-1 sm:border-b-0 md:border-l-0 border-r-0 border-l-0  border-custom-blue text-white text-center text-5xl py-4  md:row-span-6 md:col-span-1  col-span-4 row-span-1 items-center ">
               <Filters />
             </div>
-            <div className="div bg-white text-center sm:border-b-0 sm:border-t-2 sm:border-2 border-x-2 border-t-1   border-custom-blue text-lg py-4  md:col-span-3 md:row-span-6 col-span-4 row-span-5   ">
+            <div className="div bg-white text-center sm:border-b-0 sm:border-t-2  border-x-2 border-t-1 p-4   border-custom-blue text-lg  md:col-span-3 md:row-span-6 col-span-4 row-span-5   ">
               <ExcerptLibrary />
             </div>
           </div>

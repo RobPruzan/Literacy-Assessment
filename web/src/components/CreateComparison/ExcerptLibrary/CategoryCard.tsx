@@ -39,7 +39,7 @@ const CategoryCard = ({
   );
   return (
     <div
-      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-blue-200  rounded-sm m-2 shadow-md"
+      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blue border-opacity-50  rounded-md m-2 shadow-md"
       key={keyValue}
     >
       <p className="text-center text-black  text-xl font-semibold mb-2">
@@ -69,16 +69,18 @@ const CategoryCard = ({
         Show popup
       </button> */}
       {activePopUp === keyValue && (
-        <LibraryPopup
-          isLoading={isLibraryLoading}
-          isError={isLibraryError}
-          error={libraryError}
-          data={libraryData}
-          categoryId={categoryId}
-          setActivePopUp={setActivePopUp}
-          activePopUp={activePopUp}
-          keyValue={keyValue}
-        />
+        <div className="float-right">
+          <LibraryPopup
+            isLoading={isLibraryLoading}
+            isError={isLibraryError}
+            error={libraryError}
+            data={libraryData}
+            categoryId={categoryId}
+            setActivePopUp={setActivePopUp}
+            activePopUp={activePopUp}
+            keyValue={keyValue}
+          />
+        </div>
       )}
     </div>
   );

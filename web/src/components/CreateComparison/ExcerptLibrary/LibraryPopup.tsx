@@ -1,3 +1,4 @@
+import { HighlightOff } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
@@ -23,34 +24,31 @@ const LibraryPopup = ({
   activePopUp,
   keyValue,
 }: LibraryPopupProps) => {
-  const queryClient = useQueryClient();
+  console.log('category id', categoryId);
+  console.log('data', data);
   return (
-    <div
-      style={{
-        minHeight: '12rem',
-      }}
-      className="absolute z-10 bg-white shadow-lg rounded-lg p-4"
-    >
+    <div className="absolute z-10 bg-white shadow-lg rounded-lg p-4 h-96  min-w-fit  w-72 overflow-y-auto border-2 border-custom-blue ">
       {isLoading || isError ? (
         <div>
           {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}
         </div>
       ) : (
         <>
-          <Button
-            color="secondary"
+          <HighlightOff
+            className="hover:cursor-pointer float-left mb-2"
+            sx={{ fill: 'red' }}
             onClick={() => {
-              queryClient.invalidateQueries(['excerptsByCategory']);
-
               keyValue === activePopUp && setActivePopUp(-1);
             }}
           >
             Close
-          </Button>
+          </HighlightOff>
 
           {data?.map((info) => (
-            <div className="border-b-2 border-gray-200 pb-2">
-              <ExcerptCard excerptInfo={info} />
+            <div className=" mb-3">
+              {categoryId === info.category.id && (
+                <ExcerptCard excerptInfo={info} />
+              )}
             </div>
           ))}
         </>
