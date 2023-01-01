@@ -8,6 +8,7 @@ import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
 import LibraryPopup from './LibraryPopup';
 // import mui button
 import { Button } from '@mui/material';
+import StatsCard from '../../InfoCardBar.tsx/StatsCard';
 export type ExcerptCardProps = {
   excerptInfo: ExcerptInfo;
   allowDelete?: boolean;
@@ -23,37 +24,37 @@ export const ExcerptCard = ({
   const dispatch = useDispatch();
 
   // useMutation
+  const tempStyle = {
+    maxWidth: `${250 * sizeMultiplier}px`,
+    minHeight: `${150 * sizeMultiplier}px`,
+    margin: '10px',
+  };
 
   return (
-    <Card
-      style={{
-        maxWidth: `${250 * sizeMultiplier}px`,
-        minHeight: `${150 * sizeMultiplier}px`,
-        margin: '10px',
-      }}
+    <div
+      className="
+    bg-custom-blue
+    hover:bg-blue-700
+    text-white
+    font-bold
+    py-2
+    px-3 
+    rounded-md
+    mx-2
+    min-w-min
+    
+    shadow-md
+    hover:shadow-lg
+    flex
+    justify-center
+    items-center
+    "
+      style={tempStyle}
     >
-      <div className="d-flex">
-        {isMinimal ? (
-          <>{excerptInfo.excerpt.title}</>
-        ) : (
-          <>
-            {excerptInfo.excerpt.title} |{excerptInfo.difficulty} |
-            {excerptInfo.diversity} (diversity) |{excerptInfo.category.title}|
-          </>
-        )}
-
-        <Button
-          color="secondary"
-          onClick={() =>
-            dispatch({
-              type: SelectedExcerptsActions.AddExcerpt,
-              payload: { excerptInfo: excerptInfo },
-            })
-          }
-        >
-          Add
-        </Button>
-        {allowDelete && (
+      <div className="d-flex flex-col ">
+        <>{excerptInfo.excerpt.title}</>
+        <StatsCard />
+        {/* {isMinimal ? (
           <Button
             color="secondary"
             onClick={() =>
@@ -65,8 +66,20 @@ export const ExcerptCard = ({
           >
             Remove
           </Button>
-        )}
+        ) : (
+          <Button
+            color="secondary"
+            onClick={() =>
+              dispatch({
+                type: SelectedExcerptsActions.AddExcerpt,
+                payload: { excerptInfo: excerptInfo },
+              })
+            }
+          >
+            Add
+          </Button>
+        )} */}
       </div>
-    </Card>
+    </div>
   );
 };

@@ -3,78 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  overflow: hidden;
-}
-
-.about {
+/* .about {
   background-image: url(../public/background.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 93vhvh;
   width: 100vw;
-}
+} */
 
 /* navbar is transparent */
-.about-navbar {
-  background-color: transparent;
-  border: none;
-}
-
-.angry-grid {
-  display: grid;
-
-  grid-template-rows: 1fr 1fr 5fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-  gap: 0px;
-
-  height: 93vh;
-}
-
-#item-0 {
-  border: 1px solid #000000;
-  grid-row-start: 1;
-  grid-column-start: 1;
-
-  grid-row-end: 2;
-  grid-column-end: 6;
-}
-#item-1 {
-  border: 1px solid #000000;
-
-  grid-row-start: 2;
-  grid-column-start: 1;
-
-  grid-row-end: 3;
-  grid-column-end: 5;
-}
-#item-2 {
-  border: 1px solid #000000;
-  grid-row-start: 2;
-  grid-column-start: 5;
-
-  grid-row-end: 3;
-  grid-column-end: 6;
-}
-#item-3 {
-  border: 1px solid #000000;
-  grid-row-start: 3;
-  grid-column-start: 1;
-
-  grid-row-end: 4;
-  grid-column-end: 2;
-}
-#item-4 {
-  border: 1px solid #000000;
-  grid-row-start: 3;
-  grid-column-start: 2;
-
-  grid-row-end: 4;
-  grid-column-end: 6;
-  overflow: auto;
-}
 
 .card {
   background-color: white;

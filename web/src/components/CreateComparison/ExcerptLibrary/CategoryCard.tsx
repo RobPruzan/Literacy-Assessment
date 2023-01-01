@@ -37,6 +37,7 @@ const CategoryCard = ({
   );
   return (
     <div
+      className=" bg-white  h-40  w-28 border border-white rounded-sm m-2"
       style={{
         backgroundColor: 'white',
         borderRadius: '5px',
@@ -44,25 +45,31 @@ const CategoryCard = ({
         minWidth: '250px',
         maxWidth: '250px',
         minHeight: '150px',
-        margin: '30px',
+
         maxHeight: '150px',
         padding: '10px',
       }}
       key={keyValue}
     >
-      <p>{categoryName}</p>
-      <p>{difficulty}</p>
-      <p>{total_excerpts}</p>
+      <p className="text-center text-custom-blue font-bold text-xl">
+        {categoryName}
+      </p>
+      <p className="text-center text-custom-blue font-bold text-xl">
+        {difficulty}
+      </p>
+      <p className="text-center text-custom-blue font-bold text-xl">
+        {total_excerpts}
+      </p>
 
-      <Button
-        color="secondary"
+      <button
+        className="bg-custom-blue hover:bg-blue-700 text-lg text-white font-bold py-2 px-4 mx-2 min-w-min rounded-sm shadow-md hover:shadow-lg flex justify-center items-center"
         onClick={() => {
           console.log('setting active popup to', keyValue);
           setActivePopUp(keyValue);
         }}
       >
         Show popup
-      </Button>
+      </button>
       {activePopUp === keyValue && (
         <LibraryPopup
           isLoading={isLibraryLoading}
