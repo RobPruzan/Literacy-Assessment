@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Data } from '../components/Chart/Chart';
 
 export type ExcerptInfo = {
   id: number;
@@ -36,6 +37,65 @@ export type Category = {
 // shape is array of objects
 // first object contains interpreation which is an array of strings and numbers and "original" which holds a string
 // second object contains "diversity_score" which holds a number
+export type CalculationStats = {
+  difficulty: number | null;
+  diversity: DiversityOutput | null;
+  grammar: number | null;
+  plot_data: Data | null;
+  readability_measures: ReadabilityMeasures | null;
+  sliding_window_stats: WindowDifficultyOutput | null;
+};
+
+export type ReadabilityMeasures = {
+  ['readability grades']: Grades;
+  ['sentence beginnings']: Beginnings;
+  ['sentence info']: SentenceInfo;
+  ['word usage']: WordUsage;
+};
+
+export type Grades = {
+  Kincaid: number;
+  ARI: number;
+  ['Coleman-Liau']: number;
+  FleschReadingEase: number;
+  GunningFogIndex: number;
+  LIX: number;
+  RIX: number;
+  SMOGIndex: number;
+};
+
+export type Beginnings = {
+  article: number;
+  conjunction: number;
+  interrogative: number;
+  preposition: number;
+  pronoun: number;
+  subordination: number;
+};
+
+export type SentenceInfo = {
+  characters: number;
+  characters_per_word: number;
+  complex_words: number;
+  long_words: number;
+  paragraphs: number;
+  sentences: number;
+  sentences_per_paragraph: number;
+  syll_per_word: number;
+  syllables: number;
+  type_token_ratio: number;
+  words: number;
+  words_per_sentence: number;
+  wordtypes: number;
+};
+
+export type WordUsage = {
+  tobeverb: number;
+  auxverb: number;
+  conjunction: number;
+  pronoun: number;
+  preposition: number;
+};
 
 export type InterpretableOutput = {
   interpretation: [string, number][];
@@ -43,6 +103,7 @@ export type InterpretableOutput = {
 };
 
 export type DiversityOutput = {
+  original: string;
   diversity_score: number;
 };
 
@@ -103,7 +164,9 @@ export class NorthStarApi {
     return response.data;
   }
 
-  public async compareExcerpts(excerpts: ExcerptInfo[]): Promise<any> {
+  public async compareExcerpts(
+    excerpts: ExcerptInfo[]
+  ): Promise<CalculationStats[]> {
     const response = await axios.post(`${this.baseUrl}/api/compare`, {
       excerpts,
     });

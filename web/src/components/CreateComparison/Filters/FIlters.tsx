@@ -1,20 +1,12 @@
 import React from 'react';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 
 const Filters = () => {
   return (
-    <>
-      <p className="text-center text-3xl font-bold text-custom-blue">Filters</p>
-      <div className=" flex  md:flex-col sm:items-center  overflow-x-scroll ">
+    <div className="overflow-scroll">
+      <div className=" flex  md:flex-col sm:items-center  overflow-x-scroll  overflow-y-scroll">
         <Autocomplete
           className="mb-2 mt-4 mx-2"
           disablePortal
@@ -57,14 +49,16 @@ const Filters = () => {
           renderInput={(params) => <TextField {...params} label="Region" />}
         />
         <TextField
-          className="mb-2 mt-4 mx-2"
+          className="mb-2 mt-4 mx-2 overflow-visible"
           sx={{
-            minWidth: '3em',
             width: '75%',
+            minWidth: '3em',
+            fontFamily:
+              'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
           }}
           id="standard-number"
-          label="Max Count"
           type="number"
+          label="Max Count"
           InputLabelProps={{
             shrink: true,
           }}
@@ -74,7 +68,7 @@ const Filters = () => {
           Apply
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

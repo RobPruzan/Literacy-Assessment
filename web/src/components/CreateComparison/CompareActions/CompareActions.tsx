@@ -6,6 +6,7 @@ import NorthStar from '../../../services.ts/connections';
 import { UseCompareExcerpts } from '../../hooks/UseCompareExcerpts';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
 import Spinner from 'react-bootstrap/Spinner';
+import { redirect } from 'react-router-dom';
 
 const enum AttemptErrors {
   NoExcerptsSelected = 'No excerpts selected',
@@ -28,6 +29,10 @@ const CompareActions = () => {
     calculationLoading,
     colactionErrored,
   } = UseCompareExcerpts();
+  if (calculationLoading) {
+    console.log('loading');
+    redirect('compare/loading');
+  }
 
   const handleCompare = () => {
     if (!selectedExcerpts || selectedExcerpts.length === 0) {

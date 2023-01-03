@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
 import { ExcerptCard } from './ExcerptCard';
+import { SearchBar } from './SearchBar';
 export type LibraryPopupProps = {
   isLoading: boolean;
   isError: boolean;
@@ -27,31 +28,30 @@ const LibraryPopup = ({
   console.log('category id', categoryId);
   console.log('data', data);
   return (
-    <div className="absolute z-10 bg-white shadow-lg rounded-lg p-4 h-96  min-w-fit  w-72 overflow-y-auto border-2 border-custom-blue ">
+    <div className="absolute z-10 bg-white shadow-lg rounded-lg sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blue ">
       {isLoading || isError ? (
         <div>
           {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}
         </div>
       ) : (
-        <>
+        <div className="flex flex-col">
           <HighlightOff
-            className="hover:cursor-pointer float-left mb-2"
+            className="hover:cursor-pointer float-left mb-2 overflow-x-auto"
             sx={{ fill: 'red' }}
             onClick={() => {
               keyValue === activePopUp && setActivePopUp(-1);
             }}
-          >
-            Close
-          </HighlightOff>
+          />
+          <SearchBar />
 
           {data?.map((info) => (
-            <div className=" mb-3">
+            <div className="flex justify-center mb-3">
               {categoryId === info.category.id && (
                 <ExcerptCard excerptInfo={info} />
               )}
             </div>
           ))}
-        </>
+        </div>
       )}
     </div>
   );

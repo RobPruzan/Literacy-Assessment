@@ -11,7 +11,7 @@ import Filters from './Filters/FIlters';
 export const CreateComparison = () => {
   return (
     <>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen w-screen  max-w-full  ">
         <AboutNavbar color="custom-blue" />
         <div className=" flex justify-center items-center flex-grow">
           <div className="h-full div bo-blue-200  grid grid-cols-4 grid-rows-6 w-screen">

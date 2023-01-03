@@ -4,8 +4,10 @@ from django.shortcuts import render
 from .NLP.main import (
     calculate_diversity,
     comparison_pipeline,
+    misspelled_percentage,
     reading_difficulty,
     sliding_window,
+    get_readability_measures,
 )
 from .models import Category, Excerpt, ExcerptInfo, User
 from .serializers import CategorySerializer, ExcerptInfoSerializer, UserSerializer
@@ -75,6 +77,18 @@ class WindowDifficultyView(APIView):
         difficulty = sliding_window(text)
         print("difficulty", difficulty, color="blue")
         return Response(difficulty)
+
+
+class ReadabilityMeasures(APIView):
+    def post(self, request, *args, **kwargs):
+        text = request.data.get("excerpt")
+        return Response(get_readability_measures(text))
+
+
+class CalculateGrammer(APIView):
+    def post(self, request, *args, **kwargs):
+        text = request.data.get("excerpt")
+        return Response(misspelled_percentage(text))
 
 
 class CompereText(APIView):
