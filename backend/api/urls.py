@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from .views import (
+    CalculateGrammer,
     CategoryView,
     CompareDataView,
     CompereText,
@@ -8,6 +9,7 @@ from .views import (
     DiversityView,
     ExcerptByCategoryView,
     ExcerptInfoView,
+    ReadabilityMeasures,
     WindowDifficultyView,
 )
 
@@ -19,4 +21,6 @@ urlpatterns = [
     path("api/difficulty", DifficultyView.as_view()),
     path("api/window_difficulty", WindowDifficultyView.as_view()),
     path("api/compare", CompereText.as_view()),
+    path("api/grammer", CalculateGrammer.as_view()),
+    path("api/readability", ReadabilityMeasures.as_view()),
 ]

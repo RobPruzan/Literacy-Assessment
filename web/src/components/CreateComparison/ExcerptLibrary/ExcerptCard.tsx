@@ -54,33 +54,42 @@ export const ExcerptCard = ({
     "
     >
       <div className="d-flex flex-col ">
-        <div className="m-1 text-lg justify-center flex">
-          {excerptInfo.excerpt.title.toUpperCase()}
-          {isMinimal ? (
-            <HighlightOffIcon
-              fontSize="medium"
-              className="hover:cursor-pointer top-0"
-              sx={{ fill: '#FE4242' }}
-              onClick={() =>
-                dispatch({
-                  type: SelectedExcerptsActions.RemoveExcerpt,
-                  payload: { excerptInfo: excerptInfo },
-                })
-              }
-            />
-          ) : (
-            <AddCircleOutlineIcon
-              fontSize="large"
-              className="hover:cursor-pointer  hover:fill-green-500"
-              sx={{ fill: '#4EFF10' }}
-              onClick={() =>
-                dispatch({
-                  type: SelectedExcerptsActions.AddExcerpt,
-                  payload: { excerptInfo: excerptInfo },
-                })
-              }
-            />
-          )}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          className="m-1 text-md  flex"
+        >
+          <div style={{ margin: 'auto' }}>
+            {excerptInfo.excerpt.title.toUpperCase()}
+          </div>
+          <div style={{ alignSelf: 'flex-end' }}>
+            {isMinimal ? (
+              <HighlightOffIcon
+                fontSize="medium"
+                className="hover:cursor-pointer top-0"
+                sx={{ fill: '#FE4242' }}
+                onClick={() =>
+                  dispatch({
+                    type: SelectedExcerptsActions.RemoveExcerpt,
+                    payload: { excerptInfo: excerptInfo },
+                  })
+                }
+              />
+            ) : (
+              <AddCircleOutlineIcon
+                className="hover:cursor-pointer  hover:fill-green-500"
+                sx={{ fill: '#4EFF10' }}
+                onClick={() =>
+                  dispatch({
+                    type: SelectedExcerptsActions.AddExcerpt,
+                    payload: { excerptInfo: excerptInfo },
+                  })
+                }
+              />
+            )}
+          </div>
         </div>
         <StatsCard />
       </div>

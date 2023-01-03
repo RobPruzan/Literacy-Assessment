@@ -8,6 +8,7 @@ import { About } from './components/About/About';
 import { CreateComparison } from './components/CreateComparison/CreateComparison';
 import { Analysis } from './components/Analysis/Analysis';
 import { createTheme } from '@mui/material';
+import Loading from './components/Loading';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/create-comparison" element={<CreateComparison />} />
+          <Route path="/loading" element={<Loading />} />
         </Routes>
       </BrowserRouter>
     </>

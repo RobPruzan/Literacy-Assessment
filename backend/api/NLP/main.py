@@ -198,7 +198,7 @@ def heatmap(scores, df):
     )
 
 
-def readability_measures(text):
+def get_readability_measures(text):
     results = readability.getmeasures(text, lang="en")
     return results
 
@@ -337,7 +337,7 @@ def calculate_stats(file_name, data_index):
                 continue
 
             try:
-                stat = readability_measures(line[data_index])
+                stat = get_readability_measures(line[data_index])
 
             except ValueError:
                 continue
@@ -794,34 +794,40 @@ def smart_synonyms(text, level):
     return f"{cleaned_syns}: Definition- {cleaend_defs} | "
 
 
+def interpret_to_plot(interpretation):
+    plot_data = {"x": [], "y": []}
+    if interpretation:
+        for idx, (word, score) in enumerate(interpretation):
+            plot_data["x"].append(idx)
+            plot_data["y"].append(score)
+    return plot_data
+
+
+def misspelled_percentage(tokenized_excerpt: List[str]) -> float:
+    spell = SpellChecker()
+    misspelled = spell.unknown(tokenized_excerpt)
+    return len(misspelled) / len(tokenized_excerpt)
+
+
 def comparison_pipeline(excerpts_list: List[str]):
-    all_stats = []
+
     for excerpt in excerpts_list:
         tokenized_words = word_tokenize(excerpt)
         if len(tokenized_words) < 10:
             continue
-        excerpt_stats = {
-            "diversity": 0,
-            "difficulty": 0,
-            "sliding_window_stats": None,
-            "length": 0,
-            "readability_measures": None,
-            "grammar": 0,
-        }
 
         diversity = calculate_diversity(excerpt)
         difficulty = reading_difficulty(excerpt)
         sliding_window_stats = sliding_window(excerpt)
-        length = len(tokenized_words)
-        readability = readability_measures(excerpt)
-        spell = SpellChecker()
-        misspelled = spell.unknown(tokenized_words)
-        grammar = len(misspelled) / len(tokenized_words)
+        plot_data = interpret_to_plot(sliding_window_stats.get("interpretation"))
+
+        readability = get_readability_measures(excerpt)
+        grammar = misspelled_percentage(tokenized_words)
         excerpt_stats["diversity"] = diversity
         excerpt_stats["difficulty"] = difficulty
         excerpt_stats["sliding_window_stats"] = sliding_window_stats
-        excerpt_stats["length"] = length
+        excerpt_stats["plot_data"] = plot_data
         excerpt_stats["readability_measures"] = readability
         excerpt_stats["grammar"] = grammar
-        all_stats.append(excerpt_stats)
+
     return all_stats
