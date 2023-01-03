@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
+import NorthStar from '../../../services.ts/connections';
 import CategoryCard from './CategoryCard';
 
 export const ExcerptLibrary = () => {

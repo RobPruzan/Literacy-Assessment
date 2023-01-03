@@ -3,7 +3,6 @@ from django.urls import include, path
 from .views import (
     CalculateGrammer,
     CategoryView,
-    CompareDataView,
     CompereText,
     DifficultyView,
     DiversityView,
@@ -21,6 +20,6 @@ urlpatterns = [
     path("api/difficulty", DifficultyView.as_view()),
     path("api/window_difficulty", WindowDifficultyView.as_view()),
     path("api/compare", CompereText.as_view()),
-    path("api/grammer", CalculateGrammer.as_view()),
+    path("api/grammar", CalculateGrammer.as_view()),
     path("api/readability", ReadabilityMeasures.as_view()),
 ]

@@ -292,12 +292,10 @@ def level(score):
         return " College"
 
 
-def reading_difficulty(excerpt):
-    if len(excerpt) == 0:
-        return "No Text Provided"
+def reading_difficulty(excerpt: string) -> float:
+    assert type(excerpt) != string or len(excerpt > 100), "Excerpt must not be empty"
     windows = []
     words = tokenizer.tokenize(excerpt)
-
     if len(words) > 500:
         for idx, text in enumerate(words):
             if idx % 500 == 0:

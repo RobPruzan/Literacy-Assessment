@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import { RootState } from '../../../redux/store';
-import NorthStar from '../../../services.ts/connections';
-import { UseCompareExcerpts } from '../../hooks/UseCompareExcerpts';
-import StatsCard from '../../InfoCardBar.tsx/StatsCard';
-import Spinner from 'react-bootstrap/Spinner';
-import { redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import useSequentialComparison from '../../hooks/useSequentialComparison';
 
 const enum AttemptErrors {
   NoExcerptsSelected = 'No excerpts selected',
@@ -17,30 +14,32 @@ const enum AttemptErrors {
 const CompareActions = () => {
   const [attemptError, setAttemptError] = useState<AttemptErrors | null>(null);
   const dispatch = useDispatch();
-  const selectedExcerpts = useSelector(
-    ({ selectedExcerptsState }: RootState) =>
-      selectedExcerptsState.selectedExcerpts
+  const selectedExcerpts = useSelector(({ selectedExcerptsState }: RootState) =>
+    selectedExcerptsState.selectedExcerpts?.reverse()
   );
 
   const {
-    compareExcerpts,
-    comparisonStats,
-    calculationError,
-    calculationLoading,
-    colactionErrored,
-  } = UseCompareExcerpts();
-  if (calculationLoading) {
-    console.log('loading');
-    redirect('compare/loading');
-  }
+    difficultyHelpers,
+    diversityHelpers,
+    grammarHelpers,
+    readabilityMeasuresHelpers,
+    slidingWindowStatsHelpers,
+  } = useSequentialComparison();
 
   const handleCompare = () => {
     if (!selectedExcerpts || selectedExcerpts.length === 0) {
       setAttemptError(AttemptErrors.NoExcerptsSelected);
       return;
     } else {
+      const excerpt_ids = selectedExcerpts
+        ? selectedExcerpts.map((excerpt) => excerpt.id)
+        : [];
       setAttemptError(null);
-      compareExcerpts(selectedExcerpts);
+      grammarHelpers.mutateGrammar(excerpt_ids);
+      readabilityMeasuresHelpers.mutateReadabilityMeasures(excerpt_ids);
+      difficultyHelpers.mutateDifficulty(excerpt_ids);
+      diversityHelpers.mutateDiversity(excerpt_ids);
+      slidingWindowStatsHelpers.mutateSlidingWindowStats(excerpt_ids);
     }
   };
 
@@ -55,13 +54,23 @@ const CompareActions = () => {
       >
         Reset All
       </button>
-      {calculationLoading && <p className="text-black">Loading...</p>}
-      <button
-        onClick={handleCompare}
-        className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
-      >
-        Compare
-      </button>
+      {difficultyHelpers.difficultyLoading && (
+        <p className="text-black">Loading...</p>
+      )}
+      <Link to="/analysis">
+        <button
+          onClick={handleCompare}
+          className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
+        >
+          Compare
+        </button>
+      </Link>
+
+      {difficultyHelpers.difficultyData?.map((calc, idx) => (
+        <p className="text-black" key={`diff map ${idx}`}>
+          Difficulty: {calc}
+        </p>
+      ))}
     </div>
   );
 };

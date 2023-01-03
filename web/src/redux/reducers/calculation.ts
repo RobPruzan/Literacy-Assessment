@@ -10,17 +10,14 @@ export const DEFAULT_CALCULATION_STATE: CalculationStats = {
   difficulty: null,
   diversity: null,
   grammar: null,
-  plot_data: null,
   readability_measures: null,
   sliding_window_stats: null,
 };
 
 export enum CalculationActions {
-  // SetCalculationStats = 'calculation/SET_CALCULATION_STATS',
   SetDifficulty = 'calculation/SET_DIFFICULTY',
   SetDiversity = 'calculation/SET_DIVERSITY',
   SetGrammar = 'calculation/SET_GRAMMAR',
-  SetPlotData = 'calculation/SET_PLOT_DATA',
   SetReadabilityMeasures = 'calculation/SET_READABILITY_MEASURES',
   SetSlidingWindowStats = 'calculation/SET_SLIDING_WINDOW_STATS',
   ClearCalculationStats = 'calculation/CLEAR_CALCULATION_STATS',
@@ -28,40 +25,25 @@ export enum CalculationActions {
 
 interface SetDifficultyAction {
   type: CalculationActions.SetDifficulty;
-  payload: {
-    difficulty: number;
-  };
+  payload: number;
 }
 interface SetDiversityAction {
   type: CalculationActions.SetDiversity;
-  payload: {
-    diversity: DiversityOutput;
-  };
+  payload: DiversityOutput;
 }
 interface SetGrammarAction {
   type: CalculationActions.SetGrammar;
-  payload: {
-    grammar: number;
-  };
+  payload: number;
 }
-interface SetPlotDataAction {
-  type: CalculationActions.SetPlotData;
-  payload: {
-    plot_data: Data;
-  };
-}
+
 interface SetReadabilityMeasuresAction {
   type: CalculationActions.SetReadabilityMeasures;
-  payload: {
-    readability_measures: ReadabilityMeasures;
-  };
+  payload: ReadabilityMeasures;
 }
 
 interface SetSlidingWindowStatsAction {
   type: CalculationActions.SetSlidingWindowStats;
-  payload: {
-    sliding_window_stats: WindowDifficultyOutput;
-  };
+  payload: WindowDifficultyOutput;
 }
 
 interface ClearCalculationStatsAction {
@@ -74,7 +56,6 @@ export const CalculationReducer = (
     | SetDifficultyAction
     | SetDiversityAction
     | SetGrammarAction
-    | SetPlotDataAction
     | SetReadabilityMeasuresAction
     | SetSlidingWindowStatsAction
     | ClearCalculationStatsAction
@@ -83,32 +64,27 @@ export const CalculationReducer = (
     case CalculationActions.SetDifficulty:
       return {
         ...state,
-        difficulty: action.payload.difficulty,
+        difficulty: action.payload,
       };
     case CalculationActions.SetDiversity:
       return {
         ...state,
-        diversity: action.payload.diversity,
+        diversity: action.payload,
       };
     case CalculationActions.SetGrammar:
       return {
         ...state,
-        grammar: action.payload.grammar,
-      };
-    case CalculationActions.SetPlotData:
-      return {
-        ...state,
-        plot_data: action.payload.plot_data,
+        grammar: action.payload,
       };
     case CalculationActions.SetReadabilityMeasures:
       return {
         ...state,
-        readability_measures: action.payload.readability_measures,
+        readability_measures: action.payload,
       };
     case CalculationActions.SetSlidingWindowStats:
       return {
         ...state,
-        sliding_window_stats: action.payload.sliding_window_stats,
+        sliding_window_stats: action.payload,
       };
 
     case CalculationActions.ClearCalculationStats:

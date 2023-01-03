@@ -5,8 +5,9 @@ import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const InfoCardBar = () => {
-  const selectedExcerpts = useSelector(({ selectedExcerptsState }: RootState) =>
-    selectedExcerptsState.selectedExcerpts?.reverse()
+  const selectedExcerpts = useSelector(
+    ({ selectedExcerptsState }: RootState) =>
+      selectedExcerptsState.selectedExcerpts
   );
   return (
     <div className="flex h-full items-center overflow-scroll">
@@ -31,6 +32,7 @@ const InfoCardBar = () => {
     flex
     justify-center
     items-center min-h-fit
+  
 
     "
       >

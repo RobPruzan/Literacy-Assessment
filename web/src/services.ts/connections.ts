@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Data } from '../components/Chart/Chart';
 
 export type ExcerptInfo = {
   id: number;
@@ -7,6 +6,7 @@ export type ExcerptInfo = {
   title: string;
   difficulty: number;
   diversity: number;
+  text_length: number;
   category: Category;
   region: string;
   source: string;
@@ -25,25 +25,12 @@ export type Category = {
   total_excerpts: number;
 };
 
-// export type InterpretableOutput = {
-//   original: string;
-//   interpretation: (string | number)[];
-// };
-
-// export type DiversityOutput = {
-//   heatmap: InterpretableOutput[];
-//   diversity_score: number;
-// };
-// shape is array of objects
-// first object contains interpreation which is an array of strings and numbers and "original" which holds a string
-// second object contains "diversity_score" which holds a number
 export type CalculationStats = {
-  difficulty: number | null;
-  diversity: DiversityOutput | null;
-  grammar: number | null;
-  plot_data: Data | null;
-  readability_measures: ReadabilityMeasures | null;
-  sliding_window_stats: WindowDifficultyOutput | null;
+  difficulty: number[] | null;
+  diversity: DiversityOutput[] | null;
+  grammar: number[] | null;
+  readability_measures: ReadabilityMeasures[] | null;
+  sliding_window_stats: WindowDifficultyOutput[] | null;
 };
 
 export type ReadabilityMeasures = {
@@ -102,8 +89,13 @@ export type InterpretableOutput = {
   original: string;
 };
 
-export type DiversityOutput = {
+export type DiversityOutput = [DiversityOriginal, DiversityScore];
+
+export type DiversityOriginal = {
   original: string;
+};
+
+export type DiversityScore = {
   diversity_score: number;
 };
 
@@ -140,26 +132,41 @@ export class NorthStarApi {
     return response.data;
   }
 
-  public async calculateDiversityScore(
-    excerpt: string
-  ): Promise<[InterpretableOutput, DiversityOutput]> {
+  public async getDiversityScore(
+    excerpt_ids: number[]
+  ): Promise<[InterpretableOutput, DiversityOutput][]> {
     const response = await axios.post(`${this.baseUrl}/api/diversity`, {
-      excerpt,
+      excerpt_ids,
     });
-    console.log('response diversity', response.data);
     return response.data;
   }
-  public async calculateDifficultyScore(excerpt: string): Promise<number> {
+  public async getDifficultyScore(excerpt_ids: number[]): Promise<number[]> {
     const response = await axios.post(`${this.baseUrl}/api/difficulty`, {
-      excerpt,
+      excerpt_ids,
     });
     return response.data;
   }
-  public async calculateWindowDifficultyScore(
-    excerpt: string
-  ): Promise<WindowDifficultyOutput> {
+  public async getWindowDifficultyScore(
+    excerpt_ids: number[]
+  ): Promise<WindowDifficultyOutput[]> {
     const response = await axios.post(`${this.baseUrl}/api/window_difficulty`, {
-      excerpt,
+      excerpt_ids,
+    });
+    return response.data;
+  }
+
+  public async getGrammerScore(excerpt_ids: number[]): Promise<number[]> {
+    const response = await axios.post(`${this.baseUrl}/api/grammar`, {
+      excerpt_ids,
+    });
+    return response.data;
+  }
+
+  public async getReadabilityMeasures(
+    excerpt_ids: number[]
+  ): Promise<ReadabilityMeasures[]> {
+    const response = await axios.post(`${this.baseUrl}/api/readability`, {
+      excerpt_ids,
     });
     return response.data;
   }
