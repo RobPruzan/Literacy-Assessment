@@ -5,7 +5,6 @@ function FileUpload() {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      console.log('what is in here', e.target.files);
       setFile(e.target.files[0]);
     }
   };

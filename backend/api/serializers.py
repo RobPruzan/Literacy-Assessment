@@ -41,3 +41,9 @@ class ExcerptInfoSerializer(serializers.ModelSerializer):
             "category",
             "region",
         )
+
+    # def to_representation(self, instance):
+    #     ret = super().to_representation(instance)
+    #     # get length of words in excerpt
+    #     ret['count'] = len(ret['excerpt'].split())
+    #     return ret

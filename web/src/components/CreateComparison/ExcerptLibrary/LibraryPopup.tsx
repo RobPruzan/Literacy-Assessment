@@ -1,8 +1,6 @@
 import { HighlightOff } from '@mui/icons-material';
-import { Button } from '@mui/material';
-import React, { Dispatch, SetStateAction } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
+import { Dispatch, SetStateAction } from 'react';
+import { ExcerptInfo } from '../../../services.ts/connections';
 import { ExcerptCard } from './ExcerptCard';
 import { SearchBar } from './SearchBar';
 export type LibraryPopupProps = {
@@ -25,8 +23,6 @@ const LibraryPopup = ({
   activePopUp,
   keyValue,
 }: LibraryPopupProps) => {
-  console.log('category id', categoryId);
-  console.log('data', data);
   return (
     <div className="absolute z-10 bg-white shadow-lg rounded-lg sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blue ">
       {isLoading || isError ? (

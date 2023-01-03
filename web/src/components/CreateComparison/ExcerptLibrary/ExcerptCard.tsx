@@ -91,7 +91,7 @@ export const ExcerptCard = ({
             )}
           </div>
         </div>
-        <StatsCard />
+        <StatsCard excerptInfo={excerptInfo} />
       </div>
     </div>
   );

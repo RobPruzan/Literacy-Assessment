@@ -18,7 +18,7 @@ export const MainNavbar = () => {
               Analysis
             </Link>
 
-            <Link className="Nav__link mx-2" to="/About">
+            <Link className="Nav__link mx-2" to="/">
               About
             </Link>
 

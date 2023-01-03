@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CalculationActions } from '../../redux/reducers/calculation';
 import NorthStar, { ExcerptInfo } from '../../services.ts/connections';
 
-export const UseCompareExcerpts = () => {
+export const UseBatchedCompareExcerpts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -15,12 +15,11 @@ export const UseCompareExcerpts = () => {
         console.log(error);
       },
       // when clicked redirect to loading page
-      onMutate: () => {
-        navigate('/loading');
-      },
+      // onMutate: () => {
+      //   navigate('/loading');
+      // },
 
       onSuccess: (data) => {
-        console.log('Compare Text Data', data);
         dispatch({
           type: CalculationActions.SetDifficulty,
           payload: {

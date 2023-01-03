@@ -15,11 +15,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<About />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/create-comparison" element={<CreateComparison />} />
-          <Route path="/loading" element={<Loading />} />
+          <Route path="/compare/loading" element={<Loading />} />
         </Routes>
       </BrowserRouter>
     </>

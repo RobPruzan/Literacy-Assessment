@@ -5,9 +5,11 @@ import { AboutNavbar } from './Navabars/AboutNavbar';
 
 const Loading = () => {
   return (
-    <div className="flex flex-col  h-screen">
-      <AboutNavbar color="custom-blue" />
-      <InfoCardBar />
+    <div>
+      <AboutNavbar color={'custom-blue'} />
+      <div className="mt-1 border-2  border-y-slate-500 p-2">
+        <InfoCardBar />
+      </div>
       <div className="justify-center items-center h-screen">
         <Spinner className="m-3" animation="grow" />
         <Spinner className="m-3" animation="grow" />

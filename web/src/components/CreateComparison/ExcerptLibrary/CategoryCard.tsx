@@ -1,9 +1,7 @@
-import { Button } from '@mui/material';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { Dispatch, SetStateAction, useDebugValue } from 'react';
+import { useQuery } from 'react-query';
 import NorthStar from '../../../services.ts/connections';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryPopup from './LibraryPopup';
 export type CategoryCardProps = {
   categoryId: number;
@@ -30,13 +28,10 @@ const CategoryCard = ({
     isLoading: isLibraryLoading,
     error: libraryError,
     isError: isLibraryError,
-  } = useQuery(
-    'excerptsByCategory',
-    () => NorthStar.getExcerptsInfoByCategory(categoryId),
-    {
-      enabled: activePopUp === keyValue,
-    }
+  } = useQuery(['excerptsByCategory', keyValue], () =>
+    NorthStar.getExcerptsInfoByCategory(categoryId)
   );
+  useDebugValue('test');
 
   return (
     <div
@@ -57,10 +52,7 @@ const CategoryCard = ({
       {!(activePopUp === keyValue) && (
         <ArrowCircleRightIcon
           className="hover:cursor-pointer float-left"
-          onClick={() => {
-            console.log('setting active popup to', libraryData);
-            setActivePopUp(keyValue);
-          }}
+          onClick={() => setActivePopUp(keyValue)}
         />
       )}
 

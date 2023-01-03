@@ -69,7 +69,7 @@ export const AboutNavbar = ({ color }: AboutNavbarProps) => {
               <li className="nav-item">
                 <div className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
-                  <Link className="Nav__link mx-2" to="/About">
+                  <Link className="Nav__link mx-2" to="/">
                     About
                   </Link>
                 </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CompareActions from './CompareActions/CompareActions';
 import { Description } from './Description';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
