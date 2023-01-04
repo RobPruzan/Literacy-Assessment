@@ -1,11 +1,19 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CalculationActions } from '../../redux/reducers/calculation';
-import { RootState } from '../../redux/store';
-import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import { useEffect, useState } from 'react';
+
 import { AboutNavbar } from '../Navabars/AboutNavbar';
+import { Box } from '@mui/material';
+import { CalculationActions } from '../../redux/reducers/calculation';
+import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import LinearProgress from '@mui/material/LinearProgress';
+import { RootState } from '../../redux/store';
+
+const NON_CALCULATION_KEYS = ['loadingProgress', 'isLoading'];
 
 export const Analysis = () => {
+  const [totalCalculations, setTotalCalculations] = useState<number | null>(
+    null
+  );
   const calculationState = useSelector(
     ({ calculationState }: RootState) => calculationState
   );
@@ -19,12 +27,72 @@ export const Analysis = () => {
     []
   );
 
+  const loadingProgress =
+    calculationState.loadingProgress && totalCalculations
+      ? (calculationState.loadingProgress / totalCalculations) * 100
+      : null;
+  useEffect(() => {
+    setTotalCalculations(
+      Object.keys(calculationState).reduce((prev, curr) => {
+        console.log('mappin key', curr, NON_CALCULATION_KEYS.includes(curr));
+        if (NON_CALCULATION_KEYS.includes(curr)) {
+          return prev;
+        } else {
+          return prev + 1;
+        }
+      }, 0)
+    );
+  }, [calculationState]);
+
+  console.log(
+    'loadingInfo',
+    calculationState.loadingProgress,
+    totalCalculations,
+    calculationState.loadingProgress ?? 0 / (totalCalculations ?? 0.001)
+  );
+
+  console.log(
+    'buncha booleans',
+
+    calculationState.loadingProgress,
+    totalCalculations
+  );
+
   return (
     <div>
       <AboutNavbar color={'custom-blue'} />
       <div className="border-2 border-t-0 border-custom-blue p-2">
         <InfoCardBar />
       </div>
+      <div className="flex justify-center text-lg font-semibold">
+        {calculationState.loadingProgress &&
+          totalCalculations &&
+          loadingProgress &&
+          (loadingProgress < 100 ? (
+            <Box sx={{ width: '100%', marginTop: '.2px' }}>
+              <LinearProgress
+                value={
+                  (calculationState.loadingProgress / totalCalculations) * 100
+                }
+              />
+            </Box>
+          ) : (
+            <Box sx={{ width: '100%', marginTop: '.2px' }}>
+              <LinearProgress
+                variant="buffer"
+                value={
+                  (calculationState.loadingProgress / totalCalculations) * 100
+                }
+              />
+            </Box>
+          ))}
+      </div>
+      <p className="text-center text-2xl font-bold">
+        {calculationState.loadingProgress &&
+          totalCalculations &&
+          (calculationState.loadingProgress / totalCalculations) * 100}
+        %
+      </p>
 
       {calculationState?.difficulty &&
         calculationState?.difficulty.map((difficulty, idx) => (

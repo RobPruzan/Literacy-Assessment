@@ -6,12 +6,23 @@ import {
   WindowDifficultyOutput,
 } from '../../services.ts/connections';
 
-export const DEFAULT_CALCULATION_STATE: CalculationStats = {
+export type CalculationInfo = {
+  loadingProgress: number | null;
+  isLoading: boolean;
+  // totalCalculations: number;
+};
+
+export type CalculationState = CalculationInfo & CalculationStats;
+
+export const DEFAULT_CALCULATION_STATE: CalculationState = {
   difficulty: null,
   diversity: null,
   grammar: null,
   readability_measures: null,
   sliding_window_stats: null,
+  loadingProgress: null,
+  isLoading: false,
+  // totalCalculations: 0,
 };
 
 export enum CalculationActions {
@@ -20,6 +31,9 @@ export enum CalculationActions {
   SetGrammar = 'calculation/SET_GRAMMAR',
   SetReadabilityMeasures = 'calculation/SET_READABILITY_MEASURES',
   SetSlidingWindowStats = 'calculation/SET_SLIDING_WINDOW_STATS',
+  SetLoadingProgress = 'calculation/SET_LOADING_PROGRESS',
+  SetIsLoading = 'calculation/SET_IS_LOADING',
+  // SetTotalCalculations = 'calculation/SET_TOTAL_CALCULATIONS',
   ClearCalculationStats = 'calculation/CLEAR_CALCULATION_STATS',
 }
 
@@ -46,19 +60,37 @@ interface SetSlidingWindowStatsAction {
   payload: WindowDifficultyOutput;
 }
 
+interface SetLoadingProgressAction {
+  type: CalculationActions.SetLoadingProgress;
+  payload: number;
+}
+
+interface SetIsLoadingAction {
+  type: CalculationActions.SetIsLoading;
+  payload: boolean;
+}
+
+// interface SetTotalCalculationsAction {
+//   type: CalculationActions.SetTotalCalculations;
+//   payload: number;
+// }
+
 interface ClearCalculationStatsAction {
   type: CalculationActions.ClearCalculationStats;
 }
 
 export const CalculationReducer = (
-  state: CalculationStats = DEFAULT_CALCULATION_STATE,
+  state: CalculationState = DEFAULT_CALCULATION_STATE,
   action:
     | SetDifficultyAction
     | SetDiversityAction
     | SetGrammarAction
     | SetReadabilityMeasuresAction
     | SetSlidingWindowStatsAction
+    | SetIsLoadingAction
     | ClearCalculationStatsAction
+    | SetLoadingProgressAction
+  // | SetTotalCalculationsAction
 ) => {
   switch (action.type) {
     case CalculationActions.SetDifficulty:
@@ -86,12 +118,26 @@ export const CalculationReducer = (
         ...state,
         sliding_window_stats: action.payload,
       };
-
-    case CalculationActions.ClearCalculationStats:
+    case CalculationActions.SetLoadingProgress:
       return {
         ...state,
-        calculationStats: null,
+        loadingProgress: (state.loadingProgress ?? 0) + action.payload,
       };
+
+    case CalculationActions.SetIsLoading:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
+    // case CalculationActions.SetTotalCalculations:
+    //   return {
+    //     ...state,
+    //     totalCalculations: action.payload,
+    //   };
+
+    case CalculationActions.ClearCalculationStats:
+      return DEFAULT_CALCULATION_STATE;
 
     default:
       return state;

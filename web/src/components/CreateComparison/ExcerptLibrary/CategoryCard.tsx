@@ -3,6 +3,18 @@ import { Dispatch, SetStateAction, useDebugValue } from 'react';
 import { useQuery } from 'react-query';
 import NorthStar from '../../../services.ts/connections';
 import LibraryPopup from './LibraryPopup';
+
+export const COLOR_MAP = (difficulty: number) => {
+  console.log('color should be', difficulty);
+  if (difficulty <= 30) {
+    return 'lime';
+  } else if (difficulty <= 60) {
+    return 'orange';
+  } else {
+    return 'red';
+  }
+};
+
 export type CategoryCardProps = {
   categoryId: number;
   categoryName: string;
@@ -35,19 +47,24 @@ const CategoryCard = ({
 
   return (
     <div
-      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blue border-opacity-50  rounded-md m-2 shadow-md"
+      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blue border-opacity-50  rounded-md m-3 shadow-md"
       key={keyValue}
     >
       <p className="text-center text-black  text-xl  mb-2">{categoryName}</p>
-      <p className="text-center text-black  text-base"></p>
-      <p className="text-red-500 text-sm font-semibold">
+
+      <div
+        style={{
+          color: `${COLOR_MAP(difficulty)}`,
+        }}
+        className={` text-sm font-semibold`}
+      >
         <p className="inline">Difficulty: </p>
         <p className="inline">{difficulty}</p>
-      </p>
-      <p className="text-center text-black text-sm font-semibold">
+      </div>
+      <div className="text-center text-black text-sm font-semibold">
         <p className="inline">Excerpts: </p>
         <p className="inline">{total_excerpts}</p>
-      </p>
+      </div>
 
       {!(activePopUp === keyValue) && (
         <ArrowCircleRightIcon

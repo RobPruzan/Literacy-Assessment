@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { CalculationStats } from '../services.ts/connections';
-import { CalculationReducer } from './reducers/calculation';
+import { CalculationReducer, CalculationState } from './reducers/calculation';
 import { CountReducer, CountState } from './reducers/count';
 import {
   SelectedExcerptsReducer,
@@ -14,7 +14,7 @@ import {
 export interface RootState {
   countState: CountState;
   selectedExcerptsState: SelectedExcerptsState;
-  calculationState: CalculationStats;
+  calculationState: CalculationState;
   // counter: CounterState;
 }
 

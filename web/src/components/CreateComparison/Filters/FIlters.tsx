@@ -8,7 +8,7 @@ const Filters = () => {
     <div className="overflow-scroll">
       <div className=" flex  md:flex-col sm:items-center  overflow-x-scroll  overflow-y-scroll">
         <Autocomplete
-          className="mb-2 mt-4 mx-2"
+          className="mb-2 mt-4 mx-2 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -21,7 +21,7 @@ const Filters = () => {
           renderInput={(params) => <TextField {...params} label="Topic" />}
         />
         <Autocomplete
-          className="mb-2 mt-4 mx-2"
+          className="mb-2 mt-4 mx-2 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -36,7 +36,7 @@ const Filters = () => {
           )}
         />
         <Autocomplete
-          className="mb-2 mt-4 mx-2"
+          className="mb-2 mt-4 mx-2 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -49,7 +49,7 @@ const Filters = () => {
           renderInput={(params) => <TextField {...params} label="Region" />}
         />
         <TextField
-          className="mb-2 mt-4 mx-2 overflow-visible"
+          className="mb-2 mt-4 mx-2 overflow-visible "
           sx={{
             width: '75%',
             minWidth: '3em',

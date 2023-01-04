@@ -405,20 +405,22 @@ def phon(text):
 def sliding_window(text):
     words = word_tokenize(text)
     improved_window = []
+    step = 3
     for idx, text in enumerate(words):
-        if idx <= len(words) - 26:
-            x = " ".join(words[idx : idx + 25])
-            throw_away = []
-            score = 0
-            for idx, i in enumerate(range(idx, idx + 25)):
-                if idx == 0:
-                    better_prediction = -(predict(x).item() * 1.786 + 6.4) + 10
-                    score = better_prediction
-                    throw_away.append((better_prediction, i))
-                else:
-                    throw_away.append((score, i))
+        if idx % step == 0:
+            if idx <= len(words) - 26:
+                x = " ".join(words[idx : idx + 25])
+                throw_away = []
+                score = 0
+                for idx, i in enumerate(range(idx, idx + 25)):
+                    if idx == 0:
+                        better_prediction = -(predict(x).item() * 1.786 + 6.4) + 10
+                        score = better_prediction
+                        throw_away.append((better_prediction, i))
+                    else:
+                        throw_away.append((score, i))
 
-            improved_window.append(throw_away)
+                improved_window.append(throw_away)
     average_scores = {k: 0 for k in range(len(words) - 1)}
     total_windows = {k: 0 for k in range(len(words) - 1)}
     for idx, i in enumerate(improved_window):
