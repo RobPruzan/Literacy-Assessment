@@ -19,8 +19,21 @@ const useServerCalculation = <T>({
         type: dispatchType,
         payload: data,
       });
+      dispatch({
+        type: CalculationActions.SetLoadingProgress,
+        payload: 1,
+      });
+      // dispatch({
+      //   type: CalculationActions.SetIsLoading,
+      //   payload: false,
+      // });
     },
-    onMutate: () => {},
+    onMutate: () => {
+      // dispatch({
+      //   type: CalculationActions.SetIsLoading,
+      //   payload: true,
+      // });
+    },
   });
   return {
     mutate,

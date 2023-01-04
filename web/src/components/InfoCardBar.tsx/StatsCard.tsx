@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExcerptInfo } from '../../services.ts/connections';
+import { COLOR_MAP } from '../CreateComparison/ExcerptLibrary/CategoryCard';
 export type StatsCardProps = {
   excerptInfo: ExcerptInfo;
 };
@@ -9,11 +10,25 @@ const StatsCard = ({ excerptInfo }: StatsCardProps) => {
       <div className=" text-custom-blue text-center  flex ">
         <div className="mx-2">
           <p className="">Difficulty</p>
-          <p className="text-red-500 ">{excerptInfo.difficulty}%</p>
+          <p
+            style={{
+              color: `${COLOR_MAP(excerptInfo.difficulty)}`,
+            }}
+            // className={`text-${COLOR_MAP(excerptInfo.difficulty)}-500`}
+          >
+            {excerptInfo.difficulty}%
+          </p>
         </div>
         <div className="mx-2">
           <p className="inline">Diversity</p>
-          <p className="text-green-500 ">{excerptInfo.diversity}%</p>
+          <p
+            style={{
+              color: `${COLOR_MAP(excerptInfo.diversity)}`,
+            }}
+            className={`text-${COLOR_MAP(excerptInfo.diversity)}-500`}
+          >
+            {excerptInfo.diversity}%
+          </p>
         </div>
         <div className="mx-2">
           <p>Length</p>

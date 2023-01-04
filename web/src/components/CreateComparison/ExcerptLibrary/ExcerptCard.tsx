@@ -34,16 +34,18 @@ export const ExcerptCard = ({
 
   return (
     <div
+      style={{
+        minWidth: '16rem',
+      }}
       className="
     bg-custom-blue
    
     text-white
-    font-bold
+    font-semibold
     py-1
     px-2
     rounded-md
     mx-2
-    min-w-min
     min-h-min
     shadow-md
     hover:shadow-lg
@@ -61,9 +63,7 @@ export const ExcerptCard = ({
           }}
           className="m-1 text-md  flex"
         >
-          <div style={{ margin: 'auto' }}>
-            {excerptInfo.excerpt.title.toUpperCase()}
-          </div>
+          <div style={{ margin: 'auto' }}>{excerptInfo.excerpt.title}</div>
           <div style={{ alignSelf: 'flex-end' }}>
             {isMinimal ? (
               <HighlightOffIcon
