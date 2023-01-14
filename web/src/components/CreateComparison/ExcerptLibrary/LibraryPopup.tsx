@@ -1,7 +1,8 @@
-import { HighlightOff } from '@mui/icons-material';
 import { Dispatch, SetStateAction } from 'react';
-import { ExcerptInfo } from '../../../services.ts/connections';
+
 import { ExcerptCard } from './ExcerptCard';
+import { ExcerptInfo } from '../../../services.ts/connections';
+import { HighlightOff } from '@mui/icons-material';
 import { SearchBar } from './SearchBar';
 export type LibraryPopupProps = {
   isLoading: boolean;
@@ -24,7 +25,7 @@ const LibraryPopup = ({
   keyValue,
 }: LibraryPopupProps) => {
   return (
-    <div className="absolute z-10 bg-white shadow-lg rounded-lg sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blue ">
+    <div className="absolute z-10 bg-white shadow-lg rounded-lg sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blood-red ">
       {isLoading || isError ? (
         <div>
           {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}

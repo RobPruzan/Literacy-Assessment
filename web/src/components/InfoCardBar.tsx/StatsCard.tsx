@@ -1,13 +1,13 @@
-import React from 'react';
-import { ExcerptInfo } from '../../services.ts/connections';
 import { COLOR_MAP } from '../CreateComparison/ExcerptLibrary/CategoryCard';
+import { ExcerptInfo } from '../../services.ts/connections';
+import React from 'react';
 export type StatsCardProps = {
   excerptInfo: ExcerptInfo;
 };
 const StatsCard = ({ excerptInfo }: StatsCardProps) => {
   return (
     <div className="bg-white  text-center text-sm flex min-w-min max-w-full rounded-md w-max h-max p-1">
-      <div className=" text-custom-blue text-center  flex ">
+      <div className=" text-custom-blood-red text-center  flex ">
         <div className="mx-2">
           <p className="">Difficulty</p>
           <p

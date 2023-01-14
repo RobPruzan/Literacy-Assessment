@@ -1,16 +1,17 @@
-import { ButtonBase } from '@mui/material';
-import React, { useState } from 'react';
-import { Card } from 'react-bootstrap';
-import { useMutation, useQuery } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
-import LibraryPopup from './LibraryPopup';
+import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
+
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // import mui button
 import { Button } from '@mui/material';
+import { ButtonBase } from '@mui/material';
+import { Card } from 'react-bootstrap';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import LibraryPopup from './LibraryPopup';
+import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
+import { useDispatch } from 'react-redux';
 export type ExcerptCardProps = {
   excerptInfo: ExcerptInfo;
   allowDelete?: boolean;
@@ -38,7 +39,7 @@ export const ExcerptCard = ({
         minWidth: '16rem',
       }}
       className="
-    bg-custom-blue
+    bg-custom-blood-red
    
     text-white
     font-semibold

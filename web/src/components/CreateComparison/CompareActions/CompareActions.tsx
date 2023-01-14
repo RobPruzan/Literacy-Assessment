@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
-import { RootState } from '../../../redux/store';
+
 import { Link } from 'react-router-dom';
+import { RootState } from '../../../redux/store';
+import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import useSequentialComparison from '../../hooks/useSequentialComparison';
+import { useState } from 'react';
 
 const enum AttemptErrors {
   NoExcerptsSelected = 'No excerpts selected',
@@ -47,7 +48,7 @@ const CompareActions = () => {
     <div>
       {attemptError && <p className="text-red-500">Error: {attemptError}</p>}
       <button
-        className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
+        className="rounded bg-custom-blood-red text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
         onClick={() =>
           dispatch({ type: SelectedExcerptsActions.ResetSelectedExcerpts })
         }
@@ -60,7 +61,7 @@ const CompareActions = () => {
       <Link to="/analysis">
         <button
           onClick={handleCompare}
-          className="rounded bg-custom-blue text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
+          className="rounded bg-custom-blood-red text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
         >
           Compare
         </button>

@@ -1,8 +1,10 @@
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { Dispatch, SetStateAction, useDebugValue } from 'react';
-import { useQuery } from 'react-query';
-import NorthStar from '../../../services.ts/connections';
+
+import { AiOutlineEye } from 'react-icons/ai';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import LibraryPopup from './LibraryPopup';
+import NorthStar from '../../../services.ts/connections';
+import { useQuery } from 'react-query';
 
 export const COLOR_MAP = (difficulty: number) => {
   console.log('color should be', difficulty);
@@ -47,7 +49,7 @@ const CategoryCard = ({
 
   return (
     <div
-      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blue border-opacity-50  rounded-md m-3 shadow-md"
+      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md"
       key={keyValue}
     >
       <p className="text-center text-black  text-xl  mb-2">{categoryName}</p>
@@ -67,8 +69,9 @@ const CategoryCard = ({
       </div>
 
       {!(activePopUp === keyValue) && (
-        <ArrowCircleRightIcon
-          className="hover:cursor-pointer float-left"
+        <AiOutlineEye
+          size={22}
+          className="hover:cursor-pointer hover:fill-slate-500 hover:shadow-2xl float-left"
           onClick={() => setActivePopUp(keyValue)}
         />
       )}

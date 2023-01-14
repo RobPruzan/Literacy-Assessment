@@ -17,6 +17,32 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.gradient {
+  background: hsla(184, 85%, 63%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(184, 85%, 63%, 1) 0%,
+    hsla(202, 90%, 49%, 1) 60%,
+    hsla(202, 89%, 48%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(184, 85%, 63%, 1) 0%,
+    hsla(202, 90%, 49%, 1) 60%,
+    hsla(202, 89%, 48%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(184, 85%, 63%, 1) 0%,
+    hsla(202, 90%, 49%, 1) 60%,
+    hsla(202, 89%, 48%, 1) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#4FE6F1", endColorstr="#0C9CED", GradientType=1 );
+}
 
 .card {
   background-color: white;
