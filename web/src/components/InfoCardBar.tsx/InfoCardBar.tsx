@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
+import React from 'react';
+import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
 const InfoCardBar = () => {
   const selectedExcerpts = useSelector(
@@ -17,7 +17,7 @@ const InfoCardBar = () => {
         }}
         className="
   
-   border-2 border-custom-blue
+   border-2 border-custom-blood-red
     text-white
     font-bold
     py-2

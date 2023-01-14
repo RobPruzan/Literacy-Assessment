@@ -1,12 +1,12 @@
+import { AboutNavbar } from './Navabars/AboutNavbar';
+import InfoCardBar from './InfoCardBar.tsx/InfoCardBar';
 import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import InfoCardBar from './InfoCardBar.tsx/InfoCardBar';
-import { AboutNavbar } from './Navabars/AboutNavbar';
 
 const Loading = () => {
   return (
     <div>
-      <AboutNavbar color={'custom-blue'} />
+      <AboutNavbar color={'custom-blood-red'} />
       <div className="mt-1 border-2  border-y-slate-500 p-2">
         <InfoCardBar />
       </div>

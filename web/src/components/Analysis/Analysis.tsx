@@ -60,8 +60,8 @@ export const Analysis = () => {
 
   return (
     <div>
-      <AboutNavbar color={'custom-blue'} />
-      <div className="border-2 border-t-0 border-custom-blue p-2">
+      <AboutNavbar color={'custom-blood-red'} />
+      <div className="border-2 border-t-0 border-custom-blood-red p-2">
         <InfoCardBar />
       </div>
       <div className="flex justify-center text-lg font-semibold">

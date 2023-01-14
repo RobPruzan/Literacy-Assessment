@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 export type AboutNavbarProps = {
-  color: 'white' | 'custom-blue';
+  color: 'white' | 'custom-blood-red';
 };
 export const AboutNavbar = ({ color }: AboutNavbarProps) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
