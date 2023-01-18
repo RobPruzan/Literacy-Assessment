@@ -10,46 +10,24 @@ const InfoCardBar = () => {
       selectedExcerptsState.selectedExcerpts
   );
   return (
-    <div className="flex h-full items-center overflow-scroll">
-      <div
-        style={{
-          minWidth: '11rem',
-        }}
-        className="
-  
-   border-2 border-custom-blood-red
-    text-white
-    font-bold
-    py-2
-    px-3 
-    rounded-md
-    mx-2
-    
-    h-24
-    w-44
-    shadow-md
-    hover:shadow-lg
-    flex
-    justify-center
-    items-center min-h-fit
-  
-
-    "
-      >
-        <AddCircleOutlineIcon
-          sx={{ '&:hover': { fill: '#A0B3BD' }, fill: 'gray' }}
-          fontSize="large"
-        />
-      </div>
+    <div className="flex h-full items-center overflow-scroll ">
+      {(selectedExcerpts?.length ?? 0) >= 1 ? (
+        <>
+          {selectedExcerpts?.map((excerpt) => (
+            <ExcerptCard
+              sizeMultiplier={0.3}
+              excerptInfo={excerpt}
+              allowDelete={true}
+              isMinimal={true}
+            />
+          ))}
+        </>
+      ) : (
+        <p className="text-3xl w-full  text-gray-300 font-semibold">
+          Add Collections to Compare
+        </p>
+      )}
       {/* <FileUpload /> */}
-      {selectedExcerpts?.map((excerpt) => (
-        <ExcerptCard
-          sizeMultiplier={0.3}
-          excerptInfo={excerpt}
-          allowDelete={true}
-          isMinimal={true}
-        />
-      ))}
     </div>
   );
 };

@@ -1,17 +1,13 @@
-import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
-import React, { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { BsX } from 'react-icons/bs';
+import { ExcerptInfo } from '../../../services.ts/connections';
 // import mui button
-import { Button } from '@mui/material';
-import { ButtonBase } from '@mui/material';
-import { Card } from 'react-bootstrap';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import LibraryPopup from './LibraryPopup';
+import { IoRemoveSharp } from 'react-icons/io5';
 import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
 import { useDispatch } from 'react-redux';
+
 export type ExcerptCardProps = {
   excerptInfo: ExcerptInfo;
   allowDelete?: boolean;
@@ -26,51 +22,26 @@ export const ExcerptCard = ({
 }: ExcerptCardProps) => {
   const dispatch = useDispatch();
 
-  // useMutation
-  // const tempStyle = {
-  //   maxWidth: `${250 * sizeMultiplier}px`,
-  //   minHeight: `${150 * sizeMultiplier}px`,
-  //   margin: '10px',
-  // };
-
   return (
     <div
       style={{
         minWidth: '16rem',
+        border: '1px solid',
       }}
-      className="
-    bg-custom-blood-red
-   
-    text-white
-    font-semibold
-    py-1
-    px-2
-    rounded-md
-    mx-2
-    min-h-min
-    shadow-md
-    hover:shadow-lg
-    flex
-    justify-center
-    items-center 
-
-    "
+      className=" bg-white py-1 text-custom-blood-red font-semibold rounded-sm mx-2 min-h-min shadow-md border-custom-blood-red hover:shadow-lg flex justify-center items-center relative "
     >
-      <div className="d-flex flex-col ">
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-          className="m-1 text-md  flex"
-        >
-          <div style={{ margin: 'auto' }}>{excerptInfo.excerpt.title}</div>
-          <div style={{ alignSelf: 'flex-end' }}>
+      <div className="flex flex-col w-full items-center ">
+        <div className="m-1 text-md  flex justify-center">
+          <div className="m-auto text-gray-500">
+            {excerptInfo.excerpt.title}
+          </div>
+          <div>
             {isMinimal ? (
-              <HighlightOffIcon
+              <BsX
+                color="red"
+                size={30}
+                className="cursor-pointer hover:fill-red-700 hover:scale-110  absolute top-0 right-0  fill-red-500 "
                 fontSize="medium"
-                className="hover:cursor-pointer top-0"
-                sx={{ fill: '#FE4242' }}
                 onClick={() =>
                   dispatch({
                     type: SelectedExcerptsActions.RemoveExcerpt,
@@ -78,18 +49,17 @@ export const ExcerptCard = ({
                   })
                 }
               />
-            ) : (
-              <AddCircleOutlineIcon
-                className="hover:cursor-pointer  hover:fill-green-500"
-                sx={{ fill: '#4EFF10' }}
-                onClick={() =>
-                  dispatch({
-                    type: SelectedExcerptsActions.AddExcerpt,
-                    payload: { excerptInfo: excerptInfo },
-                  })
-                }
-              />
-            )}
+            ) : // <AddCircleOutlineIcon
+            //   className="hover:cursor-pointer  hover:fill-green-500"
+            //   sx={{ fill: '#4EFF10' }}
+            //   onClick={() =>
+            //     dispatch({
+            //       type: SelectedExcerptsActions.AddExcerpt,
+            //       payload: { excerptInfo: excerptInfo },
+            //     })
+            //   }
+            // />
+            null}
           </div>
         </div>
         <StatsCard excerptInfo={excerptInfo} />
