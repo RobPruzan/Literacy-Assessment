@@ -56,7 +56,7 @@ const CompareActions = () => {
         Reset All
       </button>
       {difficultyHelpers.difficultyLoading && (
-        <p className="text-black">Loading...</p>
+        <p className="text-gray-500">Loading...</p>
       )}
       <Link to="/analysis">
         <button
@@ -68,7 +68,7 @@ const CompareActions = () => {
       </Link>
 
       {difficultyHelpers.difficultyData?.map((calc, idx) => (
-        <p className="text-black" key={`diff map ${idx}`}>
+        <p className="text-gray-500" key={`diff map ${idx}`}>
           Difficulty: {calc}
         </p>
       ))}

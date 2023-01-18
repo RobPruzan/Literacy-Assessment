@@ -1,3 +1,4 @@
+import { BsCheck, BsPlus } from 'react-icons/bs';
 import { Dispatch, SetStateAction, useDebugValue } from 'react';
 
 import { AiOutlineEye } from 'react-icons/ai';
@@ -48,33 +49,41 @@ const CategoryCard = ({
   useDebugValue('test');
 
   return (
-    <div
-      className=" bg-white min-w-fit min-h-fit p-2  w-52   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md"
-      key={keyValue}
-    >
-      <p className="text-center text-black  text-xl  mb-2">{categoryName}</p>
-
+    <>
       <div
-        style={{
-          color: `${COLOR_MAP(difficulty)}`,
-        }}
-        className={` text-sm font-semibold`}
+        className=" bg-white min-w-fit min-h-fit p-2  w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md"
+        key={keyValue}
       >
-        <p className="inline">Difficulty: </p>
-        <p className="inline">{difficulty}</p>
-      </div>
-      <div className="text-center text-black text-sm font-semibold">
-        <p className="inline">Excerpts: </p>
-        <p className="inline">{total_excerpts}</p>
-      </div>
+        <p className="text-center text-gray-500  text-xl  mb-2">
+          {categoryName}
+        </p>
 
-      {!(activePopUp === keyValue) && (
-        <AiOutlineEye
-          size={22}
-          className="hover:cursor-pointer hover:fill-slate-500 hover:shadow-2xl float-left"
-          onClick={() => setActivePopUp(keyValue)}
+        <div
+          style={{
+            color: `${COLOR_MAP(difficulty)}`,
+          }}
+          className={` text-sm font-semibold`}
+        >
+          <p className="inline">Difficulty: </p>
+          <p className="inline">{difficulty}</p>
+        </div>
+        <div className="text-center text-gray-500 text-sm font-semibold">
+          <p className="inline">Excerpts: </p>
+          <p className="inline">{total_excerpts}</p>
+        </div>
+
+        {!(activePopUp === keyValue) && (
+          <AiOutlineEye
+            size={22}
+            className="hover:cursor-pointer hover:fill-slate-500 hover:shadow-2xl float-left"
+            onClick={() => setActivePopUp(keyValue)}
+          />
+        )}
+        <BsPlus
+          size={40}
+          className="absolute bottom-0 right-0 cursor-pointer fill-emerald-400 hover:shadow-2xl hover:fill-emerald-500 hover:scale-105"
         />
-      )}
+      </div>
 
       {activePopUp === keyValue && (
         <div className="float left">
@@ -90,7 +99,7 @@ const CategoryCard = ({
           />
         </div>
       )}
-    </div>
+    </>
   );
 };
 
