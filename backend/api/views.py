@@ -25,8 +25,10 @@ from print_color import print
 
 # Create your views here.
 class UserView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def get(self, request, *args, **kwargs):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 
 class ExcerptInfoView(APIView):
@@ -74,7 +76,7 @@ class ReadabilityMeasures(APIView):
         return calculate_stats_and_respond(request, get_readability_measures)
 
 
-class CalculateGrammer(APIView):
+class CalculateGrammar(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, misspelled_percentage)
 
