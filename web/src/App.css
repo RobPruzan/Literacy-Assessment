@@ -15,7 +15,6 @@
 /* navbar is transparent */
 * {
   overflow-y: scroll;
-  overflow-x: hidden;
 }
 .gradient {
   background: hsla(184, 85%, 63%, 1);

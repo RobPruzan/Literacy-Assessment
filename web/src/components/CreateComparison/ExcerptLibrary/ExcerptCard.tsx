@@ -49,17 +49,18 @@ export const ExcerptCard = ({
                   })
                 }
               />
-            ) : // <AddCircleOutlineIcon
-            //   className="hover:cursor-pointer  hover:fill-green-500"
-            //   sx={{ fill: '#4EFF10' }}
-            //   onClick={() =>
-            //     dispatch({
-            //       type: SelectedExcerptsActions.AddExcerpt,
-            //       payload: { excerptInfo: excerptInfo },
-            //     })
-            //   }
-            // />
-            null}
+            ) : (
+              <AddCircleOutlineIcon
+                className="hover:cursor-pointer  hover:fill-green-500"
+                sx={{ fill: '#4EFF10' }}
+                onClick={() =>
+                  dispatch({
+                    type: SelectedExcerptsActions.AddExcerpt,
+                    payload: { excerptInfo: excerptInfo },
+                  })
+                }
+              />
+            )}
           </div>
         </div>
         <StatsCard excerptInfo={excerptInfo} />

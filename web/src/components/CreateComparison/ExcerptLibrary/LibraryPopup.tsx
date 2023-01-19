@@ -34,13 +34,13 @@ const LibraryPopup = ({
         right: 0,
         bottom: 0,
         left: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
       }}
       className="
       flex flex-row justify-center items-center"
       //  bg-white flex justify-center shadow-lg rounded-sm sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blood-red "
     >
       <div className="   bg-white flex justify-center shadow-lg rounded-sm sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blood-red ">
-        ``{' '}
         {isLoading || isError ? (
           <div>
             {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}
