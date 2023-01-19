@@ -1,8 +1,28 @@
 import { BsX } from 'react-icons/bs';
+import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
 import TextTab from './TextTab';
 import { useState } from 'react';
-
+export const FAKE_EXCERPT_INFO = {
+  id: 0,
+  excerpt: {
+    id: 0,
+    source: '',
+    title: 'Some Title again',
+  },
+  title: 'Some Title',
+  difficulty: 0,
+  diversity: 0,
+  text_length: 0,
+  category: {
+    id: 0,
+    title: '',
+    difficulty: 0,
+    total_excerpts: 0,
+  },
+  region: '',
+  source: '',
+};
 type Props = {};
 
 const CollectionCreate = ({}: Props) => {
@@ -21,9 +41,15 @@ const CollectionCreate = ({}: Props) => {
             X
           </BsX>
         </div>
-        <div>
-          <TextTab />
-        </div>
+        {/* <div
+          style={{
+            border: '1px solid',
+          }}
+          className="flex border-custom-blood-red rounded-sm w-full h-32"
+        ></div>
+        <div className="p-5">
+          <ExcerptCard excerptInfo={FAKE_EXCERPT_INFO} />
+        </div> */}
       </div>
     </div>
   ) : (

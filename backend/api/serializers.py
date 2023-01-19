@@ -2,10 +2,18 @@ from rest_framework import serializers
 from .models import Category, Excerpt, ExcerptInfo, User
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("id", "title", "difficulty", "total_excerpts")
+
+
 class UserSerializer(serializers.ModelSerializer):
+    collections = CategorySerializer(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ("name", "is_admin")
+        fields = "__all__"
 
 
 class ExcerptSerializer(serializers.ModelSerializer):
@@ -18,12 +26,6 @@ class ExcerptSerializerMinimal(serializers.ModelSerializer):
     class Meta:
         model = Excerpt
         fields = ("id", "title", "source")
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ("id", "title", "difficulty", "total_excerpts")
 
 
 class ExcerptInfoSerializer(serializers.ModelSerializer):
