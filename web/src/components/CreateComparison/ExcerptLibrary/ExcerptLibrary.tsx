@@ -1,36 +1,31 @@
 import { BsPlusLg } from 'react-icons/bs';
 import CategoryCard from './CategoryCard';
+import CollectionCreate from './CollectionCreate/CollectionCreate';
 import { IoCreateOutline } from 'react-icons/io5';
 import NorthStar from '../../../services.ts/connections';
+import { useGetCategories } from '../../hooks/LibraryHooks/useGetCategories';
+import { useGetExcerptsLibrary } from '../../hooks/LibraryHooks/useGetExcerptsLibrary';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 
 export const ExcerptLibrary = () => {
   const [activePopUp, setActivePopUp] = useState(-1);
 
-  const {
-    data: libraryData,
-    isLoading,
-    error,
-  } = useQuery('excerptLibrary', () => NorthStar.getExcerptsLibrary());
-  const {
-    data: categoryData,
-    isLoading: isCategoriesLoading,
-    error: categoriesError,
-  } = useQuery('categories', () => NorthStar.getCategories());
+  const getExcerptsQuery = useGetExcerptsLibrary();
+  const getCategoriesQuery = useGetCategories();
 
-  if (isCategoriesLoading) return <div>Loading...</div>;
-  if (categoriesError) {
-    return <div>Error: {`We encountered an error: ${categoriesError}`}</div>;
+  if (getCategoriesQuery.isLoading) return <div>Loading...</div>;
+  if (getCategoriesQuery.isError) {
+    return (
+      <div>Error: {`We encountered an error: ${getCategoriesQuery.error}`}</div>
+    );
   }
 
   return (
     <div className="flex flex-wrap justify-center">
-      <div className="hover:bg-gray-50 hover:shadow-xl hover:fill-emerald-400  hover:border-opacity-50 min-w-fit min-h-fit p-2  w-52 flex justify-center items-center cursor-pointer  border-2  border-custom-blood-red hover:border-red-400 border-opacity-50  rounded-md m-3 shadow-md">
-        <IoCreateOutline color="#6b7280" size={40} />
-      </div>
-      {categoryData &&
-        categoryData?.map((category, idx) => (
+      <CollectionCreate />
+      {getCategoriesQuery.isSuccess &&
+        getCategoriesQuery.data?.map((category, idx) => (
           <CategoryCard
             categoryId={category.id}
             categoryName={category.title}
