@@ -1,14 +1,12 @@
-import { BsCheck, BsPlus } from 'react-icons/bs';
 import { Dispatch, SetStateAction, useDebugValue } from 'react';
 
 import { AiOutlineEye } from 'react-icons/ai';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { BsPlus } from 'react-icons/bs';
 import LibraryPopup from './LibraryPopup';
 import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
 
 export const COLOR_MAP = (difficulty: number) => {
-  console.log('color should be', difficulty);
   if (difficulty <= 30) {
     return 'lime';
   } else if (difficulty <= 60) {

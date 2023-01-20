@@ -23,7 +23,6 @@ export const ExcerptLibrary = () => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      <CollectionCreate />
       {getCategoriesQuery.isSuccess &&
         getCategoriesQuery.data?.map((category, idx) => (
           <CategoryCard

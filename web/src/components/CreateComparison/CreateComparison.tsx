@@ -3,6 +3,7 @@ import ComparisonTypeToggle from './ComparisonTypeToggle';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
 import Filters from './Filters/FIlters';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import MyCollections from './MyCollections/MyCollections';
 
 export const CreateComparison = () => {
   return (
@@ -22,7 +23,6 @@ export const CreateComparison = () => {
                   <ComparisonTypeToggle />
                 </div>
                 <div className="row-span-4">
-                  {' '}
                   <Filters />
                 </div>
               </div>
@@ -32,7 +32,9 @@ export const CreateComparison = () => {
                 <ExcerptLibrary />
               </section>
             </div>
-            <div className="col-span-1 row-span-5  flex flex-col p-2 items-center h-full shadow-xl"></div>
+            <div className="col-span-1 row-span-5  flex flex-col p-2 items-center h-full shadow-xl">
+              <MyCollections />
+            </div>
           </div>
         </div>
       </div>
