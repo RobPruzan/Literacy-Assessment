@@ -13,7 +13,10 @@
 } */
 
 /* navbar is transparent */
-* {
+/* * {
+  overflow-y: scroll;
+} */
+body {
   overflow-y: scroll;
 }
 .gradient {

@@ -5,14 +5,15 @@ import TextField from '@mui/material/TextField';
 
 const Filters = () => {
   return (
-    <div className="overflow-scroll">
-      <div className=" flex  md:flex-col sm:items-center h-full  overflow-x-scroll  overflow-y-scroll">
+    <div className="overflow-y-visible ">
+      <div className=" flex  md:flex-col sm:items-center h-full  overflow-x-scroll  overflow-y-visible">
         <Autocomplete
           className="mb-2 mt-4 mx-2 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
           sx={{
+            overflowY: 'visible !important',
             width: '75%',
             minWidth: '3em',
             fontFamily:

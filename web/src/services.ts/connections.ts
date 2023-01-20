@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export type ExcerptInfo = {
   id: number;
-  excerpt: Exerpt;
+  excerpt: Excerpt;
   title: string;
   difficulty: number;
   diversity: number;
@@ -12,10 +12,11 @@ export type ExcerptInfo = {
   source: string;
 };
 
-export type Exerpt = {
-  id: number;
-  source: string;
+export type Excerpt = Pick<ExcerptInfo, 'id' | 'source' | 'title'>;
+
+export type CollectionCreateInfo = {
   title: string;
+  excerpt: string;
 };
 
 export type Category = {
