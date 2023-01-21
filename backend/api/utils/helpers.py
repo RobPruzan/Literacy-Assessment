@@ -1,10 +1,10 @@
 from ast import List
 
-from .dbHelpers import excerpt_ids_to_objecsts
+from .dbHelpers import excerpt_ids_to_objects
 
 
 def ids_to_calculation(ids, fn):
-    excerpts_text = excerpt_ids_to_objecsts(ids)
+    excerpts_text = excerpt_ids_to_objects(ids)
     if len(excerpts_text) > 0:
         calculations = [
             fn(excerpt.text) for excerpt in excerpts_text if excerpt.text is not None
