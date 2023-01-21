@@ -9,8 +9,8 @@ export type LibraryPopupProps = {
   isLoading: boolean;
   isError: boolean;
   error: any;
-  data?: ExcerptInfo[];
-  categoryId: number;
+  excerptsInfo?: ExcerptInfo[];
+  collectionId: number;
   setActivePopUp: Dispatch<SetStateAction<number>>;
   activePopUp: number;
   keyValue: number;
@@ -19,8 +19,8 @@ const LibraryPopup = ({
   isLoading,
   isError,
   error,
-  data,
-  categoryId,
+  excerptsInfo,
+  collectionId,
   setActivePopUp,
   activePopUp,
   keyValue,
@@ -56,10 +56,15 @@ const LibraryPopup = ({
             />
             <SearchBar />
 
-            {data?.map((info) => (
+            {excerptsInfo?.map((excerptInfo) => (
               <div className="flex justify-center mb-3">
-                {categoryId === info.category.id && (
-                  <ExcerptCard excerptInfo={info} />
+                {collectionId === excerptInfo.excerpt.collection.id && (
+                  <ExcerptCard
+                    difficulty={excerptInfo.difficulty}
+                    diversity={excerptInfo.diversity}
+                    text_length={excerptInfo.text_length}
+                    title={excerptInfo.title}
+                  />
                 )}
               </div>
             ))}

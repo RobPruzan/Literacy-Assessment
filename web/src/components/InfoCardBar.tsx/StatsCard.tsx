@@ -1,10 +1,13 @@
-import { COLOR_MAP } from '../CreateComparison/ExcerptLibrary/CategoryCard';
+import { COLOR_MAP } from '../CreateComparison/ExcerptLibrary/CollectionCard';
 import { ExcerptInfo } from '../../services.ts/connections';
 import React from 'react';
 export type StatsCardProps = {
-  excerptInfo: ExcerptInfo;
+  // excerptInfo: ExcerptInfo;
+  difficulty?: number;
+  diversity?: number;
+  text_length: number;
 };
-const StatsCard = ({ excerptInfo }: StatsCardProps) => {
+const StatsCard = ({ difficulty, diversity, text_length }: StatsCardProps) => {
   return (
     <div className="bg-white text-center text-sm   min-w-min h-max w-full">
       <hr className="mx-3 opacity-100" />
@@ -12,28 +15,38 @@ const StatsCard = ({ excerptInfo }: StatsCardProps) => {
         <div>
           <p className="">Difficulty</p>
           <p
-            style={{
-              color: `${COLOR_MAP(excerptInfo.difficulty)}`,
-            }}
+            style={
+              difficulty
+                ? {
+                    color: `${COLOR_MAP(difficulty)}`,
+                  }
+                : undefined
+            }
             // className={`text-${COLOR_MAP(excerptInfo.difficulty)}-500`}
           >
-            {excerptInfo.difficulty}%
+            {difficulty}%
           </p>
         </div>
         <div className="mx-2">
           <p className="inline">Diversity</p>
           <p
-            style={{
-              color: `${COLOR_MAP(excerptInfo.diversity)}`,
-            }}
-            className={`text-${COLOR_MAP(excerptInfo.diversity)}-500`}
+            style={
+              diversity
+                ? {
+                    color: `${COLOR_MAP(diversity)}`,
+                  }
+                : undefined
+            }
+            className={
+              diversity ? `text-${COLOR_MAP(diversity)}-500` : 'text-gray-600'
+            }
           >
-            {excerptInfo.diversity}%
+            {diversity}%
           </p>
         </div>
         <div className="mx-2">
           <p>Length</p>
-          <p className="text-gray-500 inline">{excerptInfo.text_length}</p>
+          <p className="text-gray-500 inline">{text_length}</p>
         </div>
 
         {/* <p className="inline"> Text Length</p>

@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
+
 import { Link } from 'react-router-dom';
-import React from 'react';
+
 export type AboutNavbarProps = {
   color: 'white' | 'custom-blood-red';
 };
 export const AboutNavbar = ({ color }: AboutNavbarProps) => {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [navbarOpen, setNavbarOpen] = useState(false);
   return (
     <>
       {/* <nav className="h-12 bg-black">
@@ -21,9 +23,9 @@ export const AboutNavbar = ({ color }: AboutNavbarProps) => {
               Analysis
             </Link>
 
-            <Link className="Nav__link mx-2" to="/About">
+            <Li className="Nav__link mx-2" to="/About">
               About
-            </Link>
+            </Li
 
             <Link className="Nav__link mx-2" to="/">
               Progress

@@ -18,9 +18,9 @@ export const COLOR_MAP = (difficulty: number) => {
   }
 };
 
-export type CategoryCardProps = {
-  categoryId: number;
-  categoryName: string;
+export type CollectionCardProps = {
+  collectionId: number;
+  collectionName: string;
   difficulty: number;
   total_excerpts: number;
   activePopUp: number;
@@ -45,24 +45,24 @@ export type CategoryCardProps = {
       }
   >;
 };
-const CategoryCard = ({
+const CollectionCard = ({
   collectionsDispatch,
-  categoryId,
-  categoryName,
+  collectionId,
+  collectionName,
   difficulty,
   total_excerpts,
   activePopUp,
   setActivePopUp,
   index,
   sizeMultiplier = 1,
-}: CategoryCardProps) => {
+}: CollectionCardProps) => {
   const {
     data: libraryData,
     isLoading: isLibraryLoading,
     error: libraryError,
     isError: isLibraryError,
-  } = useQuery(['excerptsByCategory', index], () =>
-    NorthStar.getExcerptsInfoByCategory(categoryId)
+  } = useQuery(['excerptsByCollection', index], () =>
+    NorthStar.getExcerptsInfoByCollection(collectionId)
   );
   useDebugValue('test');
 
@@ -70,7 +70,7 @@ const CategoryCard = ({
     <>
       <div className=" bg-white min-w-fit min-h-fit p-2  w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md">
         <p className="text-center text-gray-500  text-xl  mb-2">
-          {categoryName}
+          {collectionName}
         </p>
 
         <div
@@ -113,8 +113,8 @@ const CategoryCard = ({
             isLoading={isLibraryLoading}
             isError={isLibraryError}
             error={libraryError}
-            data={libraryData}
-            categoryId={categoryId}
+            excerptsInfo={libraryData}
+            collectionId={collectionId}
             setActivePopUp={setActivePopUp}
             activePopUp={activePopUp}
             keyValue={index}
@@ -125,4 +125,4 @@ const CategoryCard = ({
   );
 };
 
-export default CategoryCard;
+export default CollectionCard;

@@ -41,9 +41,17 @@ class ExcerptInfoView(APIView):
 class ExcerptByCollectionView(APIView):
     def get(self, request, *args, **kwargs):
         collection_id = kwargs.get("collection_id")
+        print(
+            collection_id,
+            Excerpt.objects.filter(collection_id=collection_id),
+            color="green",
+        )
+
         if collection_id is None:
+            print("wah wah")
             return Response("No id provided")
-        excerpts_info = ExcerptInfo.objects.filter(collection_id=collection_id)
+        excerpts_info = ExcerptInfo.objects.filter(excerpt__collection_id=collection_id)
+        print(excerpts_info, color="green")
         serializer = ExcerptInfoSerializer(excerpts_info, many=True)
 
         return Response(serializer.data)
@@ -51,8 +59,11 @@ class ExcerptByCollectionView(APIView):
 
 class CollectionView(APIView):
     def get(self, request, *args, **kwargs):
-        categories = Collection.objects.all()
-        serializer = CollectionSerializer(categories, many=True)
+
+        user_collections = Collection.objects.all()
+
+        serializer = CollectionSerializer(user_collections, many=True)
+        print("Sending collections", len(serializer.data), color="red")
         return Response(serializer.data)
 
 
@@ -93,21 +104,33 @@ class CompereText(APIView):
 class CreateCollectionView(APIView):
     def post(self, request, *args, **kwargs):
         user_id = request.data.get("user_id")
-        user = User.objects.filter(user_id=user_id).first()
+
+        user = User.objects.filter(id=user_id).first()
         collection = Collection.objects.create(
-            title=request.data.get("collection_title", None),
+            title=request.data.get("collection_title", "No Title Provided"),
         )
-        excerpts = request.data.get("excerpts")
+        excerpts = request.data.get("collection")
+        print(
+            f"data: {request.data}",
+        )
+
+        print(
+            f"Collection id: {collection.id}, user id: {user_id}, user: {user}",
+        )
 
         for excerpt in excerpts:
             source_user_id = User.objects.filter(id=user_id).first()
             if source_user_id:
-                Excerpt.objects.create(
+                excerpt = Excerpt.objects.create(
                     title=excerpt.get("title"),
-                    text=excerpt.get("text"),
+                    text=excerpt.get("excerpt"),
                     source_user_id=User.objects.filter(id=user_id).first().id,
                     collection_id=collection.id,
                 )
+                ExcerptInfo.objects.create(
+                    excerpt_id=excerpt.id,
+                )
         user.collections.add(collection)
         user.save()
+        print("Collection created", color="green")
         return Response()

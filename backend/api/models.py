@@ -8,8 +8,9 @@ class User(models.Model):
 
 
 class Excerpt(models.Model):
-    title = models.CharField(max_length=200, default="")
-    text = models.CharField(max_length=5000, default="")
+    # Make required fields blank=True and null=True
+    title = models.CharField(max_length=200, default="", blank=True, null=True)
+    text = models.CharField(max_length=5000, default="", blank=True, null=True)
     source = models.CharField(max_length=200, default="", blank=True, null=True)
     source_user = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE

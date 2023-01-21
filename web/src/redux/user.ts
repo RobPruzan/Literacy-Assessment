@@ -3,7 +3,7 @@ import { number } from 'zod';
 export type User = {
   id: number;
   name: string;
-  is_admin?: false;
+  is_admin?: boolean;
 };
 
 export interface UserState {
@@ -11,7 +11,11 @@ export interface UserState {
 }
 
 export const DEFAULT_USER_STATE: UserState = {
-  user: null,
+  user: {
+    id: 1,
+    name: 'RobPruzan',
+    is_admin: true,
+  },
 };
 
 export enum UserActions {

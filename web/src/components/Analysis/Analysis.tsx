@@ -34,7 +34,6 @@ export const Analysis = () => {
   useEffect(() => {
     setTotalCalculations(
       Object.keys(calculationState).reduce((prev, curr) => {
-        console.log('mappin key', curr, NON_CALCULATION_KEYS.includes(curr));
         if (NON_CALCULATION_KEYS.includes(curr)) {
           return prev;
         } else {
@@ -43,20 +42,6 @@ export const Analysis = () => {
       }, 0)
     );
   }, [calculationState]);
-
-  console.log(
-    'loadingInfo',
-    calculationState.loadingProgress,
-    totalCalculations,
-    calculationState.loadingProgress ?? 0 / (totalCalculations ?? 0.001)
-  );
-
-  console.log(
-    'buncha booleans',
-
-    calculationState.loadingProgress,
-    totalCalculations
-  );
 
   return (
     <div>

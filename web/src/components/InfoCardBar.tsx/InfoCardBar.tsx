@@ -9,24 +9,41 @@ const InfoCardBar = () => {
     ({ selectedExcerptsState }: RootState) =>
       selectedExcerptsState.selectedExcerpts
   );
+
+  const selectedCollections = useSelector(
+    ({ selectedCollectionState }: RootState) =>
+      selectedCollectionState.selectedCollections
+  );
+
+  const comparisonType = useSelector(
+    ({ comparisonState }: RootState) => comparisonState.comaprisonType
+  );
   return (
     <div className="flex h-full items-center overflow-scroll ">
-      {(selectedExcerpts?.length ?? 0) >= 1 ? (
-        <>
-          {selectedExcerpts?.map((excerpt) => (
-            <ExcerptCard
-              sizeMultiplier={0.3}
-              excerptInfo={excerpt}
-              allowDelete={true}
-              isMinimal={true}
-            />
-          ))}
-        </>
+      {comparisonType === 'collection' ? (
+        (selectedExcerpts?.length ?? 0) >= 1 ? (
+          <>
+            {selectedExcerpts?.map((excerpt) => (
+              <ExcerptCard
+                sizeMultiplier={0.3}
+                difficulty={excerpt.difficulty}
+                diversity={excerpt.diversity}
+                text_length={excerpt.text_length}
+                title={excerpt.title}
+                allowDelete={true}
+                isMinimal={true}
+              />
+            ))}
+          </>
+        ) : (
+          <p className="text-3xl w-full  text-gray-300 font-semibold">
+            Add Collections to Compare
+          </p>
+        )
       ) : (
-        <p className="text-3xl w-full  text-gray-300 font-semibold">
-          Add Collections to Compare
-        </p>
+        <>comparison excerpt yoo</>
       )}
+
       {/* <FileUpload /> */}
     </div>
   );

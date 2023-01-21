@@ -1,31 +1,40 @@
+import {
+  ComparisonActions,
+  ComparisonTypeStrings,
+} from '../../redux/reducers/comparisonState';
 import React, { useState } from 'react';
 import { Tab, Tabs } from '@mui/material';
 
-export enum TabType {
-  Collection,
-  Excerpt,
-}
+import { useDispatch } from 'react-redux';
 
 type Props = {};
 
 const ComparisonTypeToggle = (props: Props) => {
-  const [activeTab, setActiveTab] = useState(TabType.Collection);
+  const [activeTab, setActiveTab] = useState(ComparisonTypeStrings.Collection);
+  const dispatch = useDispatch();
   return (
     <div className="w-full h-full">
       <Tabs
         value={activeTab}
-        onChange={(event, newValue) => setActiveTab(newValue)}
+        onChange={(event, newValue) => {
+          setActiveTab(newValue);
+          dispatch({
+            type: ComparisonActions.SET_COMPARISON_TYPE,
+            payload: { comparisonType: newValue },
+          });
+        }}
         aria-label="tabs"
         variant="fullWidth"
       >
         <Tab
-          value={TabType.Collection}
+          value={ComparisonTypeStrings.Collection}
           label="Collection"
           aria-label="Ccllection"
           sx={{
-            color: activeTab === TabType.Collection ? 'white' : 'gray',
+            color:
+              activeTab === ComparisonTypeStrings.Collection ? 'white' : 'gray',
             backgroundColor:
-              activeTab === TabType.Collection
+              activeTab === ComparisonTypeStrings.Collection
                 ? // '#F4774F'
                   'rgb(244, 119, 79, .3)'
                 : 'white',
@@ -34,19 +43,22 @@ const ComparisonTypeToggle = (props: Props) => {
 
         <Tab
           sx={{
-            color: activeTab === TabType.Excerpt ? 'white' : 'gray',
+            color:
+              activeTab === ComparisonTypeStrings.Excerpt ? 'white' : 'gray',
             backgroundColor:
-              activeTab === TabType.Excerpt ? 'rgb(244, 119, 79, .3)' : 'white',
+              activeTab === ComparisonTypeStrings.Excerpt
+                ? 'rgb(244, 119, 79, .3)'
+                : 'white',
           }}
-          value={TabType.Excerpt}
+          value={ComparisonTypeStrings.Excerpt}
           // label of tab is named file extension
           label={'Excerpt'}
           aria-label="excerpt"
         />
       </Tabs>
 
-      {activeTab === TabType.Collection && <>collection</>}
-      {activeTab === TabType.Excerpt && <>excer-t</>}
+      {activeTab === ComparisonTypeStrings.Collection && <>collection</>}
+      {activeTab === ComparisonTypeStrings.Excerpt && <>excer-t</>}
     </div>
   );
 };

@@ -23,14 +23,15 @@ class ExcerptSerializer(serializers.ModelSerializer):
 
 
 class ExcerptSerializerMinimal(serializers.ModelSerializer):
+    collection = CollectionSerializer()
+
     class Meta:
         model = Excerpt
-        fields = ("id", "title", "source")
+        fields = "__all__"
 
 
 class ExcerptInfoSerializer(serializers.ModelSerializer):
     excerpt = ExcerptSerializerMinimal()
-    collection = CollectionSerializer()
 
     class Meta:
         model = ExcerptInfo
@@ -40,7 +41,6 @@ class ExcerptInfoSerializer(serializers.ModelSerializer):
             "difficulty",
             "diversity",
             "text_length",
-            "collection",
             "region",
         )
 

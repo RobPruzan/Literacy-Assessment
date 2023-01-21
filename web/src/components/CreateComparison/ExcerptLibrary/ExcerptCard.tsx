@@ -1,21 +1,27 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { BsX } from 'react-icons/bs';
-import { ExcerptInfo } from '../../../services.ts/connections';
-// import mui button
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { IoRemoveSharp } from 'react-icons/io5';
-import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
+import { motion } from 'framer-motion';
+// import mui button
 import { useDispatch } from 'react-redux';
 
 export type ExcerptCardProps = {
-  excerptInfo: ExcerptInfo;
+  // excerptInfo: ExcerptInfo;
+  difficulty?: number;
+  diversity?: number;
+  text_length: number;
+  title: string;
   allowDelete?: boolean;
   sizeMultiplier?: number;
   isMinimal?: boolean;
 };
 export const ExcerptCard = ({
-  excerptInfo,
+  title,
+  difficulty,
+
+  diversity,
+  text_length,
+
   allowDelete,
   sizeMultiplier = 1,
   isMinimal = false,
@@ -23,7 +29,8 @@ export const ExcerptCard = ({
   const dispatch = useDispatch();
 
   return (
-    <div
+    <motion.div
+      layout
       style={{
         minWidth: '16rem',
         border: '1px solid',
@@ -32,9 +39,7 @@ export const ExcerptCard = ({
     >
       <div className="flex flex-col w-full items-center ">
         <div className="m-1 text-md  flex justify-center">
-          <div className="m-auto text-gray-500">
-            {excerptInfo.excerpt.title}
-          </div>
+          <div className="m-auto text-gray-500">{title}</div>
           <div>
             {isMinimal ? (
               <BsX
@@ -42,29 +47,33 @@ export const ExcerptCard = ({
                 size={30}
                 className="cursor-pointer hover:fill-red-700 hover:scale-110  absolute top-0 right-0  fill-red-500 "
                 fontSize="medium"
-                onClick={() =>
-                  dispatch({
-                    type: SelectedExcerptsActions.RemoveExcerpt,
-                    payload: { excerptInfo: excerptInfo },
-                  })
-                }
+                // onClick={() =>
+                //   dispatch({
+                //     type: SelectedExcerptsActions.RemoveExcerpt,
+                //     payload: { excerptInfo: excerptInfo },
+                //   })
+                // }
               />
             ) : (
               <AddCircleOutlineIcon
                 className="hover:cursor-pointer  hover:fill-green-500"
                 sx={{ fill: '#4EFF10' }}
-                onClick={() =>
-                  dispatch({
-                    type: SelectedExcerptsActions.AddExcerpt,
-                    payload: { excerptInfo: excerptInfo },
-                  })
-                }
+                // onClick={() =>
+                //   dispatch({
+                //     type: SelectedExcerptsActions.AddExcerpt,
+                //     payload: { excerptInfo: excerptInfo },
+                //   })
+                // }
               />
             )}
           </div>
         </div>
-        <StatsCard excerptInfo={excerptInfo} />
+        <StatsCard
+          difficulty={difficulty}
+          diversity={diversity}
+          text_length={text_length}
+        />
       </div>
-    </div>
+    </motion.div>
   );
 };

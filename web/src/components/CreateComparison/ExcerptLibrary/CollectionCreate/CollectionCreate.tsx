@@ -1,16 +1,11 @@
-import { BsPlusCircle, BsX, BsXCircle } from 'react-icons/bs';
-import {
-  CreateCollectionParams,
-  useCreateCollection,
-} from '../../../hooks/LibraryHooks/useCreateCollection';
+import { BsPlusCircle, BsX } from 'react-icons/bs';
 import { SetStateAction, useReducer, useState } from 'react';
 
-import CategoryCard from '../CategoryCard';
 import { CollectionCreateInfo } from '../../../../services.ts/connections';
 import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
-import { SelectedExcerptsActions } from '../../../../redux/reducers/selectedExcerpts';
-import { useDispatch } from 'react-redux';
+import { useCreateCollection } from '../../../hooks/LibraryHooks/useCreateCollection';
+import { useQueryClient } from 'react-query';
 
 export const FAKE_EXCERPT_INFO = {
   id: 0,
@@ -23,7 +18,7 @@ export const FAKE_EXCERPT_INFO = {
   difficulty: 0,
   diversity: 0,
   text_length: 0,
-  category: {
+  collection: {
     id: 0,
     title: '',
     difficulty: 0,
@@ -41,7 +36,10 @@ type Action =
 type Props = {};
 const CollectionCreate = ({}: Props) => {
   const [showCollectionCreate, setShowCollectionCreate] = useState(false);
-  const createCollectionMutation = useCreateCollection();
+  const createCollectionMutation = useCreateCollection(() =>
+    setShowCollectionCreate(false)
+  );
+  const queryClient = useQueryClient();
 
   const [inputCollection, inputCollectionDispatch] = useReducer(
     (state: CollectionCreateInfo, action: Action) => {
@@ -63,7 +61,7 @@ const CollectionCreate = ({}: Props) => {
     }
   );
 
-  const [collections, collectionsDispatch] = useReducer(
+  const [collection, collectionDispatch] = useReducer(
     (
       state: CollectionCreateInfo[],
       action:
@@ -92,7 +90,6 @@ const CollectionCreate = ({}: Props) => {
     []
   );
 
-  console.log(inputCollection);
   return showCollectionCreate ? (
     <div className="inset-0 fixed z-50 bg-black bg-opacity-50  flex flex-col  justify-center items-center">
       <div
@@ -144,7 +141,7 @@ const CollectionCreate = ({}: Props) => {
             <div className="h-50 flex items-end justify-center">
               <BsPlusCircle
                 onClick={() => {
-                  collectionsDispatch({
+                  collectionDispatch({
                     type: 'add',
                     payload: { collection: inputCollection },
                   });
@@ -157,8 +154,7 @@ const CollectionCreate = ({}: Props) => {
             <div className="h-50 flex flex-col justify-end py-3 w-10/12">
               <button
                 onClick={async () => {
-                  await createCollectionMutation.mutateAsync({ collections });
-                  setShowCollectionCreate(false);
+                  createCollectionMutation.mutate({ collection });
                 }}
                 className={`${
                   createCollectionMutation.isLoading ? 'bg-opacity-50' : null
@@ -182,30 +178,18 @@ const CollectionCreate = ({}: Props) => {
         </div>
         <div className="snap-x scroll-px-6 overflow-x-scroll flex  w-full min-h-fit overflow-y-hidden p-3 relative">
           <p className="absolute top-0 left-0 text-2xl font-bold text-custom-blood-red">
-            {collections.length}
+            {collection.length}
           </p>
           {/* {[...Array(14)].map((_, i) => ( */}
-          {collections.length > 0 ? (
-            collections.map((_, i) => (
+          {collection.length > 0 ? (
+            collection.map((excerpt, i) => (
               <div
                 key={i}
                 className="flex min-h-fit items-center snap-center m-4  relative"
               >
-                {/* <div className=" border-2 border-custom-blood-red"></div> */}
-                <CategoryCard
-                  key={`category-card-${i}`}
-                  index={i}
-                  collectionsDispatch={collectionsDispatch}
-                  categoryId={0}
-                  categoryName={''}
-                  difficulty={0}
-                  total_excerpts={0}
-                  activePopUp={-1}
-                  setActivePopUp={function (
-                    value: SetStateAction<number>
-                  ): void {
-                    throw new Error('Function not implemented.');
-                  }}
+                <ExcerptCard
+                  text_length={excerpt.excerpt.length}
+                  title={excerpt.title}
                 />
               </div>
             ))
@@ -216,7 +200,6 @@ const CollectionCreate = ({}: Props) => {
               </p>
             </div>
           )}
-          {}
         </div>
       </div>
     </div>
