@@ -1,9 +1,11 @@
+import { BsPlus, BsX } from 'react-icons/bs';
 import { Dispatch, SetStateAction, useDebugValue } from 'react';
+import NorthStar, {
+  CollectionCreateInfo,
+} from '../../../services.ts/connections';
 
 import { AiOutlineEye } from 'react-icons/ai';
-import { BsPlus } from 'react-icons/bs';
 import LibraryPopup from './LibraryPopup';
-import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
 
 export const COLOR_MAP = (difficulty: number) => {
@@ -23,17 +25,35 @@ export type CategoryCardProps = {
   total_excerpts: number;
   activePopUp: number;
   setActivePopUp: Dispatch<SetStateAction<number>>;
-  keyValue: number;
+  index: number;
   sizeMultiplier?: number;
+  collectionsDispatch?: React.Dispatch<
+    | {
+        type: 'add';
+        payload: {
+          collection: CollectionCreateInfo;
+        };
+      }
+    | {
+        type: 'remove';
+        payload: {
+          index: number;
+        };
+      }
+    | {
+        type: 'reset';
+      }
+  >;
 };
 const CategoryCard = ({
+  collectionsDispatch,
   categoryId,
   categoryName,
   difficulty,
   total_excerpts,
   activePopUp,
   setActivePopUp,
-  keyValue,
+  index,
   sizeMultiplier = 1,
 }: CategoryCardProps) => {
   const {
@@ -41,17 +61,14 @@ const CategoryCard = ({
     isLoading: isLibraryLoading,
     error: libraryError,
     isError: isLibraryError,
-  } = useQuery(['excerptsByCategory', keyValue], () =>
+  } = useQuery(['excerptsByCategory', index], () =>
     NorthStar.getExcerptsInfoByCategory(categoryId)
   );
   useDebugValue('test');
 
   return (
     <>
-      <div
-        className=" bg-white min-w-fit min-h-fit p-2  w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md"
-        key={keyValue}
-      >
+      <div className=" bg-white min-w-fit min-h-fit p-2  w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md">
         <p className="text-center text-gray-500  text-xl  mb-2">
           {categoryName}
         </p>
@@ -70,20 +87,27 @@ const CategoryCard = ({
           <p className="inline">{total_excerpts}</p>
         </div>
 
-        {!(activePopUp === keyValue) && (
+        {!(activePopUp === index) && (
           <AiOutlineEye
             size={22}
             className="hover:cursor-pointer hover:fill-slate-500 hover:shadow-2xl float-left"
-            onClick={() => setActivePopUp(keyValue)}
+            onClick={() => setActivePopUp(index)}
           />
         )}
-        <BsPlus
-          size={40}
-          className="absolute bottom-0 right-0 cursor-pointer fill-emerald-400 hover:shadow-2xl hover:fill-emerald-500 hover:scale-105"
+        <BsX
+          onClick={() => {
+            collectionsDispatch &&
+              collectionsDispatch({
+                type: 'remove',
+                payload: { index: index },
+              });
+          }}
+          className="top-0 right-0 absolute fill-red-500 cursor-pointer hover:fill-red-600 transition ease-in-out delay-75 hover:scale-105 scroll-smooth"
+          size={30}
         />
       </div>
 
-      {activePopUp === keyValue && (
+      {activePopUp === index && (
         <div className="float left">
           <LibraryPopup
             isLoading={isLibraryLoading}
@@ -93,7 +117,7 @@ const CategoryCard = ({
             categoryId={categoryId}
             setActivePopUp={setActivePopUp}
             activePopUp={activePopUp}
-            keyValue={keyValue}
+            keyValue={index}
           />
         </div>
       )}

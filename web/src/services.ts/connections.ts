@@ -125,10 +125,10 @@ export class NorthStarApi {
   }
 
   public async getExcerptsInfoByCategory(
-    category_id: number
+    collection_id: number
   ): Promise<ExcerptInfo[]> {
     const response = await axios.get(
-      `${this.baseUrl}/api/excerpts/${category_id}`
+      `${this.baseUrl}/api/excerpts/${collection_id}`
     );
     return response.data;
   }
@@ -179,6 +179,16 @@ export class NorthStarApi {
       excerpts,
     });
     return response.data;
+  }
+
+  public async createCollection(
+    user_id: number,
+    collections: CollectionCreateInfo[]
+  ): Promise<void> {
+    axios.post(`${this.baseUrl}/api/create_collection`, {
+      user_id: user_id,
+      collections: collections,
+    });
   }
 }
 
