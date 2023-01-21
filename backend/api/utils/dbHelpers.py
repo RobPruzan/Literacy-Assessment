@@ -4,7 +4,7 @@ from typing import List
 from ..models import Excerpt
 
 
-def excerpt_ids_to_objecsts(excerpt_ids: List[int]) -> List[Excerpt]:
+def excerpt_ids_to_objects(excerpt_ids: List[int]) -> List[Excerpt]:
     excerpt_list = []
     print("The excerpt ids are: ", excerpt_ids)
     if excerpt_ids and len(excerpt_ids) > 0:

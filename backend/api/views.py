@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from .utils.helpers import ids_to_calculation, ids_are_valid
 
-from .utils.dbHelpers import excerpt_ids_to_objecsts
+from .utils.dbHelpers import excerpt_ids_to_objects
 
 from .utils.apiHelpers import calculate_stats_and_respond
 
@@ -16,8 +16,8 @@ from .NLP.main import (
     sliding_window,
     get_readability_measures,
 )
-from .models import Category, Excerpt, ExcerptInfo, User
-from .serializers import CategorySerializer, ExcerptInfoSerializer, UserSerializer
+from .models import Collection, Excerpt, ExcerptInfo, User
+from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from print_color import print
@@ -33,26 +33,26 @@ class UserView(generics.CreateAPIView):
 
 class ExcerptInfoView(APIView):
     def get(self, request, *args, **kwargs):
-        experpts_info = ExcerptInfo.objects.all()
-        serializer = ExcerptInfoSerializer(experpts_info, many=True)
+        excerpts_info = ExcerptInfo.objects.all()
+        serializer = ExcerptInfoSerializer(excerpts_info, many=True)
         return Response(serializer.data)
 
 
-class ExcerptByCategoryView(APIView):
+class ExcerptByCollectionView(APIView):
     def get(self, request, *args, **kwargs):
-        category_id = kwargs.get("category_id")
-        if category_id is None:
+        collection_id = kwargs.get("collection_id")
+        if collection_id is None:
             return Response("No id provided")
-        experpts_info = ExcerptInfo.objects.filter(category_id=category_id)
-        serializer = ExcerptInfoSerializer(experpts_info, many=True)
+        excerpts_info = ExcerptInfo.objects.filter(collection_id=collection_id)
+        serializer = ExcerptInfoSerializer(excerpts_info, many=True)
 
         return Response(serializer.data)
 
 
-class CategoryView(APIView):
+class CollectionView(APIView):
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
-        serializer = CategorySerializer(categories, many=True)
+        categories = Collection.objects.all()
+        serializer = CollectionSerializer(categories, many=True)
         return Response(serializer.data)
 
 
@@ -85,6 +85,29 @@ class CompereText(APIView):
     def post(self, request, *args, **kwargs):
         selected_excerpts = request.data.get("excerpts")
         selected_excerpts_ids = [excerpt.get("id") for excerpt in selected_excerpts]
-        excerpts_text = excerpt_ids_to_objecsts(selected_excerpts_ids)
+        excerpts_text = excerpt_ids_to_objects(selected_excerpts_ids)
         comparison_stats = comparison_pipeline(excerpts_text)
         return Response(comparison_stats)
+
+
+class CreateCollectionView(APIView):
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get("user_id")
+        user = User.objects.filter(user_id=user_id).first()
+        collection = Collection.objects.create(
+            title=request.data.get("collection_title", None),
+        )
+        excerpts = request.data.get("excerpts")
+
+        for excerpt in excerpts:
+            source_user_id = User.objects.filter(id=user_id).first()
+            if source_user_id:
+                Excerpt.objects.create(
+                    title=excerpt.get("title"),
+                    text=excerpt.get("text"),
+                    source_user_id=User.objects.filter(id=user_id).first().id,
+                    collection_id=collection.id,
+                )
+        user.collections.add(collection)
+        user.save()
+        return Response()
