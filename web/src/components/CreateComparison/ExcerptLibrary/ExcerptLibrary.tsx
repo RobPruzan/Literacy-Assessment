@@ -32,7 +32,7 @@ export const ExcerptLibrary = () => {
             total_excerpts={category.total_excerpts}
             activePopUp={activePopUp}
             setActivePopUp={setActivePopUp}
-            keyValue={idx}
+            index={idx}
           />
         ))}
     </div>

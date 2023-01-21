@@ -1,6 +1,11 @@
 import { BsPlusCircle, BsX, BsXCircle } from 'react-icons/bs';
-import { useReducer, useState } from 'react';
+import {
+  CreateCollectionParams,
+  useCreateCollection,
+} from '../../../hooks/LibraryHooks/useCreateCollection';
+import { SetStateAction, useReducer, useState } from 'react';
 
+import CategoryCard from '../CategoryCard';
 import { CollectionCreateInfo } from '../../../../services.ts/connections';
 import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
@@ -29,20 +34,25 @@ export const FAKE_EXCERPT_INFO = {
 };
 
 type Action =
-  | { type: 'title'; payload: string }
-  | { type: 'excerpt'; payload: string };
+  | { type: 'title'; payload: { title: string } }
+  | { type: 'excerpt'; payload: { excerpt: string } }
+  | { type: 'reset' };
 
 type Props = {};
 const CollectionCreate = ({}: Props) => {
   const [showCollectionCreate, setShowCollectionCreate] = useState(false);
+  const createCollectionMutation = useCreateCollection();
+
   const [inputCollection, inputCollectionDispatch] = useReducer(
     (state: CollectionCreateInfo, action: Action) => {
       switch (action.type) {
         case 'title':
-          return { ...state, title: action.payload };
+          return { ...state, title: action.payload.title };
 
         case 'excerpt':
-          return { ...state, excerpt: action.payload };
+          return { ...state, excerpt: action.payload.excerpt };
+        case 'reset':
+          return { title: '', excerpt: '' };
         default:
           return state;
       }
@@ -51,6 +61,35 @@ const CollectionCreate = ({}: Props) => {
       title: '',
       excerpt: '',
     }
+  );
+
+  const [collections, collectionsDispatch] = useReducer(
+    (
+      state: CollectionCreateInfo[],
+      action:
+        | { type: 'add'; payload: { collection: CollectionCreateInfo } }
+        | { type: 'remove'; payload: { index: number } }
+        | { type: 'reset' }
+    ) => {
+      switch (action.type) {
+        case 'add':
+          if (
+            !action.payload.collection.title ||
+            !action.payload.collection.excerpt
+          ) {
+            return state;
+          }
+          inputCollectionDispatch({ type: 'reset' });
+          return [...state, action.payload.collection];
+        case 'remove':
+          return state.filter((_, index) => index !== action.payload.index);
+        case 'reset':
+          return [];
+        default:
+          return state;
+      }
+    },
+    []
   );
 
   console.log(inputCollection);
@@ -68,7 +107,7 @@ const CollectionCreate = ({}: Props) => {
             onChange={(e) =>
               inputCollectionDispatch({
                 type: 'title',
-                payload: e.target.value,
+                payload: { title: e.target.value },
               })
             }
             value={inputCollection.title}
@@ -79,7 +118,7 @@ const CollectionCreate = ({}: Props) => {
           />
         </div>
 
-        <div className="flex w-full h-full border-b-2 border-custom-blood-red">
+        <div className="flex w-full h-full border-b-2 border-opacity-50 border-custom-blood-red">
           <div className="h-full w-full flex flex-col items-start text-center p-3">
             <label
               className="text-gray-500 font-semibold text-xl "
@@ -91,7 +130,7 @@ const CollectionCreate = ({}: Props) => {
               onChange={(e) =>
                 inputCollectionDispatch({
                   type: 'excerpt',
-                  payload: e.target.value,
+                  payload: { excerpt: e.target.value },
                 })
               }
               value={inputCollection.excerpt}
@@ -104,14 +143,28 @@ const CollectionCreate = ({}: Props) => {
           <div className="flex flex-col items-center  w-1/4">
             <div className="h-50 flex items-end justify-center">
               <BsPlusCircle
+                onClick={() => {
+                  collectionsDispatch({
+                    type: 'add',
+                    payload: { collection: inputCollection },
+                  });
+                }}
                 color="red"
                 size={60}
                 className="text-2xl font-bold cursor-pointer transition ease-in-out delay-75 hover:scale-105 fill-custom-blood-red hover:fill-orange-400"
               />
             </div>
             <div className="h-50 flex flex-col justify-end py-3 w-10/12">
-              <button className="bg-custom-blood-red text-white text-xl rounded-md font-semibold py-2 m-2 mb-0 hover:bg-orange-400 transition ease-in-out delay-150  hover:scale-105  ">
-                Save
+              <button
+                onClick={async () => {
+                  await createCollectionMutation.mutateAsync({ collections });
+                  setShowCollectionCreate(false);
+                }}
+                className={`${
+                  createCollectionMutation.isLoading ? 'bg-opacity-50' : null
+                }  bg-custom-blood-red text-white text-xl rounded-md font-semibold py-2 m-2 mb-0 hover:bg-orange-400 transition ease-in-out delay-150  hover:scale-105  `}
+              >
+                {createCollectionMutation.isLoading ? 'Loading...' : 'Create'}
               </button>
             </div>
           </div>
@@ -127,38 +180,43 @@ const CollectionCreate = ({}: Props) => {
             X
           </BsX>
         </div>
-        <div className="snap-x scroll-px-6 overflow-x-scroll flex  w-full min-h-fit overflow-y-hidden p-3">
-          {[...Array(14)].map((_, i) => (
-            <div
-              key={i}
-              className="flex min-h-fit items-center snap-center m-4  "
-            >
-              <div className="div ">
-                <ExcerptCard
-                  excerptInfo={{
-                    id: 0,
-                    excerpt: {
-                      id: 0,
-                      source: '',
-                      title: 'Example Title',
-                    },
-                    title: '',
-                    difficulty: 0,
-                    diversity: 0,
-                    text_length: 0,
-                    category: {
-                      id: 0,
-                      title: '',
-                      difficulty: 0,
-                      total_excerpts: 0,
-                    },
-                    region: '',
-                    source: '',
+        <div className="snap-x scroll-px-6 overflow-x-scroll flex  w-full min-h-fit overflow-y-hidden p-3 relative">
+          <p className="absolute top-0 left-0 text-2xl font-bold text-custom-blood-red">
+            {collections.length}
+          </p>
+          {/* {[...Array(14)].map((_, i) => ( */}
+          {collections.length > 0 ? (
+            collections.map((_, i) => (
+              <div
+                key={i}
+                className="flex min-h-fit items-center snap-center m-4  relative"
+              >
+                {/* <div className=" border-2 border-custom-blood-red"></div> */}
+                <CategoryCard
+                  key={`category-card-${i}`}
+                  index={i}
+                  collectionsDispatch={collectionsDispatch}
+                  categoryId={0}
+                  categoryName={''}
+                  difficulty={0}
+                  total_excerpts={0}
+                  activePopUp={-1}
+                  setActivePopUp={function (
+                    value: SetStateAction<number>
+                  ): void {
+                    throw new Error('Function not implemented.');
                   }}
                 />
               </div>
+            ))
+          ) : (
+            <div className="flex w-full justify-center items-center">
+              <p className="text-gray-300 my-5 font-semibold text-2xl">
+                No Excerpts Added
+              </p>
             </div>
-          ))}
+          )}
+          {}
         </div>
       </div>
     </div>
