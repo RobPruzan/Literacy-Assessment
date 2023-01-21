@@ -8,12 +8,12 @@ import MyCollections from './MyCollections/MyCollections';
 export const CreateComparison = () => {
   return (
     <>
-      <div className="flex flex-col h-screen w-screen  max-w-full  ">
+      <div className="flex flex-col h-screen w-screen overflow-hidden  max-w-full  ">
         <AboutNavbar color="custom-blood-red" />
-        <div className=" flex justify-center items-center flex-grow">
-          <div className="h-full div bo-blue-200  grid grid-cols-5 grid-rows-6 w-screen">
+        <div className=" flex justify-center items-center overflow-hidden flex-grow">
+          <div className="h-full div bo-blue-200 grid grid-cols-5 grid-rows-6 w-screen">
             <div className="div bg-white text-white text-center text-5xl   col-span-5 grid grid-cols-5 row-span-1  ">
-              <div className="col-span-5  text-lg shadow-inner border-b-2 border-custom-blood-red border-opacity-50">
+              <div className="col-span-5 text-lg shadow-inner border-b-2 border-custom-blood-red border-opacity-50 ">
                 <InfoCardBar />
               </div>
             </div>
@@ -27,7 +27,7 @@ export const CreateComparison = () => {
                 </div>
               </div>
             </div>
-            <div className="div bg-white border-2 border-gray-100 text-center sm:border-b-0   text-lg  md:col-span-3 md:row-span-7 col-span-5 row-span-5 h-full ">
+            <div className="overflow-y-scroll bg-white border-2 border-gray-100 text-center sm:border-b-0   text-lg  md:col-span-3 md:row-span-7 col-span-5 row-span-5 h-full ">
               <section className=" w-full">
                 <ExcerptLibrary />
               </section>

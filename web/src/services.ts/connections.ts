@@ -1,4 +1,7 @@
+import { User } from '../redux/user';
 import axios from 'axios';
+import { request } from 'http';
+import { z } from 'zod';
 
 export type ExcerptInfo = {
   id: number;
@@ -7,24 +10,34 @@ export type ExcerptInfo = {
   difficulty: number;
   diversity: number;
   text_length: number;
-  category: Category;
   region: string;
   source: string;
 };
 
-export type Excerpt = Pick<ExcerptInfo, 'id' | 'source' | 'title'>;
+export type Excerpt = {
+  title: string;
+  text: string;
+  source: string;
+  source_user: User;
+  collection: Collection;
+};
 
 export type CollectionCreateInfo = {
+  id?: number;
   title: string;
   excerpt: string;
 };
 
-export type Category = {
-  id: number;
-  title: string;
-  difficulty: number;
-  total_excerpts: number;
-};
+const collectionSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  difficulty: z.number(),
+  total_excerpts: z.number(),
+});
+
+export type Collection = z.infer<typeof collectionSchema>;
+
+// export const getCollectionsScehena = z.infer(
 
 export type CalculationStats = {
   difficulty: number[] | null;
@@ -118,13 +131,15 @@ export class NorthStarApi {
     return response.data;
   }
 
-  public async getCategories(): Promise<Category[]> {
-    const response = await axios.get(`${this.baseUrl}/api/categories`);
-
-    return response.data;
+  public async getCollections(): Promise<Collection[]> {
+    const response = await axios.get(`${this.baseUrl}/api/collections`);
+    const arrayCollectionSchema = z.array(collectionSchema);
+    const collections = arrayCollectionSchema.parse(response.data);
+    console.log('Collections Length:', collections.length);
+    return collections;
   }
 
-  public async getExcerptsInfoByCategory(
+  public async getExcerptsInfoByCollection(
     collection_id: number
   ): Promise<ExcerptInfo[]> {
     const response = await axios.get(
@@ -156,7 +171,7 @@ export class NorthStarApi {
     return response.data;
   }
 
-  public async getGrammerScore(excerpt_ids: number[]): Promise<number[]> {
+  public async getGrammarScore(excerpt_ids: number[]): Promise<number[]> {
     const response = await axios.post(`${this.baseUrl}/api/grammar`, {
       excerpt_ids,
     });
@@ -183,11 +198,11 @@ export class NorthStarApi {
 
   public async createCollection(
     user_id: number,
-    collections: CollectionCreateInfo[]
+    collection: CollectionCreateInfo[]
   ): Promise<void> {
     axios.post(`${this.baseUrl}/api/create_collection`, {
       user_id: user_id,
-      collections: collections,
+      collection: collection,
     });
   }
 }

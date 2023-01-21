@@ -1,35 +1,32 @@
-import { BsPlusLg } from 'react-icons/bs';
-import CategoryCard from './CategoryCard';
-import CollectionCreate from './CollectionCreate/CollectionCreate';
-import { IoCreateOutline } from 'react-icons/io5';
-import NorthStar from '../../../services.ts/connections';
-import { useGetCategories } from '../../hooks/LibraryHooks/useGetCategories';
+import CollectionCard from './CollectionCard';
+import { useGetCollections } from '../../hooks/LibraryHooks/useGetCollections';
 import { useGetExcerptsLibrary } from '../../hooks/LibraryHooks/useGetExcerptsLibrary';
-import { useQuery } from 'react-query';
 import { useState } from 'react';
 
 export const ExcerptLibrary = () => {
   const [activePopUp, setActivePopUp] = useState(-1);
 
-  const getExcerptsQuery = useGetExcerptsLibrary();
-  const getCategoriesQuery = useGetCategories();
+  // const getExcerptsQuery = useGetExcerptsLibrary();
+  const getCollectionsQuery = useGetCollections();
 
-  if (getCategoriesQuery.isLoading) return <div>Loading...</div>;
-  if (getCategoriesQuery.isError) {
+  if (getCollectionsQuery.isLoading) return <div>Loading...</div>;
+  if (getCollectionsQuery.isError) {
     return (
-      <div>Error: {`We encountered an error: ${getCategoriesQuery.error}`}</div>
+      <div>
+        Error: {`We encountered an error: ${getCollectionsQuery.error}`}
+      </div>
     );
   }
 
   return (
     <div className="flex flex-wrap justify-center">
-      {getCategoriesQuery.isSuccess &&
-        getCategoriesQuery.data?.map((category, idx) => (
-          <CategoryCard
-            categoryId={category.id}
-            categoryName={category.title}
-            difficulty={category.difficulty}
-            total_excerpts={category.total_excerpts}
+      {getCollectionsQuery.isSuccess &&
+        getCollectionsQuery.data?.map((collection, idx) => (
+          <CollectionCard
+            collectionId={collection.id}
+            collectionName={collection.title}
+            difficulty={collection.difficulty}
+            total_excerpts={collection.total_excerpts}
             activePopUp={activePopUp}
             setActivePopUp={setActivePopUp}
             index={idx}

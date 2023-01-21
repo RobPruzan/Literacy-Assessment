@@ -10,7 +10,7 @@ const useSequentialComparison = () => {
     NorthStar.getDiversityScore(excerpt_ids);
 
   const calculateGrammarFn = (excerpt_ids: number[]) =>
-    NorthStar.getGrammerScore(excerpt_ids);
+    NorthStar.getGrammarScore(excerpt_ids);
 
   const calculateReadabilityMeasuresFn = (excerpt_ids: number[]) =>
     NorthStar.getReadabilityMeasures(excerpt_ids);
