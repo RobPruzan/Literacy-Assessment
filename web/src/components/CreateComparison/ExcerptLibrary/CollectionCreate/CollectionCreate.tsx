@@ -34,6 +34,11 @@ type Action =
   | { type: 'reset' }
   | { type: 'title'; payload: { title: string } };
 
+type CollectionCreateAction =
+  | { type: 'add'; payload: { collection: CollectionCreateInfo } }
+  | { type: 'remove'; payload: { index: number } }
+  | { type: 'reset' };
+
 export enum ExcerptType {
   'text' = 'text',
   'file' = 'file',
@@ -102,10 +107,7 @@ const CollectionCreate = ({}: Props) => {
   const [collection, collectionDispatch] = useReducer(
     (
       state: CollectionCreateInfo,
-      action:
-        | { type: 'add'; payload: { collection: CollectionCreateInfo } }
-        | { type: 'remove'; payload: { index: number } }
-        | { type: 'reset' }
+      action: CollectionCreateAction
     ): CollectionCreateInfo => {
       switch (action.type) {
         case 'add':
@@ -131,7 +133,7 @@ const CollectionCreate = ({}: Props) => {
           return state;
       }
     },
-    []
+    { collection: [], title: '' }
   );
 
   // useEffect(() => {
