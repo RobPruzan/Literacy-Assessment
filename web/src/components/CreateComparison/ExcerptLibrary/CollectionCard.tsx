@@ -5,7 +5,11 @@ import NorthStar, {
 } from '../../../services.ts/connections';
 
 import { AiOutlineEye } from 'react-icons/ai';
+import { ArrowUpwardOutlined } from '@mui/icons-material';
+import { FcSearch } from 'react-icons/fc';
 import LibraryPopup from './LibraryPopup';
+import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
+import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
 
 export const COLOR_MAP = (difficulty: number) => {
@@ -19,6 +23,8 @@ export const COLOR_MAP = (difficulty: number) => {
 };
 
 export type CollectionCardProps = {
+  // isUserCollection: boolean;
+  isCreating: boolean;
   collectionId: number;
   collectionName: string;
   difficulty: number;
@@ -46,6 +52,8 @@ export type CollectionCardProps = {
   >;
 };
 const CollectionCard = ({
+  // userCollection,
+  isCreating,
   collectionsDispatch,
   collectionId,
   collectionName,
@@ -56,19 +64,31 @@ const CollectionCard = ({
   index,
   sizeMultiplier = 1,
 }: CollectionCardProps) => {
-  const {
-    data: libraryData,
-    isLoading: isLibraryLoading,
-    error: libraryError,
-    isError: isLibraryError,
-  } = useQuery(['excerptsByCollection', index], () =>
-    NorthStar.getExcerptsInfoByCollection(collectionId)
+  const excerptByCollectionQuery = useQuery(
+    ['excerptsByCollection', index],
+    () => NorthStar.getExcerptsInfoByCollection(collectionId)
   );
-  useDebugValue('test');
+  const dispatch = useDispatch();
 
   return (
     <>
-      <div className=" bg-white min-w-fit min-h-fit p-2  w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md">
+      {' '}
+      <div
+        style={{
+          minWidth: '13rem',
+        }}
+        onClick={() => {
+          if (excerptByCollectionQuery.isSuccess) {
+            dispatch({
+              type: SelectedCollectionsActions.AddCollection,
+              payload: {
+                collectionInfo: excerptByCollectionQuery.data,
+              },
+            });
+          }
+        }}
+        className={` bg-white hover:shadow-orange-200  min-h-fit p-2   w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md transition ease-in-out delay-75 hover:scale-105 cursor-pointer overflow-x-scroll `}
+      >
         <p className="text-center text-gray-500  text-xl  mb-2">
           {collectionName}
         </p>
@@ -88,32 +108,33 @@ const CollectionCard = ({
         </div>
 
         {!(activePopUp === index) && (
-          <AiOutlineEye
-            size={22}
-            className="hover:cursor-pointer hover:fill-slate-500 hover:shadow-2xl float-left"
+          <FcSearch
+            size={27}
+            className="  transition duration-300 ease-in-out hover:scale-125 hover:fill-slate-500 hover:shadow-2xl float-left"
             onClick={() => setActivePopUp(index)}
           />
         )}
-        <BsX
-          onClick={() => {
-            collectionsDispatch &&
-              collectionsDispatch({
-                type: 'remove',
-                payload: { index: index },
-              });
-          }}
-          className="top-0 right-0 absolute fill-red-500 cursor-pointer hover:fill-red-600 transition ease-in-out delay-75 hover:scale-105 scroll-smooth"
-          size={30}
-        />
+        {isCreating ? (
+          <BsX
+            onClick={() => {
+              collectionsDispatch &&
+                collectionsDispatch({
+                  type: 'remove',
+                  payload: { index: index },
+                });
+            }}
+            className="top-0 right-0 absolute fill-red-500 cursor-pointer hover:fill-red-600  scroll-smooth"
+            size={30}
+          />
+        ) : null}
       </div>
-
       {activePopUp === index && (
         <div className="float left">
           <LibraryPopup
-            isLoading={isLibraryLoading}
-            isError={isLibraryError}
-            error={libraryError}
-            excerptsInfo={libraryData}
+            isLoading={excerptByCollectionQuery.isLoading}
+            isError={excerptByCollectionQuery.isError}
+            error={excerptByCollectionQuery.error}
+            excerptsInfo={excerptByCollectionQuery.data}
             collectionId={collectionId}
             setActivePopUp={setActivePopUp}
             activePopUp={activePopUp}

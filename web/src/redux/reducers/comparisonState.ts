@@ -3,11 +3,11 @@ export enum ComparisonTypeStrings {
   Excerpt = 'excerpt',
 }
 export interface ComparisonState {
-  comaprisonType: ComparisonTypeStrings;
+  comparisonType: ComparisonTypeStrings;
 }
 
 export const DEFAULT_COMPARISON_STATE: ComparisonState = {
-  comaprisonType: ComparisonTypeStrings.Collection,
+  comparisonType: ComparisonTypeStrings.Collection,
 };
 
 export enum ComparisonActions {

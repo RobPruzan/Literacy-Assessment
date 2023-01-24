@@ -1,6 +1,5 @@
 import { User } from '../redux/user';
 import axios from 'axios';
-import { request } from 'http';
 import { z } from 'zod';
 
 export type ExcerptInfo = {
@@ -22,10 +21,14 @@ export type Excerpt = {
   collection: Collection;
 };
 
+export type ExpertCreate = Omit<
+  Excerpt,
+  'source_user' | 'collection' | 'source'
+>;
+
 export type CollectionCreateInfo = {
-  id?: number;
+  collection: ExpertCreate[];
   title: string;
-  excerpt: string;
 };
 
 const collectionSchema = z.object({
@@ -135,54 +138,53 @@ export class NorthStarApi {
     const response = await axios.get(`${this.baseUrl}/api/collections`);
     const arrayCollectionSchema = z.array(collectionSchema);
     const collections = arrayCollectionSchema.parse(response.data);
-    console.log('Collections Length:', collections.length);
     return collections;
   }
 
   public async getExcerptsInfoByCollection(
-    collection_id: number
+    collectionId: number
   ): Promise<ExcerptInfo[]> {
     const response = await axios.get(
-      `${this.baseUrl}/api/excerpts/${collection_id}`
+      `${this.baseUrl}/api/excerpts/${collectionId}`
     );
     return response.data;
   }
 
   public async getDiversityScore(
-    excerpt_ids: number[]
+    excerptIds: number[]
   ): Promise<[InterpretableOutput, DiversityOutput][]> {
     const response = await axios.post(`${this.baseUrl}/api/diversity`, {
-      excerpt_ids,
+      excerpt_ids: excerptIds,
     });
     return response.data;
   }
-  public async getDifficultyScore(excerpt_ids: number[]): Promise<number[]> {
+  public async getDifficultyScore(excerptIds: number[]): Promise<number[]> {
     const response = await axios.post(`${this.baseUrl}/api/difficulty`, {
-      excerpt_ids,
+      excerpt_ids: excerptIds,
     });
     return response.data;
   }
   public async getWindowDifficultyScore(
-    excerpt_ids: number[]
+    excerptIds: number[]
   ): Promise<WindowDifficultyOutput[]> {
     const response = await axios.post(`${this.baseUrl}/api/window_difficulty`, {
-      excerpt_ids,
+      excerpt_ids: excerptIds,
     });
     return response.data;
   }
 
-  public async getGrammarScore(excerpt_ids: number[]): Promise<number[]> {
+  public async getGrammarScore(excerptIds: number[]): Promise<number[]> {
     const response = await axios.post(`${this.baseUrl}/api/grammar`, {
-      excerpt_ids,
+      excerpt_ids: excerptIds,
     });
     return response.data;
   }
 
   public async getReadabilityMeasures(
-    excerpt_ids: number[]
+    excerptIds: number[]
   ): Promise<ReadabilityMeasures[]> {
     const response = await axios.post(`${this.baseUrl}/api/readability`, {
-      excerpt_ids,
+      excerpt_ids: excerptIds,
     });
     return response.data;
   }
@@ -197,13 +199,21 @@ export class NorthStarApi {
   }
 
   public async createCollection(
-    user_id: number,
+    userId: number,
     collection: CollectionCreateInfo[]
   ): Promise<void> {
     axios.post(`${this.baseUrl}/api/create_collection`, {
-      user_id: user_id,
-      collection: collection,
+      user_id: userId,
+      collection,
     });
+  }
+  public async getUserCollections(userId: number): Promise<Collection[]> {
+    const response = await axios.get(
+      `${this.baseUrl}/api/user_collections/${userId}`
+    );
+    const arrayCollectionSchema = z.array(collectionSchema);
+    const collections = arrayCollectionSchema.parse(response.data);
+    return collections;
   }
 }
 
