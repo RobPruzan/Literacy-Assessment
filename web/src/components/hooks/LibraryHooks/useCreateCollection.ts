@@ -7,7 +7,7 @@ import { RootState } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 
 export type CreateCollectionParams = {
-  collection: CollectionCreateInfo[];
+  collection: CollectionCreateInfo;
 };
 
 export const useCreateCollection = (fn?: VoidFunction) => {

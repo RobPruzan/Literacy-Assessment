@@ -1,8 +1,11 @@
 import { BsPlusCircle, BsX } from 'react-icons/bs';
+import {
+  CollectionCreateInfo,
+  InputCollectionCreate,
+} from '../../../../services.ts/connections';
 import { Tab, Tabs } from '@mui/material';
 import { useReducer, useState } from 'react';
 
-import { CollectionCreateInfo } from '../../../../services.ts/connections';
 import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useCreateCollection } from '../../../hooks/LibraryHooks/useCreateCollection';
@@ -28,14 +31,14 @@ export const FAKE_EXCERPT_INFO = {
   source: '',
 };
 
-type Action =
+type InputCollectionAction =
   | { type: 'excerpt_title'; payload: { excerpt_title: string } }
   | { type: 'excerpt'; payload: { excerpt: string } }
   | { type: 'reset' }
   | { type: 'title'; payload: { title: string } };
 
 type CollectionCreateAction =
-  | { type: 'add'; payload: { collection: CollectionCreateInfo } }
+  | { type: 'add'; payload: { collection: InputCollectionCreate } }
   | { type: 'remove'; payload: { index: number } }
   | { type: 'reset' };
 
@@ -45,7 +48,7 @@ export enum ExcerptType {
 }
 type ReducerType = (
   state: CollectionCreateInfo,
-  action: Action
+  action: InputCollectionAction
 ) => CollectionCreateInfo[];
 type Props = {};
 const CollectionCreate = ({}: Props) => {
@@ -57,51 +60,44 @@ const CollectionCreate = ({}: Props) => {
     setShowCollectionCreate(false)
   );
   const [inputCollection, inputCollectionDispatch] = useReducer(
-    (state: CollectionCreateInfo, action: Action) => {
+    (
+      state: InputCollectionCreate,
+      action: InputCollectionAction
+    ): InputCollectionCreate => {
       switch (action.type) {
         case 'excerpt_title':
           return {
             ...state,
-            collection: {
-              ...state.collection,
-              title: action.payload.excerpt_title,
+            collectionInfo: {
+              ...state.collectionInfo,
+              excerptTitle: action.payload.excerpt_title,
             },
           };
         case 'title':
           return {
             ...state,
-            title: action.payload.title,
+            collectionTitle: action.payload.title,
           };
         case 'excerpt':
           return {
             ...state,
-            collection: {
-              ...state.collection,
+            collectionInfo: {
+              ...state.collectionInfo,
               text: action.payload.excerpt,
             },
           };
         case 'reset':
-          return { collection: [], title: '' };
+          return {
+            collectionInfo: { text: '', excerptTitle: '' },
+            collectionTitle: '',
+          };
 
-        //   case 'excerpt_title':
-        //     return {
-        //       ...state,
-        //       excerpt_title: action.payload.excerpt_title,
-        //     };
-
-        //   case 'title':
-        //     return { ...state, title: action.payload.title };
-
-        //   case 'excerpt':
-        //     return { ...state, excerpt: action.payload.excerpt };
-        //   case 'reset':
-        //     return { title: '', excerpt: '' };
         default:
           return state;
       }
     },
-    // { title: '', excerpt: '', excerpt_title: '' }
-    { collection: [], title: '' }
+
+    { collectionInfo: { text: '', excerptTitle: '' }, collectionTitle: '' }
   );
 
   const [collection, collectionDispatch] = useReducer(
@@ -112,8 +108,8 @@ const CollectionCreate = ({}: Props) => {
       switch (action.type) {
         case 'add':
           if (
-            !action.payload.collection.title ||
-            !(action.payload.collection.collection.length < 1)
+            !action.payload.collection.collectionTitle ||
+            !action.payload.collection.collectionInfo
           ) {
             return state;
           }
@@ -123,7 +119,7 @@ const CollectionCreate = ({}: Props) => {
             ...state,
             collection: [
               ...state.collection,
-              action.payload.collection.collection[0],
+              action.payload.collection.collectionInfo,
             ],
           };
 
@@ -158,6 +154,7 @@ const CollectionCreate = ({}: Props) => {
           <input
             className="border-b-2 p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 text-xl focus:outline-none "
             type="text"
+            value={inputCollection.collectionTitle}
             onChange={(e) =>
               inputCollectionDispatch({
                 type: 'title',
@@ -200,7 +197,7 @@ const CollectionCreate = ({}: Props) => {
                         payload: { excerpt_title: e.target.value },
                       })
                     }
-                    value={inputCollection.title}
+                    value={inputCollection.collectionInfo.excerptTitle}
                     type="text"
                     name="title create"
                     id="title create"
@@ -229,7 +226,7 @@ const CollectionCreate = ({}: Props) => {
                           payload: { excerpt: e.target.value },
                         })
                       }
-                      value={inputCollection.collection}
+                      value={inputCollection.collectionInfo.text}
                       name="description create"
                       id="description create"
                       className="h-full border-2 border-custom-blood-red border-opacity-50 p-2  mb-0  rounded-md focus:outline-none resize-none w-full focus:border-orange-400 focus:shadow-orange-400 focus:shadow-sm"
@@ -256,16 +253,19 @@ const CollectionCreate = ({}: Props) => {
           className=" overflow-x-scroll flex  justify-start w-full overflow-y-hidden relative bg-white border-t-2  border-custom-blood-red border-opacity-50"
         >
           <p className="absolute top-0 right-0 m-0 text-2xl font-bold text-custom-blood-red">
-            {collection.length}
+            {collection.collection.length}
           </p>
 
-          {collection.length > 0 ? (
-            collection.map((excerpt, idx) => (
+          {collection.collection.length > 0 ? (
+            collection.collection.map((excerpt, idx) => (
               <div
                 key={idx}
                 className="flex min-h-fit items-center snap-center  relative"
               >
-                <ExcerptCard text_length={excerpt} title={excerpt.title} />
+                <ExcerptCard
+                  text_length={excerpt.text.length}
+                  title={excerpt.excerptTitle}
+                />
               </div>
             ))
           ) : (
@@ -281,7 +281,7 @@ const CollectionCreate = ({}: Props) => {
         <div className="flex w-full justify-center p-3 ">
           <button
             onClick={async () => {
-              createCollectionMutation.mutate({ collection });
+              createCollectionMutation.mutate({ collection: collection });
             }}
             className={`${
               createCollectionMutation.isLoading ? 'bg-opacity-50' : null
