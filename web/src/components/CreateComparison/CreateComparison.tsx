@@ -3,7 +3,7 @@ import ComparisonTypeToggle from './ComparisonTypeToggle';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
 import Filters from './Filters/FIlters';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
-import MyCollections from './MyCollections/MyCollections';
+import UserCollections from './MyCollections/UserCollections';
 
 export const CreateComparison = () => {
   return (
@@ -12,8 +12,8 @@ export const CreateComparison = () => {
         <AboutNavbar color="custom-blood-red" />
         <div className=" flex justify-center items-center overflow-hidden flex-grow">
           <div className="h-full div bo-blue-200 grid grid-cols-5 grid-rows-6 w-screen">
-            <div className="div bg-white text-white text-center text-5xl   col-span-5 grid grid-cols-5 row-span-1  ">
-              <div className="col-span-5 text-lg shadow-inner border-b-2 border-custom-blood-red border-opacity-50 ">
+            <div className="div bg-white text-white text-center text-5xl   col-span-5 grid grid-cols-5 row-span-1 overflow-hidden ">
+              <div className="col-span-5 text-lg shadow-inner border-b-2 border-custom-blood-red border-opacity-50 overflow-x-scroll ">
                 <InfoCardBar />
               </div>
             </div>
@@ -32,8 +32,10 @@ export const CreateComparison = () => {
                 <ExcerptLibrary />
               </section>
             </div>
-            <div className="col-span-1 row-span-5  flex flex-col p-2 items-center h-full shadow-xl">
-              <MyCollections />
+            <div className="col-span-1 row-span-5 overflow-y-scroll flex flex-col px-2 items-center h-full shadow-xl ">
+              <section className="w-full">
+                <UserCollections />
+              </section>
             </div>
           </div>
         </div>

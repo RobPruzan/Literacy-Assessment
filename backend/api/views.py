@@ -60,10 +60,21 @@ class ExcerptByCollectionView(APIView):
 class CollectionView(APIView):
     def get(self, request, *args, **kwargs):
 
-        user_collections = Collection.objects.all()
+        collections = Collection.objects.filter(user__isnull=True)
+        serializer = CollectionSerializer(collections, many=True)
 
-        serializer = CollectionSerializer(user_collections, many=True)
         print("Sending collections", len(serializer.data), color="red")
+        return Response(serializer.data)
+
+
+class UserCollectionView(APIView):
+    def get(self, request, *args, **kwargs):
+        user_id = kwargs.get("user_id")
+        if user_id is None:
+            return Response("No id provided")
+        collections = Collection.objects.filter(user__id=user_id)
+        serializer = CollectionSerializer(collections, many=True)
+
         return Response(serializer.data)
 
 
@@ -103,6 +114,10 @@ class CompereText(APIView):
 
 class CreateCollectionView(APIView):
     def post(self, request, *args, **kwargs):
+        print(
+            f"request data: {request.data}",
+            color="green",
+        )
         user_id = request.data.get("user_id")
 
         user = User.objects.filter(id=user_id).first()

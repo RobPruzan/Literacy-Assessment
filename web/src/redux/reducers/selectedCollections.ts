@@ -1,7 +1,13 @@
 import { CollectionCreateInfo } from '../../services.ts/connections';
 
+export type SelectedCollection = {
+  id: number;
+  title: string;
+  collections: CollectionCreateInfo[];
+};
+
 export interface SelectedCollectionsState {
-  selectedCollections: CollectionCreateInfo[] | null;
+  selectedCollections: SelectedCollection[] | null;
 }
 
 export const DEFAULT_SELECTED_COLLECTIONS_STATE: SelectedCollectionsState = {
@@ -13,13 +19,6 @@ export enum SelectedCollectionsActions {
   RemoveCollection = 'selectedCollections/REMOVE_COLLECTIONS',
   AddCollection = 'selectedCollections/ADD_COLLECTION',
   ResetSelectedCollections = 'selectedCollections/RESET_SELECTED_COLLECTIONS',
-}
-
-interface SetSelectedCollectionsAction {
-  type: SelectedCollectionsActions.SetSelectedCollections;
-  payload: {
-    selectedCollections: CollectionCreateInfo[];
-  };
 }
 
 interface RemoveCollectionAction {
@@ -41,17 +40,19 @@ interface ResetSelectedCollectionsAction {
 export const SelectedCollectionsReducer = (
   state: SelectedCollectionsState = DEFAULT_SELECTED_COLLECTIONS_STATE,
   action:
-    | SetSelectedCollectionsAction
     | RemoveCollectionAction
     | AddCollectionAction
     | ResetSelectedCollectionsAction
 ) => {
   switch (action.type) {
-    case SelectedCollectionsActions.SetSelectedCollections:
-      return {
-        ...state,
-        selectedCollections: action.payload,
-      };
+    // case SelectedCollectionsActions.SetSelectedCollections:
+    //   return {
+    //     ...state,
+    //     selectedCollections: [
+    //       action.payload.selectedCollections,
+    //       state.selectedCollections,
+    //     ],
+    //   };
     case SelectedCollectionsActions.RemoveCollection:
       return {
         ...state,
@@ -60,21 +61,34 @@ export const SelectedCollectionsReducer = (
         ),
       };
     case SelectedCollectionsActions.AddCollection:
-      if (
-        state.selectedCollections?.some(
-          (excerpt) => excerpt.id === action.payload.collectionInfo.id
-        )
-      ) {
-        return state;
-      } else {
-        return {
-          ...state,
-          selectedCollections: [
-            ...(state.selectedCollections ?? []),
-            action.payload.collectionInfo,
-          ],
-        };
-      }
+      // console.log('incoming add collection action', action.payload);
+      // if (
+      //   state.selectedCollections?.some(
+      //     (excerpt) => excerpt.id === action.payload.collectionInfo.id
+      //   )
+      // ) {
+      //   return state;
+      // } else {
+      //   return {
+      //     ...state,
+      //     selectedCollections: [
+      //       ...(state.selectedCollections ?? []),
+      //       action.payload.collectionInfo,
+      //     ],
+      //   };
+      // }
+      console.log(
+        'incoming add collection action and curr state',
+        state.selectedCollections,
+        action.payload.collectionInfo
+      );
+      return {
+        ...state,
+        selectedCollections: [
+          ...(state.selectedCollections ?? []),
+          action.payload.collectionInfo,
+        ],
+      };
 
     case SelectedCollectionsActions.ResetSelectedCollections:
       return { ...state, selectedCollections: null };

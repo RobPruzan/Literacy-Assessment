@@ -10,6 +10,7 @@ from .views import (
     ExcerptByCollectionView,
     ExcerptInfoView,
     ReadabilityMeasures,
+    UserCollectionView,
     UserView,
     WindowDifficultyView,
 )
@@ -26,4 +27,5 @@ urlpatterns = [
     path("api/grammar", CalculateGrammar.as_view()),
     path("api/readability", ReadabilityMeasures.as_view()),
     path("api/create_collection", CreateCollectionView.as_view()),
+    path("api/user_collections/<int:user_id>", UserCollectionView.as_view()),
 ]
