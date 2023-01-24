@@ -23,8 +23,9 @@ export const useCreateCollection = (fn?: VoidFunction) => {
       }
     },
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(['collections']);
+      onSuccess: () => {
+        console.log('invalidating queries');
+        queryClient.invalidateQueries(['user_collections']);
         fn && fn();
       },
     }

@@ -202,12 +202,12 @@ export class NorthStarApi {
     });
     return response.data;
   }
-
+  // Not returning anything breaks onSuccess in react-query, it immediately fires the onSuccess callback
   public async createCollection(
     userId: number,
     collection: CollectionCreateInfo
-  ): Promise<void> {
-    axios.post(`${this.baseUrl}/api/create_collection`, {
+  ) {
+    return axios.post(`${this.baseUrl}/api/create_collection`, {
       user_id: userId,
       collection,
     });
@@ -218,6 +218,7 @@ export class NorthStarApi {
     );
     const arrayCollectionSchema = z.array(collectionSchema);
     const collections = arrayCollectionSchema.parse(response.data);
+    console.log('Got collections');
     return collections;
   }
 }

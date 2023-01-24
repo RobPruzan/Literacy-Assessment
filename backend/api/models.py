@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class User(models.Model):
     name = models.CharField(max_length=200, default="")
@@ -16,7 +17,11 @@ class Excerpt(models.Model):
         User, blank=True, null=True, on_delete=models.CASCADE
     )
     collection = models.ForeignKey(
-        "Collection", on_delete=models.CASCADE, null=True, blank=True
+        "Collection",
+        related_name="excerpts",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
 

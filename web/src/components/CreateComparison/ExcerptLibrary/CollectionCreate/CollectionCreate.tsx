@@ -34,7 +34,7 @@ export const FAKE_EXCERPT_INFO = {
 type InputCollectionAction =
   | { type: 'excerpt_title'; payload: { excerpt_title: string } }
   | { type: 'excerpt'; payload: { excerpt: string } }
-  | { type: 'reset' }
+  | { type: 'reset'; payload: { collectionTitle: string } }
   | { type: 'title'; payload: { title: string } };
 
 type CollectionCreateAction =
@@ -89,7 +89,7 @@ const CollectionCreate = ({}: Props) => {
         case 'reset':
           return {
             collectionInfo: { text: '', excerptTitle: '' },
-            collectionTitle: '',
+            collectionTitle: action.payload.collectionTitle,
           };
 
         default:
@@ -114,9 +114,13 @@ const CollectionCreate = ({}: Props) => {
             return state;
           }
 
-          inputCollectionDispatch({ type: 'reset' });
+          inputCollectionDispatch({
+            type: 'reset',
+            payload: { collectionTitle: inputCollection.collectionTitle },
+          });
           return {
             ...state,
+            title: action.payload.collection.collectionTitle,
             collection: [
               ...state.collection,
               action.payload.collection.collectionInfo,

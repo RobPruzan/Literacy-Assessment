@@ -1,16 +1,12 @@
-import { BsPlus, BsX } from 'react-icons/bs';
-import { Dispatch, SetStateAction, useDebugValue } from 'react';
-import NorthStar, {
-  CollectionCreateInfo,
-} from '../../../services.ts/connections';
+import { Dispatch, SetStateAction } from 'react';
 
-import { AiOutlineEye } from 'react-icons/ai';
-import { ArrowUpwardOutlined } from '@mui/icons-material';
+import { BsX } from 'react-icons/bs';
+import { CollectionCreateInfo } from '../../../services.ts/connections';
 import { FcSearch } from 'react-icons/fc';
 import LibraryPopup from './LibraryPopup';
 import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
 import { useDispatch } from 'react-redux';
-import { useQuery } from 'react-query';
+import { useGetExcerptsByCollection } from '../../hooks/LibraryHooks/useGetExcerptsByCollection';
 
 export const COLOR_MAP = (difficulty: number) => {
   if (difficulty <= 30) {
@@ -64,9 +60,9 @@ const CollectionCard = ({
   index,
   sizeMultiplier = 1,
 }: CollectionCardProps) => {
-  const excerptByCollectionQuery = useQuery(
-    ['excerptsByCollection', index],
-    () => NorthStar.getExcerptsInfoByCollection(collectionId)
+  const excerptByCollectionQuery = useGetExcerptsByCollection(
+    collectionId,
+    index
   );
   const dispatch = useDispatch();
 

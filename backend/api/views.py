@@ -1,26 +1,23 @@
-from rest_framework import generics
 from django.shortcuts import render
-
-from .utils.helpers import ids_to_calculation, ids_are_valid
-
-from .utils.dbHelpers import excerpt_ids_to_objects
-
-from .utils.apiHelpers import calculate_stats_and_respond
-
-
-from .NLP.main import (
-    calculate_diversity,
-    comparison_pipeline,
-    misspelled_percentage,
-    reading_difficulty,
-    sliding_window,
-    get_readability_measures,
-)
-from .models import Collection, Excerpt, ExcerptInfo, User
-from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from print_color import print
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .models import Collection, Excerpt, ExcerptInfo, User
+
+# from .NLP.main import (
+#     calculate_diversity,
+#     comparison_pipeline,
+#     get_readability_measures,
+#     misspelled_percentage,
+#     reading_difficulty,
+#     sliding_window,
+# )
+from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
+from .utils.apiHelpers import calculate_stats_and_respond
+from .utils.dbHelpers import excerpt_ids_to_objects
+from .utils.helpers import ids_are_valid, ids_to_calculation
 
 
 # Create your views here.
@@ -41,17 +38,12 @@ class ExcerptInfoView(APIView):
 class ExcerptByCollectionView(APIView):
     def get(self, request, *args, **kwargs):
         collection_id = kwargs.get("collection_id")
-        print(
-            collection_id,
-            Excerpt.objects.filter(collection_id=collection_id),
-            color="green",
-        )
 
         if collection_id is None:
             print("wah wah")
             return Response("No id provided")
         excerpts_info = ExcerptInfo.objects.filter(excerpt__collection_id=collection_id)
-        print(excerpts_info, color="green")
+
         serializer = ExcerptInfoSerializer(excerpts_info, many=True)
 
         return Response(serializer.data)
@@ -72,9 +64,9 @@ class UserCollectionView(APIView):
         user_id = kwargs.get("user_id")
         if user_id is None:
             return Response("No id provided")
-        collections = Collection.objects.filter(user__id=user_id)
+        collections = Collection.objects.filter(user__id=user_id).order_by("-id")
         serializer = CollectionSerializer(collections, many=True)
-
+        print("Sending user collections", len(serializer.data), color="blue")
         return Response(serializer.data)
 
 
@@ -114,38 +106,43 @@ class CompereText(APIView):
 
 class CreateCollectionView(APIView):
     def post(self, request, *args, **kwargs):
-        print(
-            f"request data: {request.data}",
-            color="green",
-        )
+
         user_id = request.data.get("user_id")
+        try:
+            User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            print("User does not exist", color="red")
+            return Response("User does not exist")
+        # change name of keys in frontend to match the ones in the backend
+        # Double accessing collection because of bad naming, the 2nd collection should be collectionContent
+        collection_content = request.data.get("collection").get("collection")
+        collection_title = request.data.get("collection").get(
+            "title", "No Title Provided"
+        )
 
-        user = User.objects.filter(id=user_id).first()
         collection = Collection.objects.create(
-            title=request.data.get("collection_title", "No Title Provided"),
-        )
-        excerpts = request.data.get("collection")
-        print(
-            f"data: {request.data}",
+            title=collection_title,
         )
 
-        print(
-            f"Collection id: {collection.id}, user id: {user_id}, user: {user}",
-        )
-
-        for excerpt in excerpts:
-            source_user_id = User.objects.filter(id=user_id).first()
-            if source_user_id:
+        for excerpt in collection_content:
+            if user_id is not None:
                 excerpt = Excerpt.objects.create(
-                    title=excerpt.get("title"),
-                    text=excerpt.get("excerpt"),
-                    source_user_id=User.objects.filter(id=user_id).first().id,
+                    title=excerpt.get("excerptTitle"),
+                    text=excerpt.get("text"),
+                    source_user_id=user_id,
                     collection_id=collection.id,
                 )
                 ExcerptInfo.objects.create(
                     excerpt_id=excerpt.id,
                 )
+
+        user = User.objects.filter(id=user_id).first()
         user.collections.add(collection)
         user.save()
-        print("Collection created", color="green")
+        print(
+            "Collection created, Collection: ",
+            collection,
+            len(collection.excerpts.all()),
+            color="green",
+        )
         return Response()
