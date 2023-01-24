@@ -53,13 +53,7 @@ export const SelectedCollectionsReducer = (
     //       state.selectedCollections,
     //     ],
     //   };
-    case SelectedCollectionsActions.RemoveCollection:
-      return {
-        ...state,
-        selectedCollections: state.selectedCollections?.filter(
-          (excerpt) => excerpt.id !== action.payload.collectionInfo.id
-        ),
-      };
+
     case SelectedCollectionsActions.AddCollection:
       // console.log('incoming add collection action', action.payload);
       // if (

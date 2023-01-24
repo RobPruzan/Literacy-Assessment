@@ -14,7 +14,7 @@ export type ExcerptInfo = {
 };
 
 export type Excerpt = {
-  title: string;
+  excerptTitle: string;
   text: string;
   source: string;
   source_user: User;
@@ -29,6 +29,11 @@ export type ExpertCreate = Omit<
 export type CollectionCreateInfo = {
   collection: ExpertCreate[];
   title: string;
+};
+
+export type InputCollectionCreate = {
+  collectionInfo: ExpertCreate;
+  collectionTitle: string;
 };
 
 const collectionSchema = z.object({
@@ -200,7 +205,7 @@ export class NorthStarApi {
 
   public async createCollection(
     userId: number,
-    collection: CollectionCreateInfo[]
+    collection: CollectionCreateInfo
   ): Promise<void> {
     axios.post(`${this.baseUrl}/api/create_collection`, {
       user_id: userId,
