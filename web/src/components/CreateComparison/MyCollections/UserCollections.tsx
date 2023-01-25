@@ -20,10 +20,7 @@ const UserCollections = (props: Props) => {
             <CollectionCard
               key={collection.id}
               isCreating={false}
-              collectionId={collection.id}
-              collectionName={collection.title}
-              difficulty={0}
-              total_excerpts={collection.total_excerpts}
+              collection={collection}
               activePopUp={-1}
               setActivePopUp={function (
                 value: React.SetStateAction<number>

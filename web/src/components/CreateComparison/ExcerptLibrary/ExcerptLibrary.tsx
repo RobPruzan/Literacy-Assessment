@@ -2,7 +2,6 @@ import CollectionCard from './CollectionCard';
 import { ComparisonTypeStrings } from '../../../redux/reducers/comparisonState';
 import { RootState } from '../../../redux/store';
 import { useGetCollections } from '../../hooks/LibraryHooks/useGetCollections';
-import { useGetExcerptsLibrary } from '../../hooks/LibraryHooks/useGetExcerptsLibrary';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
@@ -30,11 +29,9 @@ export const ExcerptLibrary = () => {
         getCollectionsQuery.isSuccess &&
         getCollectionsQuery.data?.map((collection, idx) => (
           <CollectionCard
+            key={`collection-${collection.id}`}
             isCreating={false}
-            collectionId={collection.id}
-            collectionName={collection.title}
-            difficulty={collection.difficulty}
-            total_excerpts={collection.total_excerpts}
+            collection={collection}
             activePopUp={activePopUp}
             setActivePopUp={setActivePopUp}
             index={idx}

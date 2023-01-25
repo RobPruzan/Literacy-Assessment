@@ -49,6 +49,7 @@ export const Analysis = () => {
       <div className="border-2 border-t-0 border-custom-blood-red p-2">
         <InfoCardBar />
       </div>
+
       <div className="flex justify-center text-lg font-semibold">
         {calculationState.loadingProgress &&
           totalCalculations &&

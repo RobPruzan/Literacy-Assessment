@@ -1,10 +1,18 @@
-import { number } from 'zod';
+import { z } from 'zod';
 
-export type User = {
-  id: number;
-  name: string;
-  is_admin?: boolean;
-};
+// export type User = {
+//   id: number;
+//   name: string;
+//   is_admin?: boolean;
+// };
+
+const userSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  is_admin: z.boolean(),
+});
+
+export type User = z.infer<typeof userSchema>;
 
 export interface UserState {
   user: User | null;

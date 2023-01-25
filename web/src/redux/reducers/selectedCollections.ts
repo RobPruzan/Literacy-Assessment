@@ -1,14 +1,14 @@
-import { CollectionCreateInfo } from '../../services.ts/connections';
+import { Collection } from '../../services.ts/connections';
 
 export type SelectedCollection = {
   id: number;
   title: string;
-  collections: CollectionCreateInfo[];
+  collections: Collection[];
 };
 
-export interface SelectedCollectionsState {
-  selectedCollections: SelectedCollection[] | null;
-}
+export type SelectedCollectionsState = {
+  selectedCollections: Collection[] | null;
+};
 
 export const DEFAULT_SELECTED_COLLECTIONS_STATE: SelectedCollectionsState = {
   selectedCollections: null,
@@ -24,13 +24,13 @@ export enum SelectedCollectionsActions {
 interface RemoveCollectionAction {
   type: SelectedCollectionsActions.RemoveCollection;
   payload: {
-    collectionInfo: CollectionCreateInfo;
+    collectionInfo: Collection;
   };
 }
 interface AddCollectionAction {
   type: SelectedCollectionsActions.AddCollection;
   payload: {
-    collectionInfo: CollectionCreateInfo;
+    collectionInfo: Collection;
   };
 }
 interface ResetSelectedCollectionsAction {
@@ -38,49 +38,26 @@ interface ResetSelectedCollectionsAction {
 }
 
 export const SelectedCollectionsReducer = (
-  state: SelectedCollectionsState = DEFAULT_SELECTED_COLLECTIONS_STATE,
+  state = DEFAULT_SELECTED_COLLECTIONS_STATE,
   action:
     | RemoveCollectionAction
     | AddCollectionAction
     | ResetSelectedCollectionsAction
-) => {
+): SelectedCollectionsState => {
   switch (action.type) {
-    // case SelectedCollectionsActions.SetSelectedCollections:
-    //   return {
-    //     ...state,
-    //     selectedCollections: [
-    //       action.payload.selectedCollections,
-    //       state.selectedCollections,
-    //     ],
-    //   };
-
     case SelectedCollectionsActions.AddCollection:
-      // console.log('incoming add collection action', action.payload);
-      // if (
-      //   state.selectedCollections?.some(
-      //     (excerpt) => excerpt.id === action.payload.collectionInfo.id
-      //   )
-      // ) {
-      //   return state;
-      // } else {
-      //   return {
-      //     ...state,
-      //     selectedCollections: [
-      //       ...(state.selectedCollections ?? []),
-      //       action.payload.collectionInfo,
-      //     ],
-      //   };
-      // }
-      console.log(
-        'incoming add collection action and curr state',
-        state.selectedCollections,
-        action.payload.collectionInfo
-      );
+      if (
+        state.selectedCollections?.some(
+          (excerpt) => excerpt.id === action.payload.collectionInfo.id
+        )
+      ) {
+        return state;
+      }
+
       return {
-        ...state,
         selectedCollections: [
-          ...(state.selectedCollections ?? []),
           action.payload.collectionInfo,
+          ...(state.selectedCollections ?? []),
         ],
       };
 
