@@ -50,6 +50,8 @@ const excerptInfoSchema = z.object({
   source: z.string().optional(),
 });
 
+const excerptInfoArraySchema = z.array(excerptInfoSchema);
+
 export type ExcerptInfo = z.infer<typeof excerptInfoSchema>;
 
 export type ExpertCreate = Omit<
@@ -164,8 +166,8 @@ export class NorthStarApi {
   public async getCollections(): Promise<Collection[]> {
     const response = await axios.get(`${this.baseUrl}/api/collections`);
     const arrayCollectionSchema = z.array(collectionSchema);
-    const collections = arrayCollectionSchema.parse(response.data);
-    return collections;
+    const collections = arrayCollectionSchema.safeParse(response.data);
+    return collections.success ? collections.data : [];
   }
 
   public async getExcerptsInfoByCollection(
@@ -245,6 +247,7 @@ export class NorthStarApi {
       collection,
     });
   }
+
   public async getUserCollections(userId: number): Promise<Collection[]> {
     const response = await axios.get(
       `${this.baseUrl}/api/user_collections/${userId}`

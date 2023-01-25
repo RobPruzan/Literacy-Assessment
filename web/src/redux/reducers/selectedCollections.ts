@@ -56,8 +56,8 @@ export const SelectedCollectionsReducer = (
 
       return {
         selectedCollections: [
-          action.payload.collectionInfo,
           ...(state.selectedCollections ?? []),
+          action.payload.collectionInfo,
         ],
       };
 

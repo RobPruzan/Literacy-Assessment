@@ -29,51 +29,53 @@ export const ExcerptCard = ({
   const dispatch = useDispatch();
 
   return (
-    <motion.div
-      layout
-      style={{
-        minWidth: '16rem',
-        border: '1px solid',
-      }}
-      className=" bg-white py-1 text-custom-blood-red font-semibold rounded-sm mx-2 min-h-min shadow-md border-custom-blood-red hover:shadow-lg flex justify-center items-center relative "
-    >
-      <div className="flex flex-col w-full items-center ">
-        <div className="m-1 text-md  flex justify-center">
-          <div className="m-auto text-gray-500">{title}</div>
-          <div>
-            {isMinimal ? (
-              <BsX
-                color="red"
-                size={30}
-                className="cursor-pointer hover:fill-red-700 hover:scale-110  absolute top-0 right-0  fill-red-500 "
-                fontSize="medium"
-                // onClick={() =>
-                //   dispatch({
-                //     type: SelectedExcerptsActions.RemoveExcerpt,
-                //     payload: { excerptInfo: excerptInfo },
-                //   })
-                // }
-              />
-            ) : (
-              <AddCircleOutlineIcon
-                className="hover:cursor-pointer  hover:fill-green-500"
-                sx={{ fill: '#4EFF10' }}
-                // onClick={() =>
-                //   dispatch({
-                //     type: SelectedExcerptsActions.AddExcerpt,
-                //     payload: { excerptInfo: excerptInfo },
-                //   })
-                // }
-              />
-            )}
+    <div className="h-full">
+      <motion.div
+        layout
+        style={{
+          minWidth: '16rem',
+          border: '1px solid',
+        }}
+        className=" bg-white py-1  text-custom-blood-red font-semibold rounded-sm mx-2 min-h-min shadow-md border-custom-blood-red hover:shadow-lg flex justify-center items-center relative "
+      >
+        <div className="flex flex-col w-full items-center h-fit">
+          <div className="m-1 text-md  flex justify-center">
+            <div className="m-auto text-gray-500">{title}</div>
+            <div>
+              {isMinimal ? (
+                <BsX
+                  color="red"
+                  size={30}
+                  className="cursor-pointer hover:fill-red-700 hover:scale-110  absolute top-0 right-0  fill-red-500 "
+                  fontSize="medium"
+                  // onClick={() =>
+                  //   dispatch({
+                  //     type: SelectedExcerptsActions.RemoveExcerpt,
+                  //     payload: { excerptInfo: excerptInfo },
+                  //   })
+                  // }
+                />
+              ) : (
+                <AddCircleOutlineIcon
+                  className="hover:cursor-pointer  hover:fill-green-500"
+                  sx={{ fill: '#4EFF10' }}
+                  // onClick={() =>
+                  //   dispatch({
+                  //     type: SelectedExcerptsActions.AddExcerpt,
+                  //     payload: { excerptInfo: excerptInfo },
+                  //   })
+                  // }
+                />
+              )}
+            </div>
           </div>
+          <StatsCard
+            difficulty={difficulty}
+            diversity={diversity}
+            text_length={text_length}
+          />
         </div>
-        <StatsCard
-          difficulty={difficulty}
-          diversity={diversity}
-          text_length={text_length}
-        />
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
