@@ -1,25 +1,56 @@
-import { User } from '../redux/user';
 import axios from 'axios';
 import { z } from 'zod';
 
-export type ExcerptInfo = {
-  id: number;
-  excerpt: Excerpt;
-  title: string;
-  difficulty: number;
-  diversity: number;
-  text_length: number;
-  region: string;
-  source: string;
-};
+// export type ExcerptInfo = {
+//   id: number;
+//   excerpt: Excerpt;
+//   title: string;
+//   difficulty: number;
+//   diversity: number;
+//   text_length: number;
+//   region: string;
+//   source: string;
+// };
 
-export type Excerpt = {
-  excerptTitle: string;
-  text: string;
-  source: string;
-  source_user: User;
-  collection: Collection;
-};
+// export type Excerpt = {
+//   excerptTitle: string;
+//   text: string;
+//   source: string;
+//   source_user: User;
+//   collection: Collection;
+// };
+
+const collectionSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  difficulty: z.number(),
+  total_excerpts: z.number(),
+});
+
+export type Collection = z.infer<typeof collectionSchema>;
+
+const excerptSchema = z.object({
+  title: z.string(),
+  text: z.string(),
+  source: z.string().optional(),
+  source_user: z.number().nullable().optional(),
+  collection: collectionSchema,
+});
+
+export type Excerpt = z.infer<typeof excerptSchema>;
+
+const excerptInfoSchema = z.object({
+  id: z.number(),
+  excerpt: excerptSchema,
+
+  difficulty: z.number().optional(),
+  diversity: z.number().optional(),
+  text_length: z.number(),
+  region: z.string().optional(),
+  source: z.string().optional(),
+});
+
+export type ExcerptInfo = z.infer<typeof excerptInfoSchema>;
 
 export type ExpertCreate = Omit<
   Excerpt,
@@ -35,15 +66,6 @@ export type InputCollectionCreate = {
   collectionInfo: ExpertCreate;
   collectionTitle: string;
 };
-
-const collectionSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  difficulty: z.number(),
-  total_excerpts: z.number(),
-});
-
-export type Collection = z.infer<typeof collectionSchema>;
 
 // export const getCollectionsScehena = z.infer(
 
@@ -152,7 +174,18 @@ export class NorthStarApi {
     const response = await axios.get(
       `${this.baseUrl}/api/excerpts/${collectionId}`
     );
-    return response.data;
+    const arrayExcerptSchema = z.array(excerptInfoSchema);
+    try {
+      const excerpts = arrayExcerptSchema.parse(response.data);
+      return excerpts;
+    } catch (e) {
+      console.error('zod error');
+      console.error(e);
+      console.error(response.data);
+    }
+    const excerpts = arrayExcerptSchema.parse(response.data);
+
+    return excerpts;
   }
 
   public async getDiversityScore(
@@ -218,7 +251,7 @@ export class NorthStarApi {
     );
     const arrayCollectionSchema = z.array(collectionSchema);
     const collections = arrayCollectionSchema.parse(response.data);
-    console.log('Got collections');
+
     return collections;
   }
 }

@@ -15,7 +15,6 @@ export const useCreateCollection = (fn?: VoidFunction) => {
   const userId = useSelector(({ userState }: RootState) => userState.user?.id);
   const createCollectionMutation = useMutation(
     ({ collection }: CreateCollectionParams) => {
-      console.log('is this the problem?', userId);
       if (userId) {
         return NorthStar.createCollection(userId, collection);
       } else {
@@ -24,7 +23,6 @@ export const useCreateCollection = (fn?: VoidFunction) => {
     },
     {
       onSuccess: () => {
-        console.log('invalidating queries');
         queryClient.invalidateQueries(['user_collections']);
         fn && fn();
       },

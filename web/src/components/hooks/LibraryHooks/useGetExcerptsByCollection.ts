@@ -1,12 +1,9 @@
 import NorthStar from '../../../services.ts/connections';
 import { useQuery } from 'react-query';
 
-export const useGetExcerptsByCollection = (
-  collectionId: number,
-  collectionIndex: number
-) => {
+export const useGetExcerptsByCollection = (collectionId: number) => {
   const excerptByCollectionQuery = useQuery(
-    ['excerptsByCollection', collectionIndex],
+    ['excerptsByCollection', collectionId],
     () => NorthStar.getExcerptsInfoByCollection(collectionId)
   );
   return excerptByCollectionQuery;

@@ -13,7 +13,6 @@ export type LibraryPopupProps = {
   collectionId: number;
   setActivePopUp: Dispatch<SetStateAction<number>>;
   activePopUp: number;
-  keyValue: number;
 };
 const LibraryPopup = ({
   isLoading,
@@ -23,7 +22,6 @@ const LibraryPopup = ({
   collectionId,
   setActivePopUp,
   activePopUp,
-  keyValue,
 }: LibraryPopupProps) => {
   return (
     <div
@@ -51,7 +49,7 @@ const LibraryPopup = ({
               sx={{ fill: 'red' }}
               className="hover:cursor-pointer hover:scale-110 hover:fill-red-700 float-left mb-2 overflow-x-auto"
               onClick={() => {
-                keyValue === activePopUp && setActivePopUp(-1);
+                collectionId === activePopUp && setActivePopUp(-1);
               }}
             />
             <SearchBar />
@@ -63,7 +61,7 @@ const LibraryPopup = ({
                     difficulty={excerptInfo.difficulty}
                     diversity={excerptInfo.diversity}
                     text_length={excerptInfo.text_length}
-                    title={excerptInfo.title}
+                    title={excerptInfo.excerpt.title}
                   />
                 )}
               </div>

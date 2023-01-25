@@ -70,7 +70,7 @@ const CollectionCreate = ({}: Props) => {
             ...state,
             collectionInfo: {
               ...state.collectionInfo,
-              excerptTitle: action.payload.excerpt_title,
+              title: action.payload.excerpt_title,
             },
           };
         case 'title':
@@ -88,7 +88,7 @@ const CollectionCreate = ({}: Props) => {
           };
         case 'reset':
           return {
-            collectionInfo: { text: '', excerptTitle: '' },
+            collectionInfo: { text: '', title: '' },
             collectionTitle: action.payload.collectionTitle,
           };
 
@@ -97,7 +97,7 @@ const CollectionCreate = ({}: Props) => {
       }
     },
 
-    { collectionInfo: { text: '', excerptTitle: '' }, collectionTitle: '' }
+    { collectionInfo: { text: '', title: '' }, collectionTitle: '' }
   );
 
   const [collection, collectionDispatch] = useReducer(
@@ -176,7 +176,6 @@ const CollectionCreate = ({}: Props) => {
               value={activeTab}
               onChange={(e, newValue) => {
                 setActiveTab(newValue);
-                console.log(activeTab, newValue, e);
               }}
               aria-label="tabs"
               variant="fullWidth"
@@ -201,7 +200,7 @@ const CollectionCreate = ({}: Props) => {
                         payload: { excerpt_title: e.target.value },
                       })
                     }
-                    value={inputCollection.collectionInfo.excerptTitle}
+                    value={inputCollection.collectionInfo.title}
                     type="text"
                     name="title create"
                     id="title create"
@@ -268,7 +267,7 @@ const CollectionCreate = ({}: Props) => {
               >
                 <ExcerptCard
                   text_length={excerpt.text.length}
-                  title={excerpt.excerptTitle}
+                  title={excerpt.title}
                 />
               </div>
             ))

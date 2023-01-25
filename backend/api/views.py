@@ -63,10 +63,16 @@ class UserCollectionView(APIView):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("user_id")
         if user_id is None:
+            print("wah wah")
             return Response("No id provided")
         collections = Collection.objects.filter(user__id=user_id).order_by("-id")
         serializer = CollectionSerializer(collections, many=True)
-        print("Sending user collections", len(serializer.data), color="blue")
+        print(
+            "Sending user collections",
+            len(serializer.data),
+            serializer.data,
+            color="blue",
+        )
         return Response(serializer.data)
 
 
@@ -127,7 +133,7 @@ class CreateCollectionView(APIView):
         for excerpt in collection_content:
             if user_id is not None:
                 excerpt = Excerpt.objects.create(
-                    title=excerpt.get("excerptTitle"),
+                    title=excerpt.get("title"),
                     text=excerpt.get("text"),
                     source_user_id=user_id,
                     collection_id=collection.id,

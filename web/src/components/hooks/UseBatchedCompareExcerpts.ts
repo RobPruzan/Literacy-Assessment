@@ -1,8 +1,9 @@
-import { useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { CalculationActions } from '../../redux/reducers/calculation';
 import NorthStar, { ExcerptInfo } from '../../services.ts/connections';
+
+import { CalculationActions } from '../../redux/reducers/calculation';
+import { useDispatch } from 'react-redux';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 export const UseBatchedCompareExcerpts = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const UseBatchedCompareExcerpts = () => {
     (excerpts: ExcerptInfo[]) => NorthStar.compareExcerpts(excerpts),
     {
       onError: (error) => {
-        console.log(error);
+        console.error(error);
       },
       // when clicked redirect to loading page
       // onMutate: () => {

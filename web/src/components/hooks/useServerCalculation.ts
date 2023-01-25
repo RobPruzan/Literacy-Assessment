@@ -1,6 +1,6 @@
-import { useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
 import { CalculationActions } from '../../redux/reducers/calculation';
+import { useDispatch } from 'react-redux';
+import { useMutation } from 'react-query';
 export type useServerCalculationParams<T> = {
   fn: (excerpt_ids: number[]) => Promise<T>;
   dispatchType: CalculationActions;
@@ -12,7 +12,7 @@ const useServerCalculation = <T>({
   const dispatch = useDispatch();
   const { mutate, data, error, isLoading, isError } = useMutation(fn, {
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
     onSuccess: (data) => {
       dispatch({

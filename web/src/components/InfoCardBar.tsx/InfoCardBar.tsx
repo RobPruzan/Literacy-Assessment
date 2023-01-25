@@ -1,9 +1,7 @@
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CollectionCard from '../CreateComparison/ExcerptLibrary/CollectionCard';
-import CollectionInfoCard from './CollectionInfoCard';
 import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
-import React from 'react';
 import { RootState } from '../../redux/store';
+import { SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 
 const InfoCardBar = () => {
@@ -31,7 +29,7 @@ const InfoCardBar = () => {
                 difficulty={excerpt.difficulty}
                 diversity={excerpt.diversity}
                 text_length={excerpt.text_length}
-                title={excerpt.title}
+                title={excerpt.excerpt.title}
                 allowDelete={true}
                 isMinimal={true}
               />
@@ -62,7 +60,21 @@ const InfoCardBar = () => {
               />
             ))} */}
             {selectedCollections?.map((collection) => (
-              <CollectionInfoCard title={collection.title} />
+              // <CollectionInfoCard title={collection.title} />
+              <div className="scale-75 md:scale-90">
+                <CollectionCard
+                  isSelected={true}
+                  collection={collection}
+                  isCreating={false}
+                  activePopUp={0}
+                  setActivePopUp={function (
+                    value: SetStateAction<number>
+                  ): void {
+                    throw new Error('Function not implemented.');
+                  }}
+                  index={0}
+                />
+              </div>
             ))}
           </>
         )
