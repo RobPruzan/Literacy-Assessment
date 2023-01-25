@@ -19,7 +19,7 @@ const InfoCardBar = () => {
     ({ comparisonState }: RootState) => comparisonState.comparisonType
   );
   return (
-    <div className="flex h-full items-center overflow-scroll ">
+    <div className="flex h-full items-center overflow-x-scroll overflow-y-hidden ">
       {comparisonType === 'excerpt' ? (
         (selectedExcerpts?.length ?? 0) >= 1 ? (
           <>

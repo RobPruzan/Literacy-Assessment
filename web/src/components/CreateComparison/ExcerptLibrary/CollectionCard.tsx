@@ -3,10 +3,10 @@ import {
   CollectionCreateInfo,
 } from '../../../services.ts/connections';
 import { Dispatch, SetStateAction } from 'react';
+import Gah, { NO_ACTIVE_POPUP } from './CollectionCreate/Gah';
 import { motion, useAnimation } from 'framer-motion';
 
 import { BsX } from 'react-icons/bs';
-import { FcSearch } from 'react-icons/fc';
 import { MouseEvent } from 'react';
 import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
 import { useDispatch } from 'react-redux';
@@ -72,7 +72,7 @@ const CollectionCard = ({
   const handleClick = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
-    if (excerptByCollectionQuery.isSuccess) {
+    if (excerptByCollectionQuery.isSuccess && activePopUp === NO_ACTIVE_POPUP) {
       controls.start({
         x: 100,
         transition: { duration: 0.5 },
@@ -88,7 +88,12 @@ const CollectionCard = ({
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col">
+    <motion.div
+      initial={{ opacity: 0 }}
+      // transition={{ type: 'spring', stiffness: 100 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col"
+    >
       {' '}
       <motion.button
         whileHover={{ scale: isSelected ? 1 : 1.1 }}
@@ -119,11 +124,12 @@ const CollectionCard = ({
           <p className="inline">{collection.total_excerpts}</p>
         </div>
 
-        {!(activePopUp === collection.id) && (
-          <FcSearch
-            size={27}
-            className="  transition duration-300 ease-in-out hover:scale-125 hover:fill-slate-500 hover:shadow-2xl float-left"
-            onClick={() => setActivePopUp(collection.id)}
+        {excerptByCollectionQuery.isSuccess && (
+          <Gah
+            excerptsInfo={excerptByCollectionQuery.data}
+            activePopUp={activePopUp}
+            setActivePopUp={setActivePopUp}
+            collectionId={collection.id}
           />
         )}
         {isCreating ? (
@@ -139,7 +145,6 @@ const CollectionCard = ({
             size={30}
           />
         ) : null}
-        {/* <Gah /> */}
       </motion.button>
       {/* <CollectionDropdown /> */}
       {/* {activePopUp === collection.id && (
@@ -156,7 +161,7 @@ const CollectionCard = ({
           />
         </div>
       )} */}
-    </div>
+    </motion.div>
   );
 };
 
