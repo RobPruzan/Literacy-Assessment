@@ -20,7 +20,6 @@ export enum SelectedCollectionsActions {
   AddCollection = 'selectedCollections/ADD_COLLECTION',
   ResetSelectedCollections = 'selectedCollections/RESET_SELECTED_COLLECTIONS',
 }
-
 interface RemoveCollectionAction {
   type: SelectedCollectionsActions.RemoveCollection;
   payload: {
@@ -59,6 +58,14 @@ export const SelectedCollectionsReducer = (
           ...(state.selectedCollections ?? []),
           action.payload.collectionInfo,
         ],
+      };
+
+    case SelectedCollectionsActions.RemoveCollection:
+      return {
+        selectedCollections:
+          state.selectedCollections?.filter(
+            (collection) => collection.id !== action.payload.collectionInfo.id
+          ) ?? [],
       };
 
     case SelectedCollectionsActions.ResetSelectedCollections:

@@ -132,35 +132,26 @@ const CollectionCard = ({
             collectionId={collection.id}
           />
         )}
-        {isCreating ? (
+        {isSelected ? (
           <BsX
             onClick={() => {
-              collectionsDispatch &&
-                collectionsDispatch({
-                  type: 'remove',
-                  payload: { index: collection.id },
-                });
+              dispatch({
+                type: SelectedCollectionsActions.RemoveCollection,
+                payload: {
+                  collectionInfo: collection,
+                },
+              });
+              // collectionsDispatch &&
+              //   collectionsDispatch({
+              //     type: 'remove',
+              //     payload: { index: collection.id },
+              //   });
             }}
             className="top-0 right-0 absolute fill-red-500 cursor-pointer hover:fill-red-600  scroll-smooth"
             size={30}
           />
         ) : null}
       </motion.button>
-      {/* <CollectionDropdown /> */}
-      {/* {activePopUp === collection.id && (
-        <div className="float left">
-          <LibraryPopup
-            isLoading={excerptByCollectionQuery.isLoading}
-            isError={excerptByCollectionQuery.isError}
-            error={excerptByCollectionQuery.error}
-            excerptsInfo={excerptByCollectionQuery.data}
-            collectionId={collection.id}
-            setActivePopUp={setActivePopUp}
-            activePopUp={activePopUp}
-            key={collection.id}
-          />
-        </div>
-      )} */}
     </motion.div>
   );
 };

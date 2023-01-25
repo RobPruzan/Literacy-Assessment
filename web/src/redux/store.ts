@@ -16,7 +16,6 @@ import {
   createStore,
 } from '@reduxjs/toolkit';
 
-import { CalculationStats } from '../services.ts/connections';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface RootState {
