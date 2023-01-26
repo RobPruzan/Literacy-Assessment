@@ -1,10 +1,12 @@
+import { SetStateAction, useEffect, useRef } from 'react';
+
 import CollectionCard from '../CreateComparison/ExcerptLibrary/CollectionCard';
 import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
 import { RootState } from '../../redux/store';
-import { SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 
 const InfoCardBar = () => {
+  const cardBarRef = useRef<HTMLDivElement>(null);
   const selectedExcerpts = useSelector(
     ({ selectedExcerptsState }: RootState) =>
       selectedExcerptsState.selectedExcerpts
@@ -18,8 +20,24 @@ const InfoCardBar = () => {
   const comparisonType = useSelector(
     ({ comparisonState }: RootState) => comparisonState.comparisonType
   );
+
+  useEffect(() => {
+    if (cardBarRef.current) {
+      const lastChild = cardBarRef.current.lastElementChild;
+      if (lastChild) {
+        lastChild.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest',
+        });
+      }
+    }
+  }, [selectedExcerpts, selectedCollections]);
   return (
-    <div className="flex h-full items-center overflow-x-scroll overflow-y-hidden ">
+    <div
+      ref={cardBarRef}
+      className="flex h-full items-center overflow-x-scroll overflow-y-hidden "
+    >
       {comparisonType === 'excerpt' ? (
         (selectedExcerpts?.length ?? 0) >= 1 ? (
           <>

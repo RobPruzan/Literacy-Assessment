@@ -1,12 +1,11 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
-import React from 'react';
 import TextField from '@mui/material/TextField';
 
 const Filters = () => {
   return (
     <div className="overflow-y-visible ">
-      <div className=" flex  md:flex-col sm:items-center h-full  overflow-x-scroll  overflow-y-visible">
+      <div className=" flex  md:flex-col sm:items-center h-full w-full overflow-x-scroll  overflow-y-visible">
         <Autocomplete
           className="mb-2 mt-4 mx-2 overflow-visible"
           disablePortal

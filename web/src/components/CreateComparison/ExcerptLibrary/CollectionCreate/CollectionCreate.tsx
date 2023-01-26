@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { BsPlusCircle, BsX } from 'react-icons/bs';
 import {
   CollectionCreateInfo,
@@ -10,25 +11,24 @@ import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useCreateCollection } from '../../../hooks/LibraryHooks/useCreateCollection';
 
-export const FAKE_EXCERPT_INFO = {
-  id: 0,
-  excerpt: {
-    id: 0,
-    source: '',
-    title: 'Some Title again',
+const dropIn = {
+  hidden: { opacity: 0, y: -100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeInOut',
+    },
   },
-  title: 'Some Title',
-  difficulty: 0,
-  diversity: 0,
-  text_length: 0,
-  collection: {
-    id: 0,
-    title: '',
-    difficulty: 0,
-    total_excerpts: 0,
+  exit: {
+    opacity: 0,
+    y: -100,
+    transition: {
+      duration: 0.5,
+      ease: 'easeInOut',
+    },
   },
-  region: '',
-  source: '',
 };
 
 type InputCollectionAction =
@@ -136,166 +136,183 @@ const CollectionCreate = ({}: Props) => {
     { collection: [], title: '' }
   );
 
-  // useEffect(() => {
-  //   // Animate the position of each card based on its index in the array
-  //   collection.forEach((card, index) => {
-  //     controls.start({
-  //       x: index * 100,
-  //       transition: { duration: 0.5 },
-  //     });
-  //   });
-  // }, [collection, controls]);
-
   const [activeTab, setActiveTab] = useState(ExcerptType.text);
 
   return showCollectionCreate ? (
-    <div className="inset-0 fixed z-50 bg-black bg-opacity-50  flex flex-col  justify-center items-center">
-      <div className="bg-white w-3/4 md:h-4/6 md:w-4/6  rounded-x-md rounded-t-md shadow-xl relative flex flex-col justify-evenly ">
-        <div
-          style={{ height: '10%' }}
-          className="w-full  flex justify-center items-center "
+    <div
+      onClick={(e) => {
+        // e.target is the element that was clicked
+        // e.currentTarget is the element that the event listener is attached to
+        // so if they are equal then the click was on the div
+        // if they are not equal then the click was on the modal
+        if (e.target === e.currentTarget) {
+          setShowCollectionCreate(false);
+        }
+      }}
+      className="inset-0 fixed z-50 bg-black bg-opacity-50  flex flex-col  justify-center items-center"
+    >
+      <AnimatePresence>
+        <motion.div
+          variants={dropIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="bg-white w-3/4 md:h-4/6 md:w-4/6  rounded-x-md rounded-t-md shadow-xl relative flex flex-col justify-evenly "
         >
-          <input
-            className="border-b-2 p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 text-xl focus:outline-none "
-            type="text"
-            value={inputCollection.collectionTitle}
-            onChange={(e) =>
-              inputCollectionDispatch({
-                type: 'title',
-                payload: { title: e.target.value },
-              })
-            }
-            placeholder="Collection Title"
-          />
-        </div>
+          <div
+            style={{ height: '10%' }}
+            className="w-full  flex justify-center items-center "
+          >
+            <input
+              className="border-b-2 p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 text-xl focus:outline-none "
+              type="text"
+              value={inputCollection.collectionTitle}
+              onChange={(e) =>
+                inputCollectionDispatch({
+                  type: 'title',
+                  payload: { title: e.target.value },
+                })
+              }
+              placeholder="Collection Title"
+            />
+          </div>
 
-        <div className="flex w-full justify-evenly p-3 h-4/6">
-          <div className="flex flex-col items-center justify-center w-full">
-            <Tabs
-              className="w-full"
-              value={activeTab}
-              onChange={(e, newValue) => {
-                setActiveTab(newValue);
-              }}
-              aria-label="tabs"
-              variant="fullWidth"
-            >
-              <Tab value={ExcerptType.text} label="Text" aria-label="text" />
+          <div className="flex w-full justify-evenly p-3 h-4/6">
+            <div className="flex flex-col items-center justify-center w-full">
+              <Tabs
+                className="w-full"
+                value={activeTab}
+                onChange={(e, newValue) => {
+                  setActiveTab(newValue);
+                }}
+                aria-label="tabs"
+                variant="fullWidth"
+              >
+                <Tab value={ExcerptType.text} label="Text" aria-label="text" />
 
-              <Tab
-                value={ExcerptType.file}
-                // label of tab is named file extension
-                label="File"
-                aria-label="file"
-              />
-            </Tabs>
-            {activeTab === ExcerptType.text && (
-              <>
-                <div className=" flex justify-evenly items-center p-3 w-full">
-                  <input
-                    placeholder="Title"
-                    onChange={(e) =>
-                      inputCollectionDispatch({
-                        type: 'excerpt_title',
-                        payload: { excerpt_title: e.target.value },
-                      })
-                    }
-                    value={inputCollection.collectionInfo.title}
-                    type="text"
-                    name="title create"
-                    id="title create"
-                    className="border-2  p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 focus:shadow-sm  rounded-md focus:outline-none "
-                  />
-
-                  <BsPlusCircle
-                    className="fill-custom-blood-red transition ease-in-out duration-300 hover:fill-orange-400 hover:scale-110 cursor-pointer "
-                    size={50}
-                    onClick={() => {
-                      collectionDispatch({
-                        type: 'add',
-                        payload: { collection: inputCollection },
-                      });
-                    }}
-                    aria-label="add"
-                  />
-                </div>
-                <div className="flex w-full h-full ">
-                  <div className="h-full w-full flex flex-col items-start text-center p-3">
-                    <textarea
-                      placeholder="Excerpt..."
+                <Tab
+                  value={ExcerptType.file}
+                  // label of tab is named file extension
+                  label="File"
+                  aria-label="file"
+                />
+              </Tabs>
+              {activeTab === ExcerptType.text && (
+                <>
+                  <div className=" flex justify-evenly items-center p-3 w-full">
+                    <input
+                      placeholder="Title"
                       onChange={(e) =>
                         inputCollectionDispatch({
-                          type: 'excerpt',
-                          payload: { excerpt: e.target.value },
+                          type: 'excerpt_title',
+                          payload: { excerpt_title: e.target.value },
                         })
                       }
-                      value={inputCollection.collectionInfo.text}
-                      name="description create"
-                      id="description create"
-                      className="h-full border-2 border-custom-blood-red border-opacity-50 p-2  mb-0  rounded-md focus:outline-none resize-none w-full focus:border-orange-400 focus:shadow-orange-400 focus:shadow-sm"
+                      value={inputCollection.collectionInfo.title}
+                      type="text"
+                      name="title create"
+                      id="title create"
+                      className="border-2  p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 focus:shadow-sm  rounded-md focus:outline-none "
+                    />
+
+                    <BsPlusCircle
+                      className="fill-custom-blood-red transition ease-in-out duration-300 hover:fill-orange-400 hover:scale-110 cursor-pointer "
+                      size={50}
+                      onClick={() => {
+                        collectionDispatch({
+                          type: 'add',
+                          payload: { collection: inputCollection },
+                        });
+                      }}
+                      aria-label="add"
                     />
                   </div>
+                  <div className="flex w-full h-full ">
+                    <div className="h-full w-full flex flex-col items-start text-center p-3">
+                      <textarea
+                        placeholder="Excerpt..."
+                        onChange={(e) =>
+                          inputCollectionDispatch({
+                            type: 'excerpt',
+                            payload: { excerpt: e.target.value },
+                          })
+                        }
+                        value={inputCollection.collectionInfo.text}
+                        name="description create"
+                        id="description create"
+                        className="h-full border-2 border-custom-blood-red border-opacity-50 p-2  mb-0  rounded-md focus:outline-none resize-none w-full focus:border-orange-400 focus:shadow-orange-400 focus:shadow-sm"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="absolute top-0 right-0 ">
+            <BsX
+              color="red"
+              size={45}
+              onClick={() => setShowCollectionCreate(false)}
+              className="text-2xl font-bold cursor-pointer hover:scale-105  hover:fill-red-600"
+            >
+              X
+            </BsX>
+          </div>
+          <div
+            style={{ height: '23%' }}
+            className=" overflow-x-scroll flex  justify-start w-full overflow-y-hidden relative bg-white border-t-2  border-custom-blood-red border-opacity-50"
+          >
+            <p className="absolute top-0 right-0 m-0 text-2xl font-bold text-custom-blood-red">
+              {collection.collection.length}
+            </p>
+
+            {collection.collection.length > 0 ? (
+              collection.collection.map((excerpt, idx) => (
+                <div
+                  key={idx}
+                  className="flex min-h-fit items-center snap-center  relative"
+                >
+                  <ExcerptCard
+                    text_length={excerpt.text.length}
+                    title={excerpt.title}
+                  />
                 </div>
-              </>
+              ))
+            ) : (
+              <div className="flex w-full justify-center items-center">
+                <p className="text-gray-300 my-5 font-semibold text-2xl">
+                  No Excerpts Added
+                </p>
+              </div>
             )}
           </div>
-        </div>
-
-        <div className="absolute top-0 right-0 ">
-          <BsX
-            color="red"
-            size={45}
-            onClick={() => setShowCollectionCreate(false)}
-            className="text-2xl font-bold cursor-pointer hover:scale-105  hover:fill-red-600"
-          >
-            X
-          </BsX>
-        </div>
-        <div
-          style={{ height: '23%' }}
-          className=" overflow-x-scroll flex  justify-start w-full overflow-y-hidden relative bg-white border-t-2  border-custom-blood-red border-opacity-50"
+        </motion.div>
+      </AnimatePresence>
+      <AnimatePresence>
+        <motion.div
+          variants={dropIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex z-50   w-3/4 md:w-4/6 rounded-b-md justify-between px-5 items-center bg-custom-blood-red"
         >
-          <p className="absolute top-0 right-0 m-0 text-2xl font-bold text-custom-blood-red">
-            {collection.collection.length}
-          </p>
-
-          {collection.collection.length > 0 ? (
-            collection.collection.map((excerpt, idx) => (
-              <div
-                key={idx}
-                className="flex min-h-fit items-center snap-center  relative"
-              >
-                <ExcerptCard
-                  text_length={excerpt.text.length}
-                  title={excerpt.title}
-                />
-              </div>
-            ))
-          ) : (
-            <div className="flex w-full justify-center items-center">
-              <p className="text-gray-300 my-5 font-semibold text-2xl">
-                No Excerpts Added
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="flex z-50   w-3/4 md:w-4/6 rounded-b-md justify-between px-5 items-center bg-custom-blood-red">
-        <div className="flex w-full justify-center p-3 ">
-          <button
-            onClick={async () => {
-              createCollectionMutation.mutate({ collection: collection });
-            }}
-            className={`${
-              createCollectionMutation.isLoading ? 'bg-opacity-50' : null
-            }  bg-custom-blood-red text-white text-xl rounded-md font-semibold px-3 py-2 border-2 border-white   hover:bg-orange-400 transition ease-in-out delay-150  hover:scale-105  `}
-          >
-            {createCollectionMutation.isLoading
-              ? 'Loading...'
-              : 'Create Collection'}
-          </button>
-        </div>
-      </div>
+          <div className="flex w-full justify-center p-3 ">
+            <button
+              onClick={async () => {
+                createCollectionMutation.mutate({ collection: collection });
+              }}
+              className={`${
+                createCollectionMutation.isLoading ? 'bg-opacity-50' : null
+              }  bg-custom-blood-red text-white text-xl rounded-md font-semibold px-3 py-2 border-2 border-white   hover:bg-orange-400 transition ease-in-out delay-150  hover:scale-105  `}
+            >
+              {createCollectionMutation.isLoading
+                ? 'Loading...'
+                : 'Create Collection'}
+            </button>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   ) : (
     <div

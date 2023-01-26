@@ -27,7 +27,7 @@ export const ComparisonReducer = (
     case ComparisonActions.SET_COMPARISON_TYPE:
       return {
         ...state,
-        comaprisonType: action.payload.comparisonType,
+        comparisonType: action.payload.comparisonType,
       };
 
     default:

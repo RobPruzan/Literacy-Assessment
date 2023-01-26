@@ -1,4 +1,5 @@
 import { AboutNavbar } from '../Navabars/AboutNavbar';
+import CompareActions from './CompareActions/CompareActions';
 import ComparisonTypeToggle from './ComparisonTypeToggle';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
 import Filters from './Filters/FIlters';
@@ -18,12 +19,38 @@ export const CreateComparison = () => {
               </div>
             </div>
             <div className=" bg-white border-42 border-b-1 sm:border-b-0 md:border-l-0 border-r-0 border-l-0  border-custom-blood-red text-white text-center text-5xl pb-4  md:row-span-6 md:col-span-1  col-span-4 overflow-y-hidden row-span-1 items-center z-10 shadow-xl">
-              <div className="grid grid-rows-5">
+              {/* <div className="grid grid-rows-5">
                 <div className="row-span-1">
                   <ComparisonTypeToggle />
                 </div>
-                <div className="row-span-4">
+                <div className="row-span-3">
                   <Filters />
+                </div>
+                <div className="row-span-1">
+                  <button className="bg-custom-blood-red text-white text-lg font-bold py-2 px-4 rounded">
+                    Create Comparison
+                  </button>
+                </div>
+              </div> */}
+
+              <div className="flex flex-col justify-evenly items-center h-full w-full">
+                <div className="float-top  w-full">
+                  {' '}
+                  <ComparisonTypeToggle />
+                </div>
+                <Filters />
+                {/* <div className="row-span-1">
+                  <ComparisonTypeToggle />
+                </div>
+                <div className="row-span-3">
+                  <Filters />
+                </div>
+                <div className="row-span-1">
+                  <button className="bg-custom-blood-red text-white text-lg font-bold py-2 px-4 rounded">
+                    Create Comparison
+                  </button> */}
+                <div>
+                  <CompareActions />;{/* </div> */}
                 </div>
               </div>
             </div>

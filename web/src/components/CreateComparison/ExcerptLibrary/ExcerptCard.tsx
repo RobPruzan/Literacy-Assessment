@@ -31,6 +31,11 @@ export const ExcerptCard = ({
   return (
     <div className="h-full">
       <motion.div
+        // drag
+        // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+        // dragElastic={0.1}
+        // dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+
         layout
         style={{
           minWidth: '16rem',
