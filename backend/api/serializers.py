@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Collection, Excerpt, ExcerptInfo, User
 
 
@@ -27,7 +28,7 @@ class ExcerptSerializerMinimal(serializers.ModelSerializer):
 
     class Meta:
         model = Excerpt
-        fields = "__all__"
+        fields = ["id", "title", "collection"]
 
 
 class ExcerptInfoSerializer(serializers.ModelSerializer):

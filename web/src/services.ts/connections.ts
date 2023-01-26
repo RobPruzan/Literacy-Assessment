@@ -30,10 +30,8 @@ const collectionSchema = z.object({
 export type Collection = z.infer<typeof collectionSchema>;
 
 const excerptSchema = z.object({
+  id: z.number(),
   title: z.string(),
-  text: z.string(),
-  source: z.string().optional(),
-  source_user: z.number().nullable().optional(),
   collection: collectionSchema,
 });
 
@@ -50,22 +48,21 @@ const excerptInfoSchema = z.object({
   source: z.string().optional(),
 });
 
-const excerptInfoArraySchema = z.array(excerptInfoSchema);
-
 export type ExcerptInfo = z.infer<typeof excerptInfoSchema>;
 
-export type ExpertCreate = Omit<
-  Excerpt,
-  'source_user' | 'collection' | 'source'
->;
+export type ExcerptCreate = {
+  text: string;
+  title: string;
+  source_user: number | null;
+};
 
 export type CollectionCreateInfo = {
-  collection: ExpertCreate[];
+  collection: ExcerptCreate[];
   title: string;
 };
 
 export type InputCollectionCreate = {
-  collectionInfo: ExpertCreate;
+  collectionInfo: ExcerptCreate;
   collectionTitle: string;
 };
 
