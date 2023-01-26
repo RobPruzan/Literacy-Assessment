@@ -41,6 +41,7 @@ const CompareActions = () => {
         : [];
 
       // const collectionExcerptIds = selectedCollections?.map(
+      //   ()
 
       // )
 

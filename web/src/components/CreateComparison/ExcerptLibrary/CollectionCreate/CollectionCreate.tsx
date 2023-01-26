@@ -9,7 +9,9 @@ import { useReducer, useState } from 'react';
 
 import { ExcerptCard } from '../ExcerptCard';
 import { IoCreateOutline } from 'react-icons/io5';
+import { RootState } from '../../../../redux/store';
 import { useCreateCollection } from '../../../hooks/LibraryHooks/useCreateCollection';
+import { useSelector } from 'react-redux';
 
 const dropIn = {
   hidden: { opacity: 0, y: -100 },
@@ -53,6 +55,7 @@ type ReducerType = (
 type Props = {};
 const CollectionCreate = ({}: Props) => {
   const [showCollectionCreate, setShowCollectionCreate] = useState(false);
+  const user = useSelector(({ userState }: RootState) => userState.user);
   // const [animationState, setAnimationState] = useState(false);
   // const controls = useAnimation();
 
@@ -88,7 +91,7 @@ const CollectionCreate = ({}: Props) => {
           };
         case 'reset':
           return {
-            collectionInfo: { text: '', title: '' },
+            collectionInfo: { ...state.collectionInfo, text: '', title: '' },
             collectionTitle: action.payload.collectionTitle,
           };
 
@@ -97,7 +100,10 @@ const CollectionCreate = ({}: Props) => {
       }
     },
 
-    { collectionInfo: { text: '', title: '' }, collectionTitle: '' }
+    {
+      collectionInfo: { text: '', title: '', source_user: user?.id ?? null },
+      collectionTitle: '',
+    }
   );
 
   const [collection, collectionDispatch] = useReducer(
