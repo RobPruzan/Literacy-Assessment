@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { RootState } from '../../../redux/store';
-import { SelectedExcerptsActions } from '../../../redux/reducers/selectedExcerpts';
+import { motion } from 'framer-motion';
 import useSequentialComparison from '../../hooks/useSequentialComparison';
 import { useState } from 'react';
 
@@ -17,6 +17,10 @@ const CompareActions = () => {
   const dispatch = useDispatch();
   const selectedExcerpts = useSelector(({ selectedExcerptsState }: RootState) =>
     selectedExcerptsState.selectedExcerpts?.reverse()
+  );
+  const selectedCollections = useSelector(
+    ({ selectedCollectionState }: RootState) =>
+      selectedCollectionState.selectedCollections
   );
 
   const {
@@ -35,6 +39,11 @@ const CompareActions = () => {
       const excerpt_ids = selectedExcerpts
         ? selectedExcerpts.map((excerpt) => excerpt.id)
         : [];
+
+      // const collectionExcerptIds = selectedCollections?.map(
+
+      // )
+
       setAttemptError(null);
       grammarHelpers.mutateGrammar(excerpt_ids);
       readabilityMeasuresHelpers.mutateReadabilityMeasures(excerpt_ids);
@@ -45,26 +54,30 @@ const CompareActions = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       {attemptError && <p className="text-red-500">Error: {attemptError}</p>}
-      <button
+      {/* <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 1 }}
         className="rounded bg-custom-blood-red text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
         onClick={() =>
           dispatch({ type: SelectedExcerptsActions.ResetSelectedExcerpts })
         }
       >
         Reset All
-      </button>
+      </motion.button> */}
       {difficultyHelpers.difficultyLoading && (
         <p className="text-gray-500">Loading...</p>
       )}
       <Link to="/analysis">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 1 }}
           onClick={handleCompare}
-          className="rounded bg-custom-blood-red text-white p-2 :hover:bg-blue-600 m-2 sm:text-base  text-sm"
+          className="rounded bg-custom-blood-red w-full text-white p-2  sm:text-base  text-sm "
         >
           Compare
-        </button>
+        </motion.button>
       </Link>
 
       {difficultyHelpers.difficultyData?.map((calc, idx) => (

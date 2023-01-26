@@ -65,6 +65,8 @@ const CollectionCard = ({
 
   sizeMultiplier = 1,
 }: CollectionCardProps) => {
+  // const [isDragging, setIsDragging] = useState(false);
+
   const excerptByCollectionQuery = useGetExcerptsByCollection(collection.id);
 
   const controls = useAnimation();
@@ -89,12 +91,34 @@ const CollectionCard = ({
 
   return (
     <motion.div
+      // drag
+      // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      // dragElastic={0.1}
+      // dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+      // onDragEnd={(event, info) => {
+      //   console.log(info.point);
+      //   if (info.point.x < -50) {
+      //     dispatch({
+      //       type: SelectedCollectionsActions.RemoveCollection,
+      //       payload: {
+      //         collectionInfo: collection,
+      //       },
+      //     });
+      //   }
+      // }}
+      // style={{
+      //   zIndex: isDragging ? 100000 : 0,
+      // }}
+      // onDrag={() => setIsDragging(true)}
+      // dragMomentum={false}
+      // dragElastic={1}
+      // dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       initial={{ opacity: 0 }}
-      // transition={{ type: 'spring', stiffness: 100 }}
+      // // transition={{ type: 'spring', stiffness: 100 }}
       animate={{ opacity: 1 }}
-      className="flex flex-col"
+      className={`flex flex-col`}
     >
-      {' '}
+      {/* {isDragging && <div className="w-52 h-52 hidden">jhkjj</div>} */}
       <motion.button
         whileHover={{ scale: isSelected ? 1 : 1.1 }}
         whileTap={{ scale: isSelected ? 1 : 1 }}

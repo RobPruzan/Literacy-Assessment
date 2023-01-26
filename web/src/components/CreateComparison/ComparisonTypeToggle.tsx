@@ -2,10 +2,10 @@ import {
   ComparisonActions,
   ComparisonTypeStrings,
 } from '../../redux/reducers/comparisonState';
-import React, { useState } from 'react';
 import { Tab, Tabs } from '@mui/material';
 
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 type Props = {};
 
@@ -13,7 +13,7 @@ const ComparisonTypeToggle = (props: Props) => {
   const [activeTab, setActiveTab] = useState(ComparisonTypeStrings.Collection);
   const dispatch = useDispatch();
   return (
-    <div className="w-full h-full">
+    <div className="h-fit">
       <Tabs
         value={activeTab}
         onChange={(event, newValue) => {
@@ -29,7 +29,7 @@ const ComparisonTypeToggle = (props: Props) => {
         <Tab
           value={ComparisonTypeStrings.Collection}
           label="Collection"
-          aria-label="Ccllection"
+          aria-label="Collection"
           sx={{
             color:
               activeTab === ComparisonTypeStrings.Collection ? 'white' : 'gray',
@@ -57,8 +57,8 @@ const ComparisonTypeToggle = (props: Props) => {
         />
       </Tabs>
 
-      {activeTab === ComparisonTypeStrings.Collection && <>collection</>}
-      {activeTab === ComparisonTypeStrings.Excerpt && <>excer-t</>}
+      {activeTab === ComparisonTypeStrings.Collection && <>Collection</>}
+      {activeTab === ComparisonTypeStrings.Excerpt && <>Excerpt</>}
     </div>
   );
 };
