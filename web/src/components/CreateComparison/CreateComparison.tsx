@@ -1,5 +1,5 @@
 import { AboutNavbar } from '../Navabars/AboutNavbar';
-import CompareActions from './CompareActions/CompareActions';
+import CompareActions from './CompareActions/CompareExcerptsButton';
 import ComparisonTypeToggle from './ComparisonTypeToggle';
 import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
 import Filters from './Filters/FIlters';
