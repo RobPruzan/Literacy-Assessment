@@ -155,7 +155,7 @@ const CollectionCreate = ({}: Props) => {
           setShowCollectionCreate(false);
         }
       }}
-      className="inset-0 fixed z-50 bg-black bg-opacity-50  flex flex-col  justify-center items-center"
+      className="inset-0  fixed z-50 bg-black bg-opacity-50  flex flex-col  justify-center items-center"
     >
       <AnimatePresence>
         <motion.div
@@ -163,14 +163,15 @@ const CollectionCreate = ({}: Props) => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="bg-white w-3/4 md:h-4/6 md:w-4/6  rounded-x-md rounded-t-md shadow-xl relative flex flex-col justify-evenly "
+          className="bg-white   w-3/4 md:h-4/6 md:w-4/6  rounded-x-md rounded-t-md shadow-xl relative flex flex-col justify-evenly "
         >
           <div
-            style={{ height: '10%' }}
-            className="w-full  flex justify-center items-center "
+            style={{ height: '11.66%' }}
+            className="w-full rounded-t-md flex justify-center items-center bg-custom-blood-red p-2  "
           >
             <input
-              className="border-b-2 p-2 border-custom-blood-red border-opacity-50 focus:border-orange-400 focus:shadow-orange-400 text-xl focus:outline-none "
+              className=" p-2 
+               border-opacity-50 border-2 rounded-t-md focus:border-gray-400  rounded-lg focus:shadow-orange-400 text-xl focus:outline-none "
               type="text"
               value={inputCollection.collectionTitle}
               onChange={(e) =>
@@ -266,8 +267,8 @@ const CollectionCreate = ({}: Props) => {
             </BsX>
           </div>
           <div
-            style={{ height: '23%' }}
-            className=" overflow-x-scroll flex  justify-start w-full overflow-y-hidden relative bg-white border-t-2  border-custom-blood-red border-opacity-50"
+            style={{ height: '22%' }}
+            className=" overflow-x-scroll flex  justify-start w-full overflow-y-hidden relative bg-white border-opacity-50"
           >
             <p className="absolute top-0 right-0 m-0 text-2xl font-bold text-custom-blood-red">
               {collection.collection.length}
@@ -310,7 +311,7 @@ const CollectionCreate = ({}: Props) => {
               }}
               className={`${
                 createCollectionMutation.isLoading ? 'bg-opacity-50' : null
-              }  bg-custom-blood-red text-white text-xl rounded-md font-semibold px-3 py-2 border-2 border-white   hover:bg-orange-400 transition ease-in-out delay-150  hover:scale-105  `}
+              }  bg-custom-blood-red text-white text-xl rounded-md font-semibold px-3 py-2 border-2 border-white   hover:bg-orange-400 transition ease-in-out   hover:scale-105  `}
             >
               {createCollectionMutation.isLoading
                 ? 'Loading...'

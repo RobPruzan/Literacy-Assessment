@@ -5,15 +5,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Collection, Excerpt, ExcerptInfo, User
-
-# from .NLP.main import (
-#     calculate_diversity,
-#     comparison_pipeline,
-#     get_readability_measures,
-#     misspelled_percentage,
-#     reading_difficulty,
-#     sliding_window,
-# )
+from .NLP.main import (
+    calculate_diversity,
+    comparison_pipeline,
+    get_readability_measures,
+    misspelled_percentage,
+    reading_difficulty,
+    sliding_window,
+)
 from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
 from .utils.apiHelpers import calculate_stats_and_respond
 from .utils.dbHelpers import excerpt_ids_to_objects
@@ -76,32 +75,32 @@ class UserCollectionView(APIView):
         return Response(serializer.data)
 
 
-class DiversityView(APIView):
+class ExcerptDiversityView(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, calculate_diversity)
 
 
-class DifficultyView(APIView):
+class ExcerptDifficultyView(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, reading_difficulty)
 
 
-class WindowDifficultyView(APIView):
+class ExcerptWindowDifficultyView(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, sliding_window)
 
 
-class ReadabilityMeasures(APIView):
+class ExcerptReadabilityMeasures(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, get_readability_measures)
 
 
-class CalculateGrammar(APIView):
+class ExcerptCalculateGrammar(APIView):
     def post(self, request, *args, **kwargs):
         return calculate_stats_and_respond(request, misspelled_percentage)
 
 
-class CompereText(APIView):
+class ExcerptCompereText(APIView):
     def post(self, request, *args, **kwargs):
         selected_excerpts = request.data.get("excerpts")
         selected_excerpts_ids = [excerpt.get("id") for excerpt in selected_excerpts]

@@ -1,12 +1,6 @@
 import { z } from 'zod';
 
-// export type User = {
-//   id: number;
-//   name: string;
-//   is_admin?: boolean;
-// };
-
-const userSchema = z.object({
+export const userSchema = z.object({
   id: z.number(),
   name: z.string(),
   is_admin: z.boolean(),
