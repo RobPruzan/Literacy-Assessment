@@ -1,4 +1,4 @@
-import { CalculationActions } from '../../redux/reducers/calculation';
+import { CalculationActions } from '../../../redux/reducers/calculation';
 import { useDispatch } from 'react-redux';
 import { useMutation } from 'react-query';
 export type useServerCalculationParams<T> = {
@@ -10,7 +10,7 @@ const useServerCalculation = <T>({
   dispatchType,
 }: useServerCalculationParams<T>) => {
   const dispatch = useDispatch();
-  const { mutate, data, error, isLoading, isError } = useMutation(fn, {
+  const serverCalculationMutation = useMutation(fn, {
     onError: (error) => {
       console.error(error);
     },
@@ -23,25 +23,9 @@ const useServerCalculation = <T>({
         type: CalculationActions.SetLoadingProgress,
         payload: 1,
       });
-      // dispatch({
-      //   type: CalculationActions.SetIsLoading,
-      //   payload: false,
-      // });
-    },
-    onMutate: () => {
-      // dispatch({
-      //   type: CalculationActions.SetIsLoading,
-      //   payload: true,
-      // });
     },
   });
-  return {
-    mutate,
-    data,
-    error,
-    isLoading,
-    isError,
-  };
+  return serverCalculationMutation;
 };
 
 export default useServerCalculation;

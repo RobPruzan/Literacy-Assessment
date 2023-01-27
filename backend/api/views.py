@@ -14,7 +14,10 @@ from .NLP.main import (
     sliding_window,
 )
 from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
-from .utils.apiHelpers import calculate_stats_and_respond
+from .utils.apiHelpers import (
+    calculate_multiple_stats_and_respond,
+    calculate_stats_and_respond,
+)
 from .utils.dbHelpers import excerpt_ids_to_objects
 from .utils.helpers import ids_are_valid, ids_to_calculation
 
@@ -107,6 +110,11 @@ class ExcerptCompereText(APIView):
         excerpts_text = excerpt_ids_to_objects(selected_excerpts_ids)
         comparison_stats = comparison_pipeline(excerpts_text)
         return Response(comparison_stats)
+
+
+class CollectionsCalculateStats(APIView):
+    def post(self, request, *args, **kwargs):
+        return calculate_multiple_stats_and_respond(request)
 
 
 class CreateCollectionView(APIView):
