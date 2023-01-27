@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import { Link } from 'react-router-dom';
 import { RootState } from '../../../redux/store';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import useSequentialComparison from '../../hooks/useSequentialComparison';
 import { useState } from 'react';
 
@@ -14,7 +13,6 @@ const enum AttemptErrors {
 
 const CompareActions = () => {
   const [attemptError, setAttemptError] = useState<AttemptErrors | null>(null);
-  const dispatch = useDispatch();
   const selectedExcerpts = useSelector(({ selectedExcerptsState }: RootState) =>
     selectedExcerptsState.selectedExcerpts?.reverse()
   );
@@ -39,11 +37,6 @@ const CompareActions = () => {
       const excerpt_ids = selectedExcerpts
         ? selectedExcerpts.map((excerpt) => excerpt.id)
         : [];
-
-      // const collectionExcerptIds = selectedCollections?.map(
-      //   ()
-
-      // )
 
       setAttemptError(null);
       grammarHelpers.mutateGrammar(excerpt_ids);

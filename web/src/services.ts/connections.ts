@@ -40,7 +40,6 @@ export type Excerpt = z.infer<typeof excerptSchema>;
 const excerptInfoSchema = z.object({
   id: z.number(),
   excerpt: excerptSchema,
-
   difficulty: z.number().optional(),
   diversity: z.number().optional(),
   text_length: z.number(),
@@ -65,8 +64,6 @@ export type InputCollectionCreate = {
   collectionInfo: ExcerptCreate;
   collectionTitle: string;
 };
-
-// export const getCollectionsScehena = z.infer(
 
 export type CalculationStats = {
   difficulty: number[] | null;
@@ -251,7 +248,6 @@ export class NorthStarApi {
     );
     const arrayCollectionSchema = z.array(collectionSchema);
     const collections = arrayCollectionSchema.parse(response.data);
-
     return collections;
   }
 }
