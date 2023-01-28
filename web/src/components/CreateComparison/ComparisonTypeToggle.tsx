@@ -2,27 +2,31 @@ import {
   ComparisonActions,
   ComparisonTypeStrings,
 } from '../../redux/reducers/comparisonState';
+import { SyntheticEvent, useState } from 'react';
 import { Tab, Tabs } from '@mui/material';
 
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 type Props = {};
 
 const ComparisonTypeToggle = (props: Props) => {
   const [activeTab, setActiveTab] = useState(ComparisonTypeStrings.Collection);
   const dispatch = useDispatch();
+  function handleTabChange(
+    event: SyntheticEvent<Element, Event>,
+    newValue: any
+  ) {
+    setActiveTab(newValue);
+    dispatch({
+      type: ComparisonActions.SET_COMPARISON_TYPE,
+      payload: { comparisonType: newValue },
+    });
+  }
   return (
     <div className="h-fit">
       <Tabs
         value={activeTab}
-        onChange={(event, newValue) => {
-          setActiveTab(newValue);
-          dispatch({
-            type: ComparisonActions.SET_COMPARISON_TYPE,
-            payload: { comparisonType: newValue },
-          });
-        }}
+        onChange={handleTabChange}
         aria-label="tabs"
         variant="fullWidth"
       >

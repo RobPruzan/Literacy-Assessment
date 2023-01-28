@@ -1,8 +1,9 @@
-import { CalculationActions } from '../../../redux/reducers/calculation';
+import { CalculationActions } from '../../../redux/reducers/excerptCalculation';
+import { SequentialComparisonHelpersParams } from './useSequentialComparison';
 import { useDispatch } from 'react-redux';
 import { useMutation } from 'react-query';
 export type useServerCalculationParams<T> = {
-  fn: (excerpt_ids: number[]) => Promise<T>;
+  fn: (params: SequentialComparisonHelpersParams) => Promise<T>;
   dispatchType: CalculationActions;
 };
 const useServerCalculation = <T>({

@@ -1,30 +1,12 @@
 import axios from 'axios';
 import { z } from 'zod';
 
-// export type ExcerptInfo = {
-//   id: number;
-//   excerpt: Excerpt;
-//   title: string;
-//   difficulty: number;
-//   diversity: number;
-//   text_length: number;
-//   region: string;
-//   source: string;
-// };
-
-// export type Excerpt = {
-//   excerptTitle: string;
-//   text: string;
-//   source: string;
-//   source_user: User;
-//   collection: Collection;
-// };
-
 const collectionSchema = z.object({
   id: z.number(),
   title: z.string(),
   difficulty: z.number(),
   total_excerpts: z.number(),
+  excerpt_ids: z.array(z.number()),
 });
 
 export type Collection = z.infer<typeof collectionSchema>;
@@ -161,6 +143,7 @@ export class NorthStarApi {
     const response = await axios.get(`${this.baseUrl}/api/collections`);
     const arrayCollectionSchema = z.array(collectionSchema);
     const collections = arrayCollectionSchema.safeParse(response.data);
+    console.log('zod collections result', collections);
     return collections.success ? collections.data : [];
   }
 
