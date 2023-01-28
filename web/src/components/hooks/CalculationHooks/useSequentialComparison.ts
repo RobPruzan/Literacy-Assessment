@@ -1,23 +1,12 @@
-import { CalculationActions } from '../../../redux/reducers/calculation';
+import { CalculationActions } from '../../../redux/reducers/excerptCalculation';
 import NorthStar from '../../../services.ts/connections';
 import useServerCalculation from './useServerCalculation';
 
+export type SequentialComparisonHelpersParams = {
+  excerpt_ids: number[];
+};
+
 const useSequentialComparison = () => {
-  const calculateDifficultyFn = (excerpt_ids: number[]) =>
-    NorthStar.getDifficultyScore(excerpt_ids);
-
-  const calculateDiversityFn = (excerpt_ids: number[]) =>
-    NorthStar.getDiversityScore(excerpt_ids);
-
-  const calculateGrammarFn = (excerpt_ids: number[]) =>
-    NorthStar.getGrammarScore(excerpt_ids);
-
-  const calculateReadabilityMeasuresFn = (excerpt_ids: number[]) =>
-    NorthStar.getReadabilityMeasures(excerpt_ids);
-
-  const calculateSlidingWindowStatsFn = (excerpt_ids: number[]) =>
-    NorthStar.getWindowDifficultyScore(excerpt_ids);
-
   const difficultyCalculation = useServerCalculation({
     fn: calculateDifficultyFn,
     dispatchType: CalculationActions.SetDifficulty,
@@ -39,10 +28,38 @@ const useSequentialComparison = () => {
     fn: calculateSlidingWindowStatsFn,
     dispatchType: CalculationActions.SetSlidingWindowStats,
   });
+  function calculateDifficultyFn({
+    excerpt_ids,
+  }: SequentialComparisonHelpersParams) {
+    return NorthStar.getDifficultyScore(excerpt_ids);
+  }
+
+  function calculateDiversityFn({
+    excerpt_ids,
+  }: SequentialComparisonHelpersParams) {
+    return NorthStar.getDiversityScore(excerpt_ids);
+  }
+
+  function calculateGrammarFn({
+    excerpt_ids,
+  }: SequentialComparisonHelpersParams) {
+    return NorthStar.getGrammarScore(excerpt_ids);
+  }
+
+  function calculateReadabilityMeasuresFn({
+    excerpt_ids,
+  }: SequentialComparisonHelpersParams) {
+    return NorthStar.getReadabilityMeasures(excerpt_ids);
+  }
+
+  function calculateSlidingWindowStatsFn({
+    excerpt_ids,
+  }: SequentialComparisonHelpersParams) {
+    return NorthStar.getWindowDifficultyScore(excerpt_ids);
+  }
 
   return {
     difficultyHelper: difficultyCalculation,
-
     diversityHelper: diversityCalculation,
     grammarHelpers: grammarCalculation,
     readabilityMeasuresHelper: readabilityMeasuresCalculation,

@@ -1,7 +1,7 @@
 import { AboutNavbar } from '../Navabars/AboutNavbar';
 import CompareActions from './CompareActions/CompareExcerptsButton';
 import ComparisonTypeToggle from './ComparisonTypeToggle';
-import { ExcerptLibrary } from './ExcerptLibrary/ExcerptLibrary';
+import { ExcerptLibrary } from './Library/Library';
 import Filters from './Filters/FIlters';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
 import UserCollections from './MyCollections/UserCollections';

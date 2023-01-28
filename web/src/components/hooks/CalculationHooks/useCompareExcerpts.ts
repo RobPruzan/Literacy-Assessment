@@ -9,11 +9,12 @@ export enum AttemptErrors {
 }
 export const useCompareExcerpts = () => {
   const [attemptError, setAttemptError] = useState<AttemptErrors | null>(null);
+  // TODO remove reverse, do it on the backend
   const selectedExcerpts = useSelector(({ selectedExcerptsState }: RootState) =>
     selectedExcerptsState.selectedExcerpts?.reverse()
   );
   const sequentialComparisonHelpers = useSequentialComparison();
-  const handleCompare = () => {
+  const handleCompareExcerpts = () => {
     if (!selectedExcerpts || selectedExcerpts.length === 0) {
       setAttemptError(AttemptErrors.NoExcerptsSelected);
       return;
@@ -23,16 +24,20 @@ export const useCompareExcerpts = () => {
         : [];
 
       setAttemptError(null);
-      sequentialComparisonHelpers.grammarHelpers.mutate(excerpt_ids);
-      sequentialComparisonHelpers.readabilityMeasuresHelper.mutate(excerpt_ids);
-      sequentialComparisonHelpers.difficultyHelper.mutate(excerpt_ids);
-      sequentialComparisonHelpers.diversityHelper.mutate(excerpt_ids);
-      sequentialComparisonHelpers.slidingWindowStatsHelper.mutate(excerpt_ids);
+      sequentialComparisonHelpers.grammarHelpers.mutate({ excerpt_ids });
+      sequentialComparisonHelpers.readabilityMeasuresHelper.mutate({
+        excerpt_ids,
+      });
+      sequentialComparisonHelpers.difficultyHelper.mutate({ excerpt_ids });
+      sequentialComparisonHelpers.diversityHelper.mutate({ excerpt_ids });
+      sequentialComparisonHelpers.slidingWindowStatsHelper.mutate({
+        excerpt_ids,
+      });
     }
   };
 
   return {
-    handleCompare,
+    handleCompareExcerpts,
     attemptError,
     sequentialComparisonHelpers,
   };

@@ -1,6 +1,4 @@
-import { COLOR_MAP } from '../CreateComparison/ExcerptLibrary/CollectionCard';
-import { ExcerptInfo } from '../../services.ts/connections';
-import React from 'react';
+import { COLOR_MAP } from '../CreateComparison/Library/CollectionCard';
 export type StatsCardProps = {
   // excerptInfo: ExcerptInfo;
   difficulty?: number;

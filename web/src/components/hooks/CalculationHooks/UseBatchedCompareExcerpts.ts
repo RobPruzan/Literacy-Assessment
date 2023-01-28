@@ -1,6 +1,6 @@
 import NorthStar, { ExcerptInfo } from '../../../services.ts/connections';
 
-import { CalculationActions } from '../../../redux/reducers/calculation';
+import { CalculationActions } from '../../../redux/reducers/excerptCalculation';
 import { useDispatch } from 'react-redux';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';

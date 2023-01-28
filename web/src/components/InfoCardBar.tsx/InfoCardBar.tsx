@@ -1,7 +1,7 @@
-import { SetStateAction, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-import CollectionCard from '../CreateComparison/ExcerptLibrary/CollectionCard';
-import { ExcerptCard } from '../CreateComparison/ExcerptLibrary/ExcerptCard';
+import CollectionCard from '../CreateComparison/Library/CollectionCard';
+import { ExcerptCard } from '../CreateComparison/Library/ExcerptCard';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 
@@ -85,11 +85,7 @@ const InfoCardBar = () => {
                   collection={collection}
                   isCreating={false}
                   activePopUp={0}
-                  setActivePopUp={function (
-                    value: SetStateAction<number>
-                  ): void {
-                    throw new Error('Function not implemented.');
-                  }}
+                  setActivePopUp={() => null}
                   index={0}
                 />
               </div>

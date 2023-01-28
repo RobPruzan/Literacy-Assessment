@@ -1,4 +1,7 @@
-import { CalculationReducer, CalculationState } from './reducers/calculation';
+import {
+  CalculationReducer,
+  CalculationState,
+} from './reducers/excerptCalculation';
 import { ComparisonReducer, ComparisonState } from './reducers/comparisonState';
 import { CountReducer, CountState } from './reducers/count';
 import {

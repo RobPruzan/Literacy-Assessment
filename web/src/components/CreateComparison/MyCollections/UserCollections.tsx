@@ -1,5 +1,5 @@
-import CollectionCard from '../ExcerptLibrary/CollectionCard';
-import CollectionCreate from '../ExcerptLibrary/CollectionCreate/CollectionCreate';
+import CollectionCard from '../Library/CollectionCard';
+import CollectionCreate from '../Library/CollectionCreate/CollectionCreate';
 import React from 'react';
 import { useGetUserColletions } from '../../hooks/LibraryHooks/useGetUserCollections';
 

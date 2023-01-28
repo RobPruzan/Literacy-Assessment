@@ -5,14 +5,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Collection, Excerpt, ExcerptInfo, User
-from .NLP.main import (
-    calculate_diversity,
-    comparison_pipeline,
-    get_readability_measures,
-    misspelled_percentage,
-    reading_difficulty,
-    sliding_window,
-)
+
+# from .NLP.main import (
+#     calculate_diversity,
+#     comparison_pipeline,
+#     get_readability_measures,
+#     misspelled_percentage,
+#     reading_difficulty,
+#     sliding_window,
+# )
 from .serializers import CollectionSerializer, ExcerptInfoSerializer, UserSerializer
 from .utils.apiHelpers import (
     calculate_multiple_stats_and_respond,

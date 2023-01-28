@@ -9,8 +9,11 @@ const CompareActions = () => {
     ({ selectedCollectionState }: RootState) =>
       selectedCollectionState.selectedCollections
   );
-  const { attemptError, handleCompare, sequentialComparisonHelpers } =
-    useCompareExcerpts();
+  const {
+    attemptError,
+    handleCompareExcerpts: handleCompare,
+    sequentialComparisonHelpers,
+  } = useCompareExcerpts();
 
   return (
     <div className="w-full">
@@ -30,7 +33,7 @@ const CompareActions = () => {
       </Link>
 
       {sequentialComparisonHelpers.difficultyHelper.data?.map((calc, idx) => (
-        <p className="text-gray-500" key={`diff map ${idx}`}>
+        <p className="text-gray-500" key={`${calc}`}>
           Difficulty: {calc}
         </p>
       ))}

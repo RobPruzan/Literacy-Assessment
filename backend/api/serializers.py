@@ -1,12 +1,21 @@
+from print_color import print
 from rest_framework import serializers
 
 from .models import Collection, Excerpt, ExcerptInfo, User
 
 
 class CollectionSerializer(serializers.ModelSerializer):
+    excerpt_ids = serializers.SerializerMethodField()
+
+    def get_excerpt_ids(self, obj):
+        print(
+            obj.excerpts.all(),
+        )
+        return [e.id for e in obj.excerpts.all()]
+
     class Meta:
         model = Collection
-        fields = ("id", "title", "difficulty", "total_excerpts")
+        fields = ("id", "title", "difficulty", "total_excerpts", "excerpt_ids")
 
 
 class UserSerializer(serializers.ModelSerializer):

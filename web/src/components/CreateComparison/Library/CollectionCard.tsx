@@ -7,7 +7,6 @@ import { Dispatch, SetStateAction } from 'react';
 import Gah, { NO_ACTIVE_POPUP } from './CollectionCreate/Gah';
 
 import { BsX } from 'react-icons/bs';
-import { MouseEvent } from 'react';
 import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
 import { useDispatch } from 'react-redux';
 import { useGetExcerptsByCollection } from '../../hooks/LibraryHooks/useGetExcerptsByCollection';
@@ -71,9 +70,7 @@ const CollectionCard = ({
 
   const controls = useAnimation();
 
-  const handleClick = (
-    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const handleClick = () => {
     if (excerptByCollectionQuery.isSuccess && activePopUp === NO_ACTIVE_POPUP) {
       controls.start({
         x: 100,
@@ -99,7 +96,7 @@ const CollectionCard = ({
         <motion.button
           exit={{ opacity: 0 }}
           whileHover={{ scale: isSelected ? 1 : 1.1 }}
-          whileTap={{ scale: isSelected ? 1 : 1 }}
+          whileTap={{ scale: 1 }}
           style={{
             minWidth: '13rem',
           }}

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { AboutNavbar } from '../Navabars/AboutNavbar';
 import { Box } from '@mui/material';
-import { CalculationActions } from '../../redux/reducers/calculation';
+import { CalculationActions } from '../../redux/reducers/excerptCalculation';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
 import LinearProgress from '@mui/material/LinearProgress';
 import { RootState } from '../../redux/store';
