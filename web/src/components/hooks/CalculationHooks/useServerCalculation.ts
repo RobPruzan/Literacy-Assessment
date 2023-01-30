@@ -11,21 +11,25 @@ const useServerCalculation = <T>({
   dispatchType,
 }: useServerCalculationParams<T>) => {
   const dispatch = useDispatch();
-  const serverCalculationMutation = useMutation(fn, {
-    onError: (error) => {
-      console.error(error);
-    },
-    onSuccess: (data) => {
-      dispatch({
-        type: dispatchType,
-        payload: data,
-      });
-      dispatch({
-        type: CalculationActions.SetLoadingProgress,
-        payload: 1,
-      });
-    },
-  });
+  const serverCalculationMutation = useMutation(
+    (params: SequentialComparisonHelpersParams) => fn(params),
+    {
+      onError: (error) => {
+        console.error(error);
+      },
+      onSuccess: (data, params) => {
+        dispatch({
+          type: dispatchType,
+          payload: data,
+        });
+        dispatch({
+          type: CalculationActions.SetLoadingProgress,
+          payload: 1,
+        });
+        params.successHandler && params.successHandler();
+      },
+    }
+  );
   return serverCalculationMutation;
 };
 

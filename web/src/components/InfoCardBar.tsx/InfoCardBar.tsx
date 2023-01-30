@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import CollectionCard from '../CreateComparison/Library/CollectionCard';
 import { ExcerptCard } from '../CreateComparison/Library/ExcerptCard';
-import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
 
 const InfoCardBar = () => {
   const cardBarRef = useRef<HTMLDivElement>(null);

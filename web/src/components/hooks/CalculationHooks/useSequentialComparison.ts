@@ -4,6 +4,7 @@ import useServerCalculation from './useServerCalculation';
 
 export type SequentialComparisonHelpersParams = {
   excerpt_ids: number[];
+  successHandler?: VoidFunction;
 };
 
 const useSequentialComparison = () => {
