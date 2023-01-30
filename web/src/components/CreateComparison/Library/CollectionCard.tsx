@@ -1,14 +1,14 @@
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
+import { Dispatch, SetStateAction } from 'react';
 import {
   Collection,
   CollectionCreateInfo,
 } from '../../../services.ts/connections';
-import { Dispatch, SetStateAction } from 'react';
 import Gah, { NO_ACTIVE_POPUP } from './CollectionCreate/Gah';
 
 import { BsX } from 'react-icons/bs';
-import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
 import { useDispatch } from 'react-redux';
+import { SelectedCollectionsActions } from '../../../redux/reducers/selectedCollections';
 import { useGetExcerptsByCollection } from '../../hooks/LibraryHooks/useGetExcerptsByCollection';
 
 export const COLOR_MAP = (difficulty: number) => {
@@ -102,8 +102,8 @@ const CollectionCard = ({
           }}
           onClick={handleClick}
           className={` ${
-            isSelected ? 'bg-gray-100' : 'bg-white'
-          } hover:shadow-orange-200  min-h-fit p-2   w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md m-3 shadow-md transition ease-in-out  cursor-pointer overflow-x-scroll `}
+            isSelected ? 'bg-gray-100 mx-3' : 'bg-white m-3'
+          } hover:shadow-orange-200  min-h-fit p-2   w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md shadow-md transition ease-in-out  cursor-pointer overflow-x-scroll `}
         >
           <p className="text-center text-gray-500  text-xl  mb-2">
             {collection.title}

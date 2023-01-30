@@ -20,12 +20,17 @@ import {
 } from '@reduxjs/toolkit';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
+import {
+  CollectionCalculationReducer,
+  CollectionCalculationState,
+} from './reducers/collectionCalculation';
 
 export interface RootState {
   countState: CountState;
   selectedExcerptsState: SelectedExcerptsState;
   selectedCollectionState: SelectedCollectionsState;
   calculationState: CalculationState;
+  collectionCalculationState: CollectionCalculationState;
   userState: UserState;
   comparisonState: ComparisonState;
   // counter: CounterState;
@@ -39,6 +44,7 @@ export const store = createStore(
     calculationState: CalculationReducer,
     userState: UserReducer,
     comparisonState: ComparisonReducer,
+    collectionCalculationState: CollectionCalculationReducer,
   }),
   composeWithDevTools(applyMiddleware())
 );

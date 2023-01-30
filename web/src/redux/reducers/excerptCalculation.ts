@@ -1,4 +1,3 @@
-import { Data } from '../../components/Chart/Chart';
 import {
   CalculationStats,
   DiversityOutput,

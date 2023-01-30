@@ -47,12 +47,22 @@ export type InputCollectionCreate = {
   collectionTitle: string;
 };
 
+export type DifficultyCalculation = number[] | null;
+
+export type DiversityCalculation = DiversityOutput[] | null;
+
+export type GrammarCalculation = number[] | null;
+
+export type ReadabilityMeasuresCalculation = ReadabilityMeasures[] | null;
+
+export type SlidingWindowStatsCalculation = WindowDifficultyOutput[] | null;
+
 export type CalculationStats = {
-  difficulty: number[] | null;
-  diversity: DiversityOutput[] | null;
-  grammar: number[] | null;
-  readability_measures: ReadabilityMeasures[] | null;
-  sliding_window_stats: WindowDifficultyOutput[] | null;
+  difficulty: DifficultyCalculation;
+  diversity: DiversityCalculation;
+  grammar: GrammarCalculation;
+  readability_measures: ReadabilityMeasuresCalculation;
+  sliding_window_stats: SlidingWindowStatsCalculation;
 };
 
 export type ReadabilityMeasures = {
