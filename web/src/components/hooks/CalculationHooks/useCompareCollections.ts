@@ -1,8 +1,16 @@
+import { UseMutateFunction } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { CollectionCollectionActions } from '../../../redux/reducers/collectionCalculation';
+import {
+  CollectionCalculationInfo,
+  CollectionCollectionActions,
+  CreateTypeWithAddition,
+} from '../../../redux/reducers/collectionCalculation';
 
 import { RootState } from '../../../redux/store';
-import useSequentialComparison from './useSequentialComparison';
+import { CalculationStats } from '../../../services.ts/connections';
+import useSequentialComparison, {
+  SequentialComparisonHelpersParams,
+} from './useSequentialComparison';
 
 const useCompareCollections = () => {
   const dispatch = useDispatch();
@@ -10,88 +18,100 @@ const useCompareCollections = () => {
     ({ selectedCollectionState }: RootState) =>
       selectedCollectionState.selectedCollections
   );
-  // const stuff = useGetExcerptsByCollection()
-  // stuff.refetch()
-  const difficultySuccessHandler = () => {
-    dispatch({
-      type: CollectionCollectionActions.UpdateCollectionDifficulty,
-      payload: {
-        collectionId: 1,
-        difficulty: [1, 2, 4],
-      },
-    });
-  };
-
-  const diversitySuccessHandler = () => {
-    dispatch({
-      type: CollectionCollectionActions.UpdateCollectionDiversity,
-      payload: {
-        collectionId: 1,
-        diversity: [1, 2, 4],
-      },
-    });
-  };
-
-  const grammarSuccessHandler = () => {
-    dispatch({
-      type: CollectionCollectionActions.UpdateCollectionGrammar,
-      payload: {
-        collectionId: 1,
-        grammar: [1, 2, 4],
-      },
-    });
-  };
-
-  const readabilityMeasuresSuccessHandler = () => {
-    dispatch({
-      type: CollectionCollectionActions.UpdateCollectionReadabilityMeasures,
-      payload: {
-        collectionId: 1,
-        readabilityMeasures: [1, 2, 4],
-      },
-    });
-  };
-
-  const slidingWindowStatsSuccessHandler = () => {
-    dispatch({
-      type: CollectionCollectionActions.UpdateCollectionSlidingWindowStats,
-      payload: {
-        collectionId: 1,
-        slidingWindowStats: [1, 2, 4],
-      },
-    });
-  };
 
   const sequentialComparisonHelpers = useSequentialComparison();
+
+  // }
+  type HelperParams = {};
+
+  function helper<
+    CalculationData extends CalculationStats[keyof CalculationStats],
+    MutateFunction extends UseMutateFunction<
+      CalculationData,
+      unknown,
+      SequentialComparisonHelpersParams,
+      unknown
+    >,
+    UpdateKey extends keyof CreateTypeWithAddition<
+      Partial<CalculationStats>,
+      CollectionCalculationInfo
+    >
+  >({
+    mutateFunction,
+    updateKey,
+    updateType,
+    excerptIds,
+    collectionId,
+  }: {
+    mutateFunction: MutateFunction;
+    updateKey: UpdateKey;
+    updateType: CollectionCollectionActions;
+    excerptIds: number[];
+    collectionId: number;
+  }) {
+    return mutateFunction({
+      excerpt_ids: excerptIds,
+      successHandler: (data: CalculationData) => {
+        dispatch({
+          type: updateType,
+          payload: {
+            collectionId: collectionId,
+            [updateKey]: data,
+          },
+        });
+      },
+    });
+  }
+
   const handleCompareCollections = () => {
     const collection_ids = selectedCollections?.forEach((collection) => {
-      sequentialComparisonHelpers.grammarHelpers.mutate({
-        excerpt_ids: collection.excerpt_ids,
-        successHandler: difficultySuccessHandler,
+      helper({
+        mutateFunction: sequentialComparisonHelpers.difficultyHelper.mutate,
+        updateKey: 'difficulty',
+        updateType: CollectionCollectionActions.UpdateCollectionDifficulty,
+        excerptIds: collection.excerpt_ids,
+        collectionId: collection.id,
       });
-      sequentialComparisonHelpers.readabilityMeasuresHelper.mutate({
-        excerpt_ids: collection.excerpt_ids,
-        successHandler: diversitySuccessHandler,
+
+      helper({
+        mutateFunction: sequentialComparisonHelpers.diversityHelper.mutate,
+        updateKey: 'diversity',
+        updateType: CollectionCollectionActions.UpdateCollectionDiversity,
+
+        excerptIds: collection.excerpt_ids,
+        collectionId: collection.id,
       });
-      sequentialComparisonHelpers.difficultyHelper.mutate({
-        excerpt_ids: collection.excerpt_ids,
-        successHandler: grammarSuccessHandler,
+
+      helper({
+        mutateFunction: sequentialComparisonHelpers.grammarHelpers.mutate,
+        updateKey: 'grammar',
+        updateType: CollectionCollectionActions.UpdateCollectionGrammar,
+        excerptIds: collection.excerpt_ids,
+        collectionId: collection.id,
       });
-      sequentialComparisonHelpers.diversityHelper.mutate({
-        excerpt_ids: collection.excerpt_ids,
-        successHandler: readabilityMeasuresSuccessHandler,
+
+      helper({
+        mutateFunction:
+          sequentialComparisonHelpers.readabilityMeasuresHelper.mutate,
+        updateKey: 'readability_measures',
+        updateType:
+          CollectionCollectionActions.UpdateCollectionReadabilityMeasures,
+        excerptIds: collection.excerpt_ids,
+        collectionId: collection.id,
       });
-      sequentialComparisonHelpers.slidingWindowStatsHelper.mutate({
-        excerpt_ids: collection.excerpt_ids,
-        successHandler: slidingWindowStatsSuccessHandler,
+
+      helper({
+        mutateFunction:
+          sequentialComparisonHelpers.slidingWindowStatsHelper.mutate,
+        updateKey: 'sliding_window_stats',
+        updateType:
+          CollectionCollectionActions.UpdateCollectionSlidingWindowStats,
+        excerptIds: collection.excerpt_ids,
+        collectionId: collection.id,
       });
     });
   };
-
-  function immediatelyInvokeHelperAndDispatch<P, T>(dispatchContent: {
-    payload: P;
-    type: T;
-  }) {
-    dispatch(dispatchContent);
-  }
+  return handleCompareCollections;
 };
+
+export default useCompareCollections;

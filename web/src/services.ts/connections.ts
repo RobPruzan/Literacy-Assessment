@@ -49,7 +49,9 @@ export type InputCollectionCreate = {
 
 export type DifficultyCalculation = number[] | null;
 
-export type DiversityCalculation = DiversityOutput[] | null;
+export type DiversityCalculation =
+  | [InterpretableOutput, DiversityOutput][]
+  | null;
 
 export type GrammarCalculation = number[] | null;
 
@@ -176,7 +178,7 @@ export class NorthStarApi {
 
     return excerpts;
   }
-
+  // here
   public async getDiversityScore(
     excerptIds: number[]
   ): Promise<[InterpretableOutput, DiversityOutput][]> {
