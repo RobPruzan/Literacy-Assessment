@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { AboutNavbar } from '../Navabars/AboutNavbar';
 import { Box } from '@mui/material';
-import { CalculationActions } from '../../redux/reducers/excerptCalculation';
-import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
 import LinearProgress from '@mui/material/LinearProgress';
+import { CalculationActions } from '../../redux/reducers/excerptCalculation';
 import { RootState } from '../../redux/store';
+import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import { AboutNavbar } from '../Navabars/AboutNavbar';
 
 const NON_CALCULATION_KEYS = ['loadingProgress', 'isLoading'];
 
@@ -96,7 +96,7 @@ export const Analysis = () => {
             className="text-center text-2xl font-bold"
             key={`diversity map ${idx}`}
           >
-            Diversity: {diversity[1].diversity_score}
+            Diversity: {diversity[1][1].diversity_score}
           </p>
         ))}
 

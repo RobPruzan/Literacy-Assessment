@@ -1,10 +1,10 @@
+import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../../redux/store';
-import { motion } from 'framer-motion';
 import { useCompareExcerpts } from '../../hooks/CalculationHooks/useCompareExcerpts';
-import { useSelector } from 'react-redux';
 
-const CompareActions = () => {
+const CompareExcerptsActions = () => {
   const selectedCollections = useSelector(
     ({ selectedCollectionState }: RootState) =>
       selectedCollectionState.selectedCollections
@@ -41,4 +41,4 @@ const CompareActions = () => {
   );
 };
 
-export default CompareActions;
+export default CompareExcerptsActions;

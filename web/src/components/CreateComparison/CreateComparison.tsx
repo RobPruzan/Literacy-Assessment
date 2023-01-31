@@ -1,9 +1,9 @@
-import { AboutNavbar } from '../Navabars/AboutNavbar';
-import CompareActions from './CompareActions/CompareExcerptsButton';
-import ComparisonTypeToggle from './ComparisonTypeToggle';
-import { ExcerptLibrary } from './Library/Library';
-import Filters from './Filters/FIlters';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
+import { AboutNavbar } from '../Navabars/AboutNavbar';
+import CompareExcerptsActions from './CompareActions/CompareExcerptsActions';
+import ComparisonTypeToggle from './ComparisonTypeToggle';
+import Filters from './Filters/FIlters';
+import { ExcerptLibrary } from './Library/Library';
 import UserCollections from './MyCollections/UserCollections';
 
 export const CreateComparison = () => {
@@ -50,7 +50,7 @@ export const CreateComparison = () => {
                     Create Comparison
                   </button> */}
                 <div>
-                  <CompareActions />;{/* </div> */}
+                  <CompareExcerptsActions />;{/* </div> */}
                 </div>
               </div>
             </div>

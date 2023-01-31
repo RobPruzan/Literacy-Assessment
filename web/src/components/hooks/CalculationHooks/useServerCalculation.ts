@@ -26,7 +26,7 @@ const useServerCalculation = <T>({
           type: CalculationActions.SetLoadingProgress,
           payload: 1,
         });
-        params.successHandler && params.successHandler();
+        params.successHandler && params.successHandler(data);
       },
     }
   );
