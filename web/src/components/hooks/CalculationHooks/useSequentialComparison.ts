@@ -38,6 +38,7 @@ const useSequentialComparison = () => {
   function calculateDiversityFn({
     excerpt_ids,
   }: SequentialComparisonHelpersParams) {
+    console.log('blah');
     return NorthStar.getDiversityScore(excerpt_ids);
   }
 

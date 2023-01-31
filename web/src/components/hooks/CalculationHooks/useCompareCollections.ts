@@ -64,7 +64,7 @@ const useCompareCollections = () => {
   }
 
   const handleCompareCollections = () => {
-    const collection_ids = selectedCollections?.forEach((collection) => {
+    selectedCollections?.forEach((collection) => {
       helper({
         mutateFunction: sequentialComparisonHelpers.difficultyHelper.mutate,
         updateKey: 'difficulty',
@@ -111,7 +111,7 @@ const useCompareCollections = () => {
       });
     });
   };
-  return handleCompareCollections;
+  return { handleCompareCollections };
 };
 
 export default useCompareCollections;

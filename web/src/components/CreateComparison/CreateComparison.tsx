@@ -1,6 +1,6 @@
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
 import { AboutNavbar } from '../Navabars/AboutNavbar';
-import CompareExcerptsActions from './CompareActions/CompareExcerptsActions';
+import CompareCollectionsActions from './CompareActions/CompareCollectionsActions';
 import ComparisonTypeToggle from './ComparisonTypeToggle';
 import Filters from './Filters/FIlters';
 import { ExcerptLibrary } from './Library/Library';
@@ -50,7 +50,7 @@ export const CreateComparison = () => {
                     Create Comparison
                   </button> */}
                 <div>
-                  <CompareExcerptsActions />;{/* </div> */}
+                  <CompareCollectionsActions />;{/* </div> */}
                 </div>
               </div>
             </div>
