@@ -1,7 +1,6 @@
-import { AboutNavbar } from './Navabars/AboutNavbar';
-import InfoCardBar from './InfoCardBar.tsx/InfoCardBar';
-import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import InfoCardBar from './InfoCardBar.tsx/InfoCardBar';
+import { AboutNavbar } from './Navabars/AboutNavbar';
 
 const Loading = () => {
   return (
@@ -10,7 +9,7 @@ const Loading = () => {
       <div className="mt-1 border-2  border-y-slate-500 p-2">
         <InfoCardBar />
       </div>
-      <div className="justify-center items-center h-screen">
+      <div className="h-screen items-center justify-center">
         <Spinner className="m-3" animation="grow" />
         <Spinner className="m-3" animation="grow" />
         <Spinner className="m-3" animation="grow" />

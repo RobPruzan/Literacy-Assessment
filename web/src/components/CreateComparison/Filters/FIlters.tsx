@@ -1,13 +1,13 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 const Filters = () => {
   return (
     <div className="overflow-y-visible ">
-      <div className=" flex  md:flex-col sm:items-center h-full w-full overflow-x-scroll  overflow-y-visible">
+      <div className=" flex  h-full w-full overflow-y-visible overflow-x-scroll sm:items-center  md:flex-col">
         <Autocomplete
-          className="mb-2 mt-4 mx-2 overflow-visible"
+          className="mx-2 mb-2 mt-4 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -21,7 +21,7 @@ const Filters = () => {
           renderInput={(params) => <TextField {...params} label="Topic" />}
         />
         <Autocomplete
-          className="mb-2 mt-4 mx-2 overflow-visible"
+          className="mx-2 mb-2 mt-4 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -36,7 +36,7 @@ const Filters = () => {
           )}
         />
         <Autocomplete
-          className="mb-2 mt-4 mx-2 overflow-visible"
+          className="mx-2 mb-2 mt-4 overflow-visible"
           disablePortal
           id="combo-box-demo"
           options={['example', 'example2', 'example3']}
@@ -49,7 +49,7 @@ const Filters = () => {
           renderInput={(params) => <TextField {...params} label="Region" />}
         />
         <TextField
-          className="mb-2 mt-4 mx-2 overflow-visible "
+          className="mx-2 mb-2 mt-4 overflow-visible "
           sx={{
             width: '75%',
             minWidth: '3em',
@@ -64,7 +64,7 @@ const Filters = () => {
           }}
           variant="outlined"
         />
-        <Button className="mt-4 max-w-5" variant="outlined">
+        <Button className="max-w-5 mt-4" variant="outlined">
           Apply
         </Button>
       </div>

@@ -102,10 +102,10 @@ const CollectionCard = ({
           }}
           onClick={handleClick}
           className={` ${
-            isSelected ? 'bg-gray-100 mx-3' : 'bg-white m-3'
-          } hover:shadow-orange-200  min-h-fit p-2   w-52 relative   border-2  border-custom-blood-red border-opacity-50  rounded-md shadow-md transition ease-in-out  cursor-pointer overflow-x-scroll `}
+            isSelected ? 'mx-3 bg-gray-100' : 'm-3 bg-white'
+          } relative  min-h-fit w-52   cursor-pointer overflow-x-scroll   rounded-md  border-2 border-custom-blood-red  border-opacity-50 p-2 shadow-md transition  ease-in-out hover:shadow-orange-200 `}
         >
-          <p className="text-center text-gray-500  text-xl  mb-2">
+          <p className="mb-2 text-center  text-xl  text-gray-500">
             {collection.title}
           </p>
 
@@ -118,7 +118,7 @@ const CollectionCard = ({
             <p className="inline">Difficulty: </p>
             <p className="inline">{collection.difficulty}</p>
           </div>
-          <div className="text-center text-gray-500 text-sm font-semibold">
+          <div className="text-center text-sm font-semibold text-gray-500">
             <p className="inline">Excerpts: </p>
             <p className="inline">{collection.total_excerpts}</p>
           </div>
@@ -141,7 +141,7 @@ const CollectionCard = ({
                   },
                 });
               }}
-              className="top-0 right-0 absolute fill-red-500 cursor-pointer hover:fill-red-600  scroll-smooth"
+              className="absolute top-0 right-0 cursor-pointer scroll-smooth fill-red-500  hover:fill-red-600"
               size={30}
             />
           ) : null}

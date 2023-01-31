@@ -157,8 +157,8 @@ import * as React from 'react';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import { alpha, styled } from '@mui/material/styles';
 
-import { ExcerptCard } from '../ExcerptCard';
 import { ExcerptInfo } from '../../../../services.ts/connections';
+import { ExcerptCard } from '../ExcerptCard';
 // export default CustomizedMenus;
 import { FcSearch } from 'react-icons/fc';
 import { SearchBar } from '../SearchBar';
@@ -244,7 +244,7 @@ export default function CustomizedMenus({
       <div
         className={`${
           open ? 'block' : 'hidden'
-        }  w-full flex justify-start h-full`}
+        }  flex h-full w-full justify-start`}
       >
         <StyledMenu
           id="demo-customized-menu"
@@ -255,7 +255,7 @@ export default function CustomizedMenus({
           open={open}
           onClose={handleClose}
         >
-          <div className="flex justify-center items-start mb-3 h-96 flex-col">
+          <div className="mb-3 flex h-96 flex-col items-start justify-center">
             {excerptsInfo.length > 0 ? (
               excerptsInfo.map(
                 (excerptInfo) =>
@@ -273,7 +273,7 @@ export default function CustomizedMenus({
               )
             ) : (
               <p
-                className="text-center text-xl text-gray-600  w-36
+                className="w-36 text-center text-xl  text-gray-600
               "
               >
                 No excerpts found

@@ -26,7 +26,7 @@ const CompareExcerptsActions = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 1 }}
           onClick={handleCompare}
-          className="rounded bg-custom-blood-red w-full text-white p-2  sm:text-base  text-sm "
+          className="w-full rounded bg-custom-blood-red p-2 text-sm  text-white  sm:text-base "
         >
           Compare
         </motion.button>

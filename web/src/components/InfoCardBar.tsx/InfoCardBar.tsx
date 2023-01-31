@@ -36,7 +36,7 @@ const InfoCardBar = () => {
   return (
     <div
       ref={cardBarRef}
-      className="flex h-full items-center overflow-x-scroll overflow-y-hidden "
+      className="flex h-full items-center overflow-y-hidden overflow-x-scroll "
     >
       {comparisonType === 'excerpt' ? (
         (selectedExcerpts?.length ?? 0) >= 1 ? (
@@ -54,7 +54,7 @@ const InfoCardBar = () => {
             ))}
           </>
         ) : (
-          <p className="text-3xl w-full  text-gray-300 font-semibold">
+          <p className="w-full text-3xl  font-semibold text-gray-300">
             Add Collections to Excerpts
           </p>
         )

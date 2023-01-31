@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { ExcerptCard } from './ExcerptCard';
-import { ExcerptInfo } from '../../../services.ts/connections';
 import { HighlightOff } from '@mui/icons-material';
+import { ExcerptInfo } from '../../../services.ts/connections';
+import { ExcerptCard } from './ExcerptCard';
 import { SearchBar } from './SearchBar';
 
 export type LibraryPopupProps = {
@@ -35,10 +35,10 @@ const LibraryPopup = ({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
       }}
       className="
-      flex flex-row justify-center items-center"
+      flex flex-row items-center justify-center"
       //  bg-white flex justify-center shadow-lg rounded-sm sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blood-red "
     >
-      <div className="   bg-white flex justify-center shadow-lg rounded-sm sm:p-4 h-96 p-0  min-w-fit max-w-full  w-72 overflow-y-auto border-2 border-custom-blood-red ">
+      <div className="   flex h-96 w-72 min-w-fit max-w-full justify-center overflow-y-auto rounded-sm  border-2 border-custom-blood-red  bg-white p-0 shadow-lg sm:p-4 ">
         {isLoading || isError ? (
           <div>
             {isError ? <div> Error {`${error}`}</div> : <div>Loading...</div>}
@@ -47,7 +47,7 @@ const LibraryPopup = ({
           <div className="flex flex-col">
             <HighlightOff
               sx={{ fill: 'red' }}
-              className="hover:cursor-pointer hover:scale-110 hover:fill-red-700 float-left mb-2 overflow-x-auto"
+              className="float-left mb-2 overflow-x-auto hover:scale-110 hover:cursor-pointer hover:fill-red-700"
               onClick={() => {
                 collectionId === activePopUp && setActivePopUp(-1);
               }}
@@ -55,7 +55,7 @@ const LibraryPopup = ({
             <SearchBar />
 
             {excerptsInfo?.map((excerptInfo) => (
-              <div className="flex justify-center mb-3">
+              <div className="mb-3 flex justify-center">
                 {collectionId === excerptInfo.excerpt.collection.id && (
                   <ExcerptCard
                     difficulty={excerptInfo.difficulty}
