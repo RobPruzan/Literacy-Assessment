@@ -1,9 +1,9 @@
-import CollectionCard from './CollectionCard';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ComparisonTypeStrings } from '../../../redux/reducers/comparisonState';
 import { RootState } from '../../../redux/store';
 import { useGetCollections } from '../../hooks/LibraryHooks/useGetCollections';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import CollectionCard from './CollectionCard';
 
 export const ExcerptLibrary = () => {
   const [activePopUp, setActivePopUp] = useState(-1);

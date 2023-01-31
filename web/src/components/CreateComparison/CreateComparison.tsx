@@ -9,16 +9,16 @@ import UserCollections from './MyCollections/UserCollections';
 export const CreateComparison = () => {
   return (
     <>
-      <div className="flex flex-col h-screen w-screen overflow-hidden  max-w-full  ">
+      <div className="flex h-screen w-screen max-w-full flex-col  overflow-hidden  ">
         <AboutNavbar color="custom-blood-red" />
-        <div className=" flex justify-center items-center overflow-hidden flex-grow">
-          <div className="h-full div bo-blue-200 grid grid-cols-5 grid-rows-6 w-screen">
-            <div className="div bg-white text-white text-center text-5xl   col-span-5 grid grid-cols-5 row-span-1 overflow-hidden ">
-              <div className="col-span-5 text-lg shadow-inner border-b-2 border-custom-blood-red border-opacity-50 overflow-x-scroll ">
+        <div className=" flex flex-grow items-center justify-center overflow-hidden">
+          <div className="div bo-blue-200 grid h-full w-screen grid-cols-5 grid-rows-6">
+            <div className="div col-span-5 row-span-1  grid grid-cols-5  overflow-hidden bg-white text-center text-5xl text-white ">
+              <div className="col-span-5 overflow-x-scroll border-b-2 border-custom-blood-red border-opacity-50 text-lg shadow-inner ">
                 <InfoCardBar />
               </div>
             </div>
-            <div className=" bg-white border-42 border-b-1 sm:border-b-0 md:border-l-0 border-r-0 border-l-0  border-custom-blood-red text-white text-center text-5xl pb-4  md:row-span-6 md:col-span-1  col-span-4 overflow-y-hidden row-span-1 items-center z-10 shadow-xl">
+            <div className=" border-42 border-b-1 z-10 col-span-4 row-span-1 items-center overflow-y-hidden  border-r-0 border-l-0 border-custom-blood-red bg-white pb-4  text-center text-5xl  text-white shadow-xl sm:border-b-0 md:col-span-1 md:row-span-6 md:border-l-0">
               {/* <div className="grid grid-rows-5">
                 <div className="row-span-1">
                   <ComparisonTypeToggle />
@@ -33,7 +33,7 @@ export const CreateComparison = () => {
                 </div>
               </div> */}
 
-              <div className="flex flex-col justify-evenly items-center h-full w-full">
+              <div className="flex h-full w-full flex-col items-center justify-evenly">
                 <div className="float-top  w-full">
                   {' '}
                   <ComparisonTypeToggle />
@@ -54,12 +54,12 @@ export const CreateComparison = () => {
                 </div>
               </div>
             </div>
-            <div className="overflow-y-scroll bg-white border-2 border-gray-100 text-center sm:border-b-0   text-lg  md:col-span-3 md:row-span-7 col-span-5 row-span-5 h-full ">
+            <div className="md:row-span-7 col-span-5 row-span-5 h-full overflow-y-scroll border-2   border-gray-100  bg-white text-center text-lg sm:border-b-0 md:col-span-3 ">
               <section className=" w-full">
                 <ExcerptLibrary />
               </section>
             </div>
-            <div className="col-span-1 row-span-5 overflow-y-scroll flex flex-col px-2 items-center h-full shadow-xl ">
+            <div className="col-span-1 row-span-5 flex h-full flex-col items-center overflow-y-scroll px-2 shadow-xl ">
               <section className="w-full">
                 <UserCollections />
               </section>

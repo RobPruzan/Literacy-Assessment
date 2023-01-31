@@ -1,11 +1,8 @@
-import React from 'react';
-import { TextField } from '@mui/material';
-
 type Props = {};
 
 const TextTab = (props: Props) => {
   return (
-    <div className="w-full h-full flex overflow-y-visible flex-col mt-5 justify-center items-center">
+    <div className="mt-5 flex h-full w-full flex-col items-center justify-center overflow-y-visible">
       {/* <TextField
         multiline
         rows={4}

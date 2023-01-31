@@ -1,4 +1,3 @@
-import React from 'react';
 import { MainNavbar } from './Navabars/MainNavbar';
 import ReduxCount from './ReduxCount';
 

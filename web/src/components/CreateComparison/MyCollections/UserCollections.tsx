@@ -1,19 +1,19 @@
-import CollectionCard from '../Library/CollectionCard';
-import CollectionCreate from '../Library/CollectionCreate/CollectionCreate';
 import React from 'react';
 import { useGetUserColletions } from '../../hooks/LibraryHooks/useGetUserCollections';
+import CollectionCard from '../Library/CollectionCard';
+import CollectionCreate from '../Library/CollectionCreate/CollectionCreate';
 
 type Props = {};
 
 const UserCollections = (props: Props) => {
   const userCollectionsQuery = useGetUserColletions();
   return (
-    <div className="flex flex-col justify-between items-center ">
-      <div className="flex items-center justify-center bg-white p-2 z-50  fixed border-gray-300 border-b-4 w-1/5">
+    <div className="flex flex-col items-center justify-between ">
+      <div className="fixed z-50 flex w-1/5 items-center justify-center  border-b-4 border-gray-300 bg-white p-2">
         <p className="text-2xl font-bold text-gray-400 ">My Collections</p>
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full h-full mt-5">
+      <div className="mt-5 flex h-full w-full flex-col items-center justify-center">
         <CollectionCreate />
         {userCollectionsQuery.isSuccess &&
           userCollectionsQuery.data.map((collection, index) => (

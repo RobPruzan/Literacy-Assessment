@@ -1,8 +1,8 @@
+import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
-import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchBar = () => {
   return (

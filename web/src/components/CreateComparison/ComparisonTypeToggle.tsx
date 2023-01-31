@@ -1,9 +1,9 @@
+import { Tab, Tabs } from '@mui/material';
+import { SyntheticEvent, useState } from 'react';
 import {
   ComparisonActions,
   ComparisonTypeStrings,
 } from '../../redux/reducers/comparisonState';
-import { SyntheticEvent, useState } from 'react';
-import { Tab, Tabs } from '@mui/material';
 
 import { useDispatch } from 'react-redux';
 

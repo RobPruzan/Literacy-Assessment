@@ -7,9 +7,9 @@ export type StatsCardProps = {
 };
 const StatsCard = ({ difficulty, diversity, text_length }: StatsCardProps) => {
   return (
-    <div className="bg-white text-center text-sm   min-w-min h-max w-full">
+    <div className="h-max w-full min-w-min   bg-white text-center text-sm">
       <hr className="mx-3 opacity-100" />
-      <div className=" text-custom-blood-red text-center text-xs  w-full flex justify-evenly">
+      <div className=" flex w-full justify-evenly  text-center text-xs text-custom-blood-red">
         <div>
           <p className="">Difficulty</p>
           <p
@@ -44,7 +44,7 @@ const StatsCard = ({ difficulty, diversity, text_length }: StatsCardProps) => {
         </div>
         <div className="mx-2">
           <p>Length</p>
-          <p className="text-gray-500 inline">{text_length}</p>
+          <p className="inline text-gray-500">{text_length}</p>
         </div>
 
         {/* <p className="inline"> Text Length</p>

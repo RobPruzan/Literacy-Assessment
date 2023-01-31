@@ -1,7 +1,7 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { motion } from 'framer-motion';
 import { BsX } from 'react-icons/bs';
 import StatsCard from '../../InfoCardBar.tsx/StatsCard';
-import { motion } from 'framer-motion';
 // import mui button
 import { useDispatch } from 'react-redux';
 
@@ -41,17 +41,17 @@ export const ExcerptCard = ({
           minWidth: '16rem',
           border: '1px solid',
         }}
-        className=" bg-white py-1  text-custom-blood-red font-semibold rounded-sm mx-2 min-h-min shadow-md border-custom-blood-red hover:shadow-lg flex justify-center items-center relative "
+        className=" relative mx-2  flex min-h-min items-center justify-center rounded-sm border-custom-blood-red bg-white py-1 font-semibold text-custom-blood-red shadow-md hover:shadow-lg "
       >
-        <div className="flex flex-col w-full items-center h-fit">
-          <div className="m-1 text-md  flex justify-center">
+        <div className="flex h-fit w-full flex-col items-center">
+          <div className="text-md m-1  flex justify-center">
             <div className="m-auto text-gray-500">{title}</div>
             <div>
               {isMinimal ? (
                 <BsX
                   color="red"
                   size={30}
-                  className="cursor-pointer hover:fill-red-700 hover:scale-110  absolute top-0 right-0  fill-red-500 "
+                  className="absolute top-0 right-0  cursor-pointer fill-red-500 hover:scale-110  hover:fill-red-700 "
                   fontSize="medium"
                   // onClick={() =>
                   //   dispatch({
