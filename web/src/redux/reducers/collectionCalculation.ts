@@ -77,6 +77,11 @@ export const CollectionCalculationReducer = (
 ) => {
   switch (action.type) {
     case CollectionCollectionActions.UpdateCollectionDifficulty:
+      console.log(
+        'CollectionCollectionActions.UpdateCollectionDifficulty',
+        action.payload,
+        state
+      );
       return {
         ...state,
         stats: state.stats?.map((stat) => {
@@ -87,7 +92,7 @@ export const CollectionCalculationReducer = (
             };
           }
           return stat;
-        }),
+        }) ?? [action.payload],
       };
 
     case CollectionCollectionActions.UpdateCollectionDiversity:
@@ -156,7 +161,6 @@ export const CollectionCalculationReducer = (
       return state;
   }
 };
-export {};
 
 // implement collection calculation
 // You are going to give the mutation an option on success handler, just a void function, any function, or generic function
