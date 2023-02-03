@@ -27,24 +27,6 @@ export const About = () => {
     // </div>
     <div className="flex h-screen flex-col">
       <AboutNavbar color="custom-blood-red" />
-      <div className=" flex flex-grow items-center justify-center">
-        <div className="div bo-blue-200 grid-rows-9 grid h-full w-screen grid-cols-4 gap-2 p-1">
-          <div className="div col-span-4 rounded-lg bg-custom-blood-red py-4 text-center text-5xl text-white">
-            1
-          </div>
-
-          <div className="div col-span-4 rounded-lg bg-custom-blood-red py-4 text-center text-5xl text-white sm:row-span-1">
-            5
-          </div>
-
-          <div className=" col-span-4 row-span-1 rounded-lg bg-custom-blood-red py-4 text-center text-5xl text-white  md:col-span-1 md:row-span-4">
-            9
-          </div>
-          <div className="div col-span-4 row-span-5 rounded-lg bg-custom-blood-red py-4 text-center  text-5xl text-white md:col-span-3 md:row-span-4  ">
-            10
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
