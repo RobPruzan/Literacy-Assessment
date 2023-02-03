@@ -39,7 +39,7 @@ export const AboutNavbar = ({ color }: AboutNavbarProps) => {
         <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
           <div className="xl:justify-start: relative flex w-full justify-between lg:static lg:block lg:w-auto lg:justify-start">
             <a
-              className="mr-4 inline-block whitespace-nowrap py-2 text-sm font-bold uppercase leading-relaxed text-white"
+              className="mr-4 inline-block whitespace-nowrap py-2 text-sm font-bold uppercase leading-relaxed text-white "
               href="/"
             >
               NorthStar
@@ -61,25 +61,28 @@ export const AboutNavbar = ({ color }: AboutNavbarProps) => {
           >
             <ul className="flex list-none flex-col lg:ml-auto lg:flex-row">
               <li className="nav-item">
-                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white hover:opacity-75">
-                  <i className="fab fa-facebook-square leading-lg text-lg text-white opacity-75"></i>
-                  <Link className="Nav__link mx-2" to="/Analysis">
+                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white ">
+                  <i className=" text-lg text-white opacity-75"></i>
+                  <Link className=" mx-2 hover:text-gray-300" to="/Analysis">
                     Analysis
                   </Link>
                 </div>
               </li>
               <li className="nav-item">
-                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white hover:opacity-75">
-                  <i className="fab fa-twitter leading-lg text-lg text-white opacity-75"></i>
-                  <Link className="Nav__link mx-2" to="/">
+                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white ">
+                  <i className=" text-lg text-white opacity-75"></i>
+                  <Link className="mx-2 hover:text-gray-300" to="/">
                     About
                   </Link>
                 </div>
               </li>
               <li className="nav-item">
-                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white hover:opacity-75">
-                  <i className="fab fa-pinterest leading-lg text-lg text-white opacity-75"></i>
-                  <Link className="Nav__link mx-2" to="/create-comparison">
+                <div className="flex items-center px-3 py-2 text-xs font-bold uppercase leading-snug text-white ">
+                  <i className=" text-lg text-white opacity-75 "></i>
+                  <Link
+                    className="mx-2 hover:text-gray-300"
+                    to="/create-comparison"
+                  >
                     Compare
                   </Link>
                 </div>
