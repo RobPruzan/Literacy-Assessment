@@ -115,7 +115,7 @@ def calculate_diversity(text):
             except KeyError:
                 continue
         sim_words[idx] = vocab
-    print(sim_words)
+
     scores = {}
     for key, value in sim_words.items():
         if len(value) == 1:
@@ -130,7 +130,6 @@ def calculate_diversity(text):
 
     mean_score = 0
     total = 0
-    print("scores", scores)
 
     for value in scores.values():
         if value == -1:
@@ -145,7 +144,7 @@ def calculate_diversity(text):
         interpret_values.append((words[key], value))
 
     interpret_values.append(("", 0.0))
-    print(interpret_values)
+
     int_vals = {"original": text, "interpretation": interpret_values}
     try:
 
@@ -159,7 +158,7 @@ def get_sim_words(text, word):
     word = word.strip()
     index = 0
     text = word_tokenize(text)
-    print(sim_words)
+
     for idx, i in enumerate(text):
         if word == i:
             index = idx
@@ -223,7 +222,7 @@ def derive(x: list, y: list):
 
 def generate_patches(x: list, y: list, range, deriv_threshold=2):
     derivs = derive(x, y)
-    print("derivs", derivs)
+
     in_patch = False
     patches = []
     start = []
@@ -240,7 +239,6 @@ def generate_patches(x: list, y: list, range, deriv_threshold=2):
             else:
                 continue
 
-    print(start, end)
     if len(start) != len(end):
         # not doing len(x)-1 because the derivitive can't be taken at ending point so in derive() the x length is already -1 of original
         end.append(len(x))
@@ -605,7 +603,6 @@ def construct_context_gloss_pairs_through_nltk(input, target_start_id, target_en
     assert (
         len(candidate) != 0
     ), f'there is no candidate sense of "{target}" in WordNet, please check'
-    # print(f'there are {len(candidate)} candidate senses of "{target}"')
 
     return candidate
 
@@ -699,7 +696,6 @@ def infer(input, target_start_id, target_end_id, args):
     )
     model.to(device)
 
-    # print(f"input: {input}\ntarget: {target}")
     examples = construct_context_gloss_pairs_through_nltk(
         input, target_start_id, target_end_id
     )

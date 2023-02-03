@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useMutation } from 'react-query';
 export type useServerCalculationParams<T> = {
   fn: (params: SequentialComparisonHelpersParams) => Promise<T>;
-  dispatchType: CalculationActions;
+  // dispatchType: CalculationActions;
 };
 const useServerCalculation = <T>({
   fn,
-  dispatchType,
-}: useServerCalculationParams<T>) => {
+}: // dispatchType,
+useServerCalculationParams<T>) => {
   const dispatch = useDispatch();
   const serverCalculationMutation = useMutation(
     (params: SequentialComparisonHelpersParams) => fn(params),
@@ -18,14 +18,11 @@ const useServerCalculation = <T>({
         console.error(error);
       },
       onSuccess: (data, params) => {
-        dispatch({
-          type: dispatchType,
-          payload: data,
-        });
-        dispatch({
-          type: CalculationActions.SetLoadingProgress,
-          payload: 1,
-        });
+        // dispatch({
+        //   type: dispatchType,
+        //   payload: data,
+        // });
+
         params.successHandler && params.successHandler(data);
       },
     }

@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import { CalculationActions } from '../../../redux/reducers/excerptCalculation';
 import NorthStar from '../../../services.ts/connections';
 import useServerCalculation from './useServerCalculation';
@@ -10,24 +11,25 @@ export type SequentialComparisonHelpersParams = {
 const useSequentialComparison = () => {
   const difficultyCalculation = useServerCalculation({
     fn: calculateDifficultyFn,
-    dispatchType: CalculationActions.SetDifficulty,
+
+    // dispatchType: CalculationActions.SetDifficulty,
   });
 
   const diversityCalculation = useServerCalculation({
     fn: calculateDiversityFn,
-    dispatchType: CalculationActions.SetDiversity,
+    // dispatchType: CalculationActions.SetDiversity,
   });
   const grammarCalculation = useServerCalculation({
     fn: calculateGrammarFn,
-    dispatchType: CalculationActions.SetGrammar,
+    // dispatchType: CalculationActions.SetGrammar,
   });
   const readabilityMeasuresCalculation = useServerCalculation({
     fn: calculateReadabilityMeasuresFn,
-    dispatchType: CalculationActions.SetReadabilityMeasures,
+    // dispatchType: CalculationActions.SetReadabilityMeasures,
   });
   const slidingWindowCalculation = useServerCalculation({
     fn: calculateSlidingWindowStatsFn,
-    dispatchType: CalculationActions.SetSlidingWindowStats,
+    // dispatchType: CalculationActions.SetSlidingWindowStats,
   });
   function calculateDifficultyFn({
     excerpt_ids,
