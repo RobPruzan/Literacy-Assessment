@@ -8,9 +8,6 @@ class CollectionSerializer(serializers.ModelSerializer):
     excerpt_ids = serializers.SerializerMethodField()
 
     def get_excerpt_ids(self, obj):
-        print(
-            obj.excerpts.all(),
-        )
         return [e.id for e in obj.excerpts.all()]
 
     class Meta:

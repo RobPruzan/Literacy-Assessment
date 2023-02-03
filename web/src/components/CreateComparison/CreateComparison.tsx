@@ -18,43 +18,20 @@ export const CreateComparison = () => {
                 <InfoCardBar />
               </div>
             </div>
-            <div className=" border-42 border-b-1 z-10 col-span-4 row-span-1 items-center overflow-y-hidden  border-r-0 border-l-0 border-custom-blood-red bg-white pb-4  text-center text-5xl  text-white shadow-xl sm:border-b-0 md:col-span-1 md:row-span-6 md:border-l-0">
-              {/* <div className="grid grid-rows-5">
-                <div className="row-span-1">
-                  <ComparisonTypeToggle />
-                </div>
-                <div className="row-span-3">
-                  <Filters />
-                </div>
-                <div className="row-span-1">
-                  <button className="bg-custom-blood-red text-white text-lg font-bold py-2 px-4 rounded">
-                    Create Comparison
-                  </button>
-                </div>
-              </div> */}
-
+            <div className=" border-42 border-b-1 z-10  col-span-1 row-span-6  items-center  overflow-y-hidden border-r-0 border-l-0  border-custom-blood-red bg-white  pb-4 text-center text-5xl text-white shadow-xl sm:border-b-0">
               <div className="flex h-full w-full flex-col items-center justify-evenly">
                 <div className="float-top  w-full">
                   {' '}
                   <ComparisonTypeToggle />
                 </div>
                 <Filters />
-                {/* <div className="row-span-1">
-                  <ComparisonTypeToggle />
-                </div>
-                <div className="row-span-3">
-                  <Filters />
-                </div>
-                <div className="row-span-1">
-                  <button className="bg-custom-blood-red text-white text-lg font-bold py-2 px-4 rounded">
-                    Create Comparison
-                  </button> */}
+
                 <div>
                   <CompareCollectionsActions />;{/* </div> */}
                 </div>
               </div>
             </div>
-            <div className="md:row-span-7 col-span-5 row-span-5 h-full overflow-y-scroll border-2   border-gray-100  bg-white text-center text-lg sm:border-b-0 md:col-span-3 ">
+            <div className="row-span-7  col-span-3 row-span-5 h-full overflow-y-scroll   border-2  border-gray-100 bg-white text-center text-lg sm:border-b-0 ">
               <section className=" w-full">
                 <ExcerptLibrary />
               </section>

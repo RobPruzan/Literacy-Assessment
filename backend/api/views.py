@@ -42,7 +42,7 @@ class ExcerptByCollectionView(APIView):
         collection_id = kwargs.get("collection_id")
 
         if collection_id is None:
-            print("wah wah")
+
             return Response("No id provided")
         excerpts_info = ExcerptInfo.objects.filter(excerpt__collection_id=collection_id)
 
@@ -57,7 +57,6 @@ class CollectionView(APIView):
         collections = Collection.objects.filter(user__isnull=True)
         serializer = CollectionSerializer(collections, many=True)
 
-        print("Sending collections", len(serializer.data), color="red")
         return Response(serializer.data)
 
 
@@ -65,16 +64,11 @@ class UserCollectionView(APIView):
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get("user_id")
         if user_id is None:
-            print("wah wah")
+
             return Response("No id provided")
         collections = Collection.objects.filter(user__id=user_id).order_by("-id")
         serializer = CollectionSerializer(collections, many=True)
-        print(
-            "Sending user collections",
-            len(serializer.data),
-            serializer.data,
-            color="blue",
-        )
+
         return Response(serializer.data)
 
 

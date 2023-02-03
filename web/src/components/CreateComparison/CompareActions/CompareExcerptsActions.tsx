@@ -1,23 +1,20 @@
-import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState } from '../../../redux/store';
-import { useCompareExcerpts } from '../../hooks/CalculationHooks/useCompareExcerpts';
 
 const CompareExcerptsActions = () => {
   const selectedCollections = useSelector(
     ({ selectedCollectionState }: RootState) =>
       selectedCollectionState.selectedCollections
   );
-  const {
-    attemptError,
-    handleCompareExcerpts: handleCompare,
-    sequentialComparisonHelpers,
-  } = useCompareExcerpts();
+  // const {
+  //   attemptError,
+  //   handleCompareExcerpts: handleCompare,
+  //   sequentialComparisonHelpers,
+  // } = useCompareExcerpts();
 
   return (
     <div className="w-full">
-      {attemptError && <p className="text-red-500">Error: {attemptError}</p>}
+      {/* {attemptError && <p className="text-red-500">Error: {attemptError}</p>}
       {sequentialComparisonHelpers.difficultyHelper.isLoading && (
         <p className="text-gray-500">Loading...</p>
       )}
@@ -36,7 +33,8 @@ const CompareExcerptsActions = () => {
         <p className="text-gray-500" key={`${calc}`}>
           Difficulty: {calc}
         </p>
-      ))}
+      ))} */}
+      aa
     </div>
   );
 };

@@ -1,15 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import { createTheme, ThemeProvider } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
 
 import { About } from './components/About/About';
 import { Analysis } from './components/Analysis/Analysis';
 import { CreateComparison } from './components/CreateComparison/CreateComparison';
 import Loading from './components/Loading';
-import MainPage from './components/MainPage';
-import React from 'react';
 
 const theme = createTheme({
   palette: {
