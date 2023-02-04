@@ -91,7 +91,8 @@ This will install all the necessary Node.js packages, including Redux, React-que
 ## Django X Postgres
 We need to connect django to our Postrgres DB
 
-To do this navigate to local_settings.py (this is located in the backend directory, right under the root directory of the project)
+- To do this navigate to the settings.py (this is located in the backend directory, right under the root directory of the project)
+- Create a new file called local_settings.py in the same directory as settings.py
 
 Within local_settings.py place your DB information used earlier to create your DB
 ```
