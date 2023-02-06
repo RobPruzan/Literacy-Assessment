@@ -61,6 +61,13 @@ model.eval()
 
 model.to("cpu")
 
+# facebook/wav2vec2-base-960h
+# switch to:
+# from transformers import AutoProcessor, AutoModelForCTC
+
+# processor = AutoProcessor.from_pretrained("facebook/wav2vec2-base-960h")
+
+# model = AutoModelForCTC.from_pretrained("facebook/wav2vec2-base-960h")
 p = pipeline("automatic-speech-recognition")
 
 with open("datasets/balanced_synonym_data.json") as f:

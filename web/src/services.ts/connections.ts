@@ -1,61 +1,69 @@
 import axios from 'axios';
 import { z } from 'zod';
-
-const collectionSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  difficulty: z.number(),
-  total_excerpts: z.number(),
-  excerpt_ids: z.array(z.number()),
-});
+import {
+  collectionSchema,
+  excerptSchema,
+  excerptInfoSchema,
+  excerptCreateSchema,
+  collectionCreateInfoSchema,
+  inputCollectionCreateSchema,
+  difficultyCalculationSchema,
+  grammarCalculationSchema,
+  gradesSchema,
+  beginningsSchema,
+  sentenceInfoSchema,
+  wordUsageSchema,
+  readabilityMeasuresSchema,
+  diversityOriginalSchema,
+  diversityScoreSchema,
+  interpretableOutputSchema,
+  diversityOutputSchema,
+  windowDifficultyOutputSchema,
+  diversityCalculationSchema,
+  ReadabilityMeasuresCalculation,
+} from './zodSchemas';
 
 export type Collection = z.infer<typeof collectionSchema>;
 
-const excerptSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  collection: collectionSchema,
-});
-
 export type Excerpt = z.infer<typeof excerptSchema>;
-
-const excerptInfoSchema = z.object({
-  id: z.number(),
-  excerpt: excerptSchema,
-  difficulty: z.number().optional(),
-  diversity: z.number().optional(),
-  text_length: z.number(),
-  region: z.string().optional(),
-  source: z.string().optional(),
-});
 
 export type ExcerptInfo = z.infer<typeof excerptInfoSchema>;
 
-export type ExcerptCreate = {
-  text: string;
-  title: string;
-  source_user: number | null;
-};
+// export type ExcerptCreate = {
+//   text: string;
+//   title: string;
+//   source_user: number | null;
+// };
 
-export type CollectionCreateInfo = {
-  collection: ExcerptCreate[];
-  title: string;
-};
+export type ExcerptCreate = z.infer<typeof excerptCreateSchema>;
 
-export type InputCollectionCreate = {
-  collectionInfo: ExcerptCreate;
-  collectionTitle: string;
-};
+// export type CollectionCreateInfo = {
+//   collection: ExcerptCreate[];
+//   title: string;
+// };
 
-export type DifficultyCalculation = number[] | null;
+export type CollectionCreateInfo = z.infer<typeof collectionCreateInfoSchema>;
 
-export type DiversityCalculation =
-  | [InterpretableOutput, DiversityOutput][]
-  | null;
+// export type InputCollectionCreate = {
+//   collectionInfo: ExcerptCreate;
+//   collectionTitle: string;
+// };
 
-export type GrammarCalculation = number[] | null;
+export type InputCollectionCreate = z.infer<typeof inputCollectionCreateSchema>;
 
-export type ReadabilityMeasuresCalculation = ReadabilityMeasures[] | null;
+// export type DifficultyCalculation = number[] | null;
+
+export type DifficultyCalculation = z.infer<typeof difficultyCalculationSchema>;
+
+// export type GrammarCalculation = number[] | null;
+
+export type GrammarCalculation = z.infer<typeof grammarCalculationSchema>;
+
+// export type ReadabilityMeasuresCalculation = ReadabilityMeasures[] | null;
+
+export type ReadabilityMeasuresCalculation = z.infer<
+  typeof ReadabilityMeasuresCalculation
+>;
 
 export type SlidingWindowStatsCalculation = WindowDifficultyOutput[] | null;
 
@@ -67,76 +75,101 @@ export type CalculationStats = {
   sliding_window_stats: SlidingWindowStatsCalculation;
 };
 
-export type ReadabilityMeasures = {
-  ['readability grades']: Grades;
-  ['sentence beginnings']: Beginnings;
-  ['sentence info']: SentenceInfo;
-  ['word usage']: WordUsage;
-};
+// export type ReadabilityMeasures = {
+//   ['readability grades']: Grades;
+//   ['sentence beginnings']: Beginnings;
+//   ['sentence info']: SentenceInfo;
+//   ['word usage']: WordUsage;
+// };
 
-export type Grades = {
-  Kincaid: number;
-  ARI: number;
-  ['Coleman-Liau']: number;
-  FleschReadingEase: number;
-  GunningFogIndex: number;
-  LIX: number;
-  RIX: number;
-  SMOGIndex: number;
-};
+// export type Grades = {
+//   Kincaid: number;
+//   ARI: number;
+//   ['Coleman-Liau']: number;
+//   FleschReadingEase: number;
+//   GunningFogIndex: number;
+//   LIX: number;
+//   RIX: number;
+//   SMOGIndex: number;
+// };
 
-export type Beginnings = {
-  article: number;
-  conjunction: number;
-  interrogative: number;
-  preposition: number;
-  pronoun: number;
-  subordination: number;
-};
+export type Grades = z.infer<typeof gradesSchema>;
 
-export type SentenceInfo = {
-  characters: number;
-  characters_per_word: number;
-  complex_words: number;
-  long_words: number;
-  paragraphs: number;
-  sentences: number;
-  sentences_per_paragraph: number;
-  syll_per_word: number;
-  syllables: number;
-  type_token_ratio: number;
-  words: number;
-  words_per_sentence: number;
-  wordtypes: number;
-};
+// export type Beginnings = {
+//   article: number;
+//   conjunction: number;
+//   interrogative: number;
+//   preposition: number;
+//   pronoun: number;
+//   subordination: number;
+// };
 
-export type WordUsage = {
-  tobeverb: number;
-  auxverb: number;
-  conjunction: number;
-  pronoun: number;
-  preposition: number;
-};
+export type Beginnings = z.infer<typeof beginningsSchema>;
 
-export type InterpretableOutput = {
-  interpretation: [string, number][];
-  original: string;
-};
+// export type SentenceInfo = {
+//   characters: number;
+//   characters_per_word: number;
+//   complex_words: number;
+//   long_words: number;
+//   paragraphs: number;
+//   sentences: number;
+//   sentences_per_paragraph: number;
+//   syll_per_word: number;
+//   syllables: number;
+//   type_token_ratio: number;
+//   words: number;
+//   words_per_sentence: number;
+//   wordtypes: number;
+// };
 
-export type DiversityOutput = [DiversityOriginal, DiversityScore];
+export type SentenceInfo = z.infer<typeof sentenceInfoSchema>;
 
-export type DiversityOriginal = {
-  original: string;
-};
+// export type WordUsage = {
+//   tobeverb: number;
+//   auxverb: number;
+//   conjunction: number;
+//   pronoun: number;
+//   preposition: number;
+// };
 
-export type DiversityScore = {
-  diversity_score: number;
-};
+export type WordUsage = z.infer<typeof wordUsageSchema>;
 
-export type WindowDifficultyOutput = InterpretableOutput & {
-  shaded_areas: [number, number][];
-  raw_scores: number[];
-};
+export type ReadabilityMeasures = z.infer<typeof readabilityMeasuresSchema>;
+// export type InterpretableOutput = {
+//   interpretation: [string, number][];
+//   original: string;
+// };
+
+export type DiversityOriginal = z.infer<typeof diversityOriginalSchema>;
+
+// export type DiversityScore = {
+//   diversity_score: number;
+// };
+
+export type DiversityScore = z.infer<typeof diversityScoreSchema>;
+
+export type InterpretableOutput = z.infer<typeof interpretableOutputSchema>;
+// export type DiversityCalculation =
+//   | [InterpretableOutput, DiversityOutput][]
+//   | null;
+
+export type DiversityOutput = z.infer<typeof diversityOutputSchema>;
+export type DiversityCalculation = z.infer<typeof diversityCalculationSchema>;
+
+// export type DiversityOriginal = {
+//   original: string;
+// };
+
+// export type DiversityOutput = [DiversityOriginal, DiversityScore];
+
+// export type WindowDifficultyOutput = InterpretableOutput & {
+//   shaded_areas: [number, number][];
+//   raw_scores: number[];
+// };
+
+export type WindowDifficultyOutput = z.infer<
+  typeof windowDifficultyOutputSchema
+>;
 
 export class NorthStarApi {
   baseUrl?: string;

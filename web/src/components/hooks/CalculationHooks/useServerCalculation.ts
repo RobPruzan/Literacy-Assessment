@@ -15,7 +15,7 @@ useServerCalculationParams<T>) => {
     (params: SequentialComparisonHelpersParams) => fn(params),
     {
       onError: (error) => {
-        console.error(error);
+        console.error('There was an error calculating stats', error);
       },
       onSuccess: (data, params) => {
         // dispatch({

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
+import { useParams } from 'react-router-dom';
 import { CalculationActions } from '../../redux/reducers/excerptCalculation';
 import { RootState } from '../../redux/store';
 import InfoCardBar from '../InfoCardBar.tsx/InfoCardBar';
@@ -11,11 +12,16 @@ import { AboutNavbar } from '../Navabars/AboutNavbar';
 const NON_CALCULATION_KEYS = ['loadingProgress', 'isLoading'];
 
 export const Analysis = () => {
+  const params = useParams();
   const [totalCalculations, setTotalCalculations] = useState<number | null>(
     null
   );
   const calculationState = useSelector(
     ({ calculationState }: RootState) => calculationState
+  );
+
+  const collectionCalculationState = useSelector(
+    ({ collectionCalculationState }: RootState) => collectionCalculationState
   );
   const dispatch = useDispatch();
   useEffect(
@@ -24,7 +30,7 @@ export const Analysis = () => {
         type: CalculationActions.ClearCalculationStats,
       });
     },
-    []
+    [dispatch]
   );
 
   const loadingProgress =
@@ -49,6 +55,20 @@ export const Analysis = () => {
       <div className="border-2 border-t-0 border-custom-blood-red p-2">
         <InfoCardBar />
       </div>
+      <p className="text-center text-2xl font-bold">
+        {collectionCalculationState.stats?.map((stat) => (
+          <>
+            {' '}
+            Difficultys For Collection Id: {stat.collectionId}
+            <p>
+              {stat.difficulty &&
+                stat.difficulty.length > 0 &&
+                stat.difficulty?.map((iter) => iter.toFixed(2)).join(',')}
+            </p>
+            <hr />
+          </>
+        ))}
+      </p>
 
       <div className="flex justify-center text-lg font-semibold">
         {calculationState.loadingProgress &&
