@@ -1,13 +1,7 @@
-import SearchIcon from '@mui/icons-material/Search';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Paper from '@mui/material/Paper';
-
 export const SearchBar = () => {
   return (
     <div className="  m-6 mt-0 opacity-50 ">
-      <Paper
+      {/* <Paper
         component="form"
         sx={{
           border: '1px solid #F4774F',
@@ -25,7 +19,7 @@ export const SearchBar = () => {
           <SearchIcon />
         </IconButton>
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      </Paper>
+      </Paper> */}
     </div>
   );
 };

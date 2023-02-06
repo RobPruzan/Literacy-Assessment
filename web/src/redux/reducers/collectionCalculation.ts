@@ -40,32 +40,34 @@ export enum CollectionCollectionActions {
   ClearCollectionCalculationStats = 'collectionCollection/CLEAR_COLLECTION_CALCULATION_STATS',
 }
 
+type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+
+type UpdateCollectionPayload<CalculationType extends keyof CalculationStats> =
+  Pick<CalculationStats, CalculationType> & CollectionCalculationInfo;
+
 type UpdateCollectionDifficultyAction = {
   type: CollectionCollectionActions.UpdateCollectionDifficulty;
-  payload: { collectionId: number; difficulty: DifficultyCalculation };
+  payload: UpdateCollectionPayload<'difficulty'>;
 };
 
 type UpdateCollectionDiversityAction = {
   type: CollectionCollectionActions.UpdateCollectionDiversity;
-  payload: { collectionId: number; diversity: DiversityCalculation };
+  payload: UpdateCollectionPayload<'diversity'>;
 };
 
 type UpdateCollectionGrammarAction = {
   type: CollectionCollectionActions.UpdateCollectionGrammar;
-  payload: { collectionId: number; grammar: GrammarCalculation };
+  payload: UpdateCollectionPayload<'grammar'>;
 };
 
 type UpdateCollectionReadabilityMeasuresAction = {
   type: CollectionCollectionActions.UpdateCollectionReadabilityMeasures;
-  payload: { collectionId: number; readabilityMeasures: ReadabilityMeasures };
+  payload: UpdateCollectionPayload<'readability_measures'>;
 };
 
 type UpdateCollectionSlidingWindowStatsAction = {
   type: CollectionCollectionActions.UpdateCollectionSlidingWindowStats;
-  payload: {
-    collectionId: number;
-    slidingWindowStats: SlidingWindowStatsCalculation;
-  };
+  payload: UpdateCollectionPayload<'sliding_window_stats'>;
 };
 
 export type CollectionLoadingProgressPayload = {
@@ -188,7 +190,7 @@ export const CollectionCalculationReducer = (
               if (iter.collectionId === action.payload.collectionId) {
                 return {
                   ...iter,
-                  readabilityMeasures: action.payload.readabilityMeasures,
+                  readability_measures: action.payload.readability_measures,
                 };
               } else {
                 return iter;
@@ -197,7 +199,7 @@ export const CollectionCalculationReducer = (
           : [
               ...(state.stats ?? []),
               {
-                readabilityMeasures: action.payload.readabilityMeasures,
+                readability_measures: action.payload.readability_measures,
                 collectionId: action.payload.collectionId,
               },
             ],
@@ -213,7 +215,7 @@ export const CollectionCalculationReducer = (
               if (iter.collectionId === action.payload.collectionId) {
                 return {
                   ...iter,
-                  slidingWindowStats: action.payload.slidingWindowStats,
+                  sliding_window_stats: action.payload.sliding_window_stats,
                 };
               } else {
                 return iter;
@@ -222,7 +224,7 @@ export const CollectionCalculationReducer = (
           : [
               ...(state.stats ?? []),
               {
-                slidingWindowStats: action.payload.slidingWindowStats,
+                sliding_window_stats: action.payload.sliding_window_stats,
                 collectionId: action.payload.collectionId,
               },
             ],

@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Collection, Excerpt, ExcerptInfo, User
+
+# load this data to a different server so we don't have to reload the entire model everytime
 from .NLP.main import (
     calculate_diversity,
     comparison_pipeline,

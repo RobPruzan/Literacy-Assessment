@@ -11,7 +11,7 @@ export const CreateComparison = () => {
     <>
       <div className="flex h-screen w-screen max-w-full flex-col  overflow-hidden  ">
         <AboutNavbar color="custom-blood-red" />
-        <div className=" flex flex-grow items-center justify-center overflow-hidden">
+        <div className="flex flex-grow items-center justify-center  overflow-hidden">
           <div className="div bo-blue-200 grid h-full w-screen grid-cols-5 grid-rows-6">
             <div className="div col-span-5 row-span-1  grid grid-cols-5  overflow-hidden bg-white text-center text-5xl text-white ">
               <div className="col-span-5 overflow-x-scroll border-b-2 border-custom-blood-red border-opacity-50 text-lg shadow-inner ">
