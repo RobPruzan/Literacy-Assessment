@@ -82,9 +82,9 @@ def wn_syns(word):
     return set(synonyms)
 
 
-w2v = dict({})
+glove_vectors = dict({})
 for idx, key in enumerate(glove_vectors.key_to_index.keys()):
-    w2v[key] = glove_vectors.get_vector(key)
+    glove_vectors[key] = glove_vectors.get_vector(key)
 
 
 def calculate_diversity(text):
@@ -101,7 +101,7 @@ def calculate_diversity(text):
         return 1, "More Text Required"
 
     for idx, anc in enumerate(tokenized_text):
-        if anc in stop_words or not anc in w2v or anc.isdigit():
+        if anc in stop_words or not anc in glove_vectors or anc.isdigit():
             sim_words[idx] = "@"
             continue
 
@@ -116,7 +116,8 @@ def calculate_diversity(text):
                 continue
             try:
                 if cosine_similarity(
-                    w2v[anc].reshape(1, -1), w2v[comp].reshape(1, -1)
+                    glove_vectors[anc].reshape(1, -1),
+                    glove_vectors[comp].reshape(1, -1),
                 ) > 0.75 or comp in wn_syns(anc):
                     vocab.append(comp)
             except KeyError:
