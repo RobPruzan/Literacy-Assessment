@@ -17,3 +17,6 @@ seaborn
 matplotlib
 print-color
 pyspellchecker
+bertopic
+umap-learn
+hdbscan
