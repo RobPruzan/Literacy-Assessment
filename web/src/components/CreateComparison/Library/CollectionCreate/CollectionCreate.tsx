@@ -155,7 +155,7 @@ const CollectionCreate = ({}: Props) => {
           setShowCollectionCreate(false);
         }
       }}
-      className="fixed  inset-0 z-50 flex flex-col  items-center justify-center  bg-black bg-opacity-50"
+      className="fixed  inset-0 z-50 flex flex-col  items-center justify-center   bg-black bg-opacity-50"
     >
       <AnimatePresence>
         <motion.div
