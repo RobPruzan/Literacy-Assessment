@@ -37,29 +37,29 @@ from transformers import (
 # from ...api import pytorchBERTmodel
 # ---------------- uncomment went done
 
-nltk.download("wordnet")
+# nltk.download("wordnet")
 
-nltk.download("omw-1.4")
+# nltk.download("omw-1.4")
 
-nltk.download("cmudict")
+# nltk.download("cmudict")
 
-nltk.download("stopwords")
+# nltk.download("stopwords")
 
-nltk.download("punkt")
+# nltk.download("punkt")
 
-glove_vectors = api.load("glove-wiki-gigaword-100")
+# glove_vectors = api.load("glove-wiki-gigaword-100")
 
-tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-device = torch.device("cuda" if torch.cuda.is_available else "cpu")
+# tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
+# device = torch.device("cuda" if torch.cuda.is_available else "cpu")
 
 
 # loading model
 # PATH = "./pytorchBERTmodel"
 # PATH = "../ml_models/pytorchBERTmodel"
-model = torch.load("ml_models/pytorchBERTmodel", map_location=torch.device("cpu"))
-model.eval()
+# model = torch.load("ml_models/pytorchBERTmodel", map_location=torch.device("cpu"))
+# model.eval()
 
-model.to("cpu")
+# model.to("cpu")
 
 # facebook/wav2vec2-base-960h
 # switch to:
@@ -68,10 +68,10 @@ model.to("cpu")
 # processor = AutoProcessor.from_pretrained("facebook/wav2vec2-base-960h")
 
 # model = AutoModelForCTC.from_pretrained("facebook/wav2vec2-base-960h")
-p = pipeline("automatic-speech-recognition")
+# p = pipeline("automatic-speech-recognition")
 
-with open("datasets/balanced_synonym_data.json") as f:
-    data = json.loads(f.read())
+# with open("datasets/balanced_synonym_data.json") as f:
+#     data = json.loads(f.read())
 
 
 def wn_syns(word):
@@ -82,9 +82,9 @@ def wn_syns(word):
     return set(synonyms)
 
 
-glove_vectors = dict({})
-for idx, key in enumerate(glove_vectors.key_to_index.keys()):
-    glove_vectors[key] = glove_vectors.get_vector(key)
+# glove_vectors = dict({})
+# for idx, key in enumerate(glove_vectors.key_to_index.keys()):
+#     glove_vectors[key] = glove_vectors.get_vector(key)
 
 
 def calculate_diversity(text):
@@ -253,7 +253,7 @@ def generate_patches(x: list, y: list, range, deriv_threshold=2):
     return list(zip(start, end))
 
 
-def predict(text, tokenizer=tokenizer):
+def predict(text, tokenizer):
     model.eval()
     model.to("cpu")
 

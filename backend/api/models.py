@@ -39,3 +39,10 @@ class Collection(models.Model):
     title = models.CharField(max_length=200, default="", null=True, blank=True)
     difficulty = models.IntegerField(default=0, null=True, blank=True)
     total_excerpts = models.IntegerField(default=0, null=True, blank=True)
+
+
+class MedicalDocument(models.Model):
+    type = models.CharField(max_length=200, default="", null=True, blank=True)
+    title = models.CharField(max_length=200, default="", null=True, blank=True)
+    text = models.CharField(max_length=50000, default="", null=True, blank=True)
+    source = models.CharField(max_length=200, default="", null=True, blank=True)
